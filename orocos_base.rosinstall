@@ -1,0 +1,8 @@
+# Isolated Workspace
+- git: {local-name: underlay_isolated/src/orocos/orocos_kinematics_dynamics, uri: 'git@github.com:jhu-lcsr-forks/orocos_kinematics_dynamics.git'}
+- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'git@github.com:jhu-lcsr-forks/rtt_geometry.git'}
+- git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'git@github.com:jhu-lcsr-forks/orocos_toolchain.git'}
+# Normal Workspace
+- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'git@github.com:jhu-lcsr-forks/rtt_ros_integration.git'}
+- git: {local-name: underlay/src/orocos/rtt_gazebo, uri: 'git@github.com:jhu-lcsr/rtt_gazebo.git'}
+- git: {local-name: underlay/src/conman, uri: 'git@github.com:jbohren/conman.git'}
