@@ -7,6 +7,7 @@
 - git: {local-name: underlay/src/orocos/rtt_gazebo, uri: 'git@github.com:jhu-lcsr/rtt_gazebo.git'}
 - git: {local-name: underlay/src/conman, uri: 'git@github.com:jbohren/conman.git'}
 
+- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'git@github.com:RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
 - git: {local-name: underlay/src/robot_state_publisher, uri: 'git@github.com:ros/robot_state_publisher.git'}
 - git: {local-name: underlay/src/lwr_hardware, uri: 'git@github.com:RCPRG-ros-pkg/lwr_hardware.git'}
 - git: {local-name: underlay/src/lwr_robot, uri: 'git@github.com:RCPRG-ros-pkg/lwr_robot.git'}
