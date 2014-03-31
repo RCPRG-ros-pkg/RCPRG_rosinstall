@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export LANG=en_US.UTF-8
 export OROCOS_TARGET=xenomai
 
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma.rosinstall -O /tmp/velma.rosinstall
