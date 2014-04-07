@@ -2,7 +2,7 @@
 
 export LANG=en_US.UTF-8
 
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/irp6.rosinstall -O /tmp/velma.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/irp6.rosinstall -O /tmp/irp6.rosinstall
 
 if [ ! -d $1 ]; then
   mkdir $1
