@@ -19,4 +19,4 @@
 - git: {local-name: underlay/src/velma_robot, uri: 'git@github.com:RCPRG-ros-pkg/velma_robot.git'}
 - git: {local-name: underlay/src/velma_controllers, uri: 'git@github.com:RCPRG-ros-pkg/velma_controllers.git'}
 
-- git: {local-name: underlay/src/barrett_hand, uri: 'git@github.com:RCPRG-ros-pkg/barret_hand.git'}
+- git: {local-name: underlay/src/barrett_hand, uri: 'git@github.com:RCPRG-ros-pkg/barrett_hand.git'}
