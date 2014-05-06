@@ -1,22 +1,22 @@
 # Isolated Workspace
-- git: {local-name: underlay_isolated/src/orocos/orocos_kinematics_dynamics, uri: 'git@github.com:orocos/orocos_kinematics_dynamics.git'}
-- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'git@github.com:orocos/rtt_geometry.git'}
-- git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'git@github.com:orocos-toolchain/orocos_toolchain.git'}
+- git: {local-name: underlay_isolated/src/orocos/orocos_kinematics_dynamics, uri: 'https://github.com/orocos/orocos_kinematics_dynamics.git'}
+- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git'}
+- git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.7'}
 # Normal Workspace
-- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'git@github.com:orocos/rtt_ros_integration.git'}
-- git: {local-name: underlay/src/orocos/rtt_gazebo, uri: 'git@github.com:orocos/rtt_gazebo.git'}
-- git: {local-name: underlay/src/conman, uri: 'git@github.com:konradb3/conman.git'}
+- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'https://github.com/orocos/rtt_ros_integration.git'}
+- git: {local-name: underlay/src/orocos/rtt_gazebo, uri: 'https://github.com/orocos/rtt_gazebo.git'}
+- git: {local-name: underlay/src/conman, uri: 'https://github.com/konradb3/conman.git'}
 
-- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'git@github.com:RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
-- git: {local-name: underlay/src/robot_state_publisher, uri: 'git@github.com:ros/robot_state_publisher.git'}
-- git: {local-name: underlay/src/lwr_hardware, uri: 'git@github.com:RCPRG-ros-pkg/lwr_hardware.git'}
-- git: {local-name: underlay/src/lwr_robot, uri: 'git@github.com:RCPRG-ros-pkg/lwr_robot.git'}
-- git: {local-name: underlay/src/orocos_controllers, uri: 'git@github.com:RCPRG-ros-pkg/orocos_controllers.git'}
-- git: {local-name: underlay/src/orocos_tools, uri: 'git@github.com:RCPRG-ros-pkg/orocos_tools.git'}
-- git: {local-name: underlay/src/common_controllers, uri: 'git@github.com:RCPRG-ros-pkg/common_controllers.git'}
+- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
+- git: {local-name: underlay/src/robot_state_publisher, uri: 'https://github.com/ros/robot_state_publisher.git'}
+- git: {local-name: underlay/src/lwr_hardware, uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git'}
+- git: {local-name: underlay/src/lwr_robot, uri: 'https://github.com/RCPRG-ros-pkg/lwr_robot.git'}
+- git: {local-name: underlay/src/orocos_controllers, uri: 'https://github.com/RCPRG-ros-pkg/orocos_controllers.git'}
+- git: {local-name: underlay/src/orocos_tools, uri: 'https://github.com/RCPRG-ros-pkg/orocos_tools.git'}
+- git: {local-name: underlay/src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git'}
 
-- git: {local-name: underlay/src/velma_hardware, uri: 'git@github.com:RCPRG-ros-pkg/velma_hardware.git'}
-- git: {local-name: underlay/src/velma_robot, uri: 'git@github.com:RCPRG-ros-pkg/velma_robot.git'}
-- git: {local-name: underlay/src/velma_controllers, uri: 'git@github.com:RCPRG-ros-pkg/velma_controllers.git'}
+- git: {local-name: underlay/src/velma_hardware, uri: 'https://github.com/RCPRG-ros-pkg/velma_hardware.git'}
+- git: {local-name: underlay/src/velma_robot, uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git'}
+- git: {local-name: underlay/src/velma_controllers, uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git'}
 
-- git: {local-name: underlay/src/barrett_hand, uri: 'git@github.com:RCPRG-ros-pkg/barrett_hand.git'}
+- git: {local-name: underlay/src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git'}
