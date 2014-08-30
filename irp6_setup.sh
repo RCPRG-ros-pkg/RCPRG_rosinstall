@@ -16,5 +16,5 @@ cd underlay_isolated
 catkin_make_isolated --install -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo
 source install_isolated/setup.bash
 cd ../underlay
-catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo
+catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
 source devel/setup.bash
