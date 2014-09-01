@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export LANG=en_US.UTF-8
+export LANGUAGE=en
 
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/irp6.rosinstall -O /tmp/irp6.rosinstall
 
