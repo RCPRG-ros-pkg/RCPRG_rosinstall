@@ -3,8 +3,9 @@
 export LANG=en_US.UTF-8
 export LANGUAGE=en
 export OROCOS_TARGET=xenomai
+export XENOMAI_ROOT_DIR=/opt/xenomai
 
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma.rosinstall -O /tmp/sorter.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/sorter.rosinstall -O /tmp/sorter.rosinstall
 
 if [ ! -d $1 ]; then
   mkdir $1
