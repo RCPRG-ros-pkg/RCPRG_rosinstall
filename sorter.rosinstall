@@ -11,4 +11,4 @@
 - git: {local-name: underlay/src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git'}
 
 - git: {local-name: underlay/src/SOEM, uri: 'https://github.com/konradb3/SOEM.git'}
-- git: {local-name: underlay/src/sorter, uri: 'https://github.com/RCPRG-ros-pkg/sorter.git'}
+- git: {local-name: underlay/src/sorter, uri: 'https://github.com/SorterEU/apo.git'}
