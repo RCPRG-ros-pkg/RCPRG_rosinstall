@@ -2,8 +2,8 @@
 
 export LANG=en_US.UTF-8
 export LANGUAGE=en
-export OROCOS_TARGET=xenomai_sorter
-export XENOMAI_ROOT_DIR=/opt/xenomai
+export OROCOS_TARGET=xenomai
+export XENOMAI_ROOT_DIR=/opt/xenomai_sorter
 
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/sorter.rosinstall -O /tmp/sorter.rosinstall
 
