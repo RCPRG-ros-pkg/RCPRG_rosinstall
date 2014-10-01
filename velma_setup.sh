@@ -4,7 +4,7 @@
 export XENOMAI_ROOT_DIR=/opt/xenomai_sorter
 export PATH=/opt/xenomai_sorter/bin/:$PATH
 export LANG=en_US.UTF-8
-export OROCOS_TARGET=xenomai_sorter
+export OROCOS_TARGET=xenomai
 
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma.rosinstall -O /tmp/velma.rosinstall
 
