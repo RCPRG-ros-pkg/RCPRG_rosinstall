@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-export XENOMAI_ROOT_DIR=/opt/xenomai_sorter
-export PATH=/opt/xenomai_sorter/bin/:$PATH
+export XENOMAI_ROOT_DIR=/opt/xenomai
+export PATH=/opt/xenomai/bin/:$PATH
 export LANG=en_US.UTF-8
 export OROCOS_TARGET=xenomai
 
