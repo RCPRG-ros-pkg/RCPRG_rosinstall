@@ -5,13 +5,10 @@
 # Normal Workspace
 - git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'git@github.com:orocos/rtt_ros_integration.git'}
 - git: {local-name: underlay/src/conman, uri: 'git@github.com:konradb3/conman.git'}
-
 - git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'git@github.com:RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
-- git: {local-name: underlay/src/robot_state_publisher, uri: 'git@github.com:ros/robot_state_publisher.git'}
 - git: {local-name: underlay/src/orocos_controllers, uri: 'git@github.com:RCPRG-ros-pkg/orocos_controllers.git'}
 - git: {local-name: underlay/src/orocos_tools, uri: 'git@github.com:RCPRG-ros-pkg/orocos_tools.git'}
 - git: {local-name: underlay/src/common_controllers, uri: 'git@github.com:RCPRG-ros-pkg/common_controllers.git'}
-
 - git: {local-name: underlay/src/irp6_robot, uri: 'git@github.com:RCPRG-ros-pkg/irp6_robot.git'}
 
 
