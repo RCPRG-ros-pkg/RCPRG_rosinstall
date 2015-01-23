@@ -20,6 +20,7 @@
 - git: {local-name: underlay/src/velma_controllers, uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git'}
 
 - git: {local-name: underlay/src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git'}
+- git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git'}
 - git: {local-name: underlay/src/ar_track_alvar, uri: 'https://github.com/sniekum/ar_track_alvar.git', version: indigo-devel}
 - git: {local-name: underlay/src/ar_track_alvar_msgs, uri: 'https://github.com/sniekum/ar_track_alvar_msgs.git', version: indigo-devel}
 - git: {local-name: underlay/src/hrl-kdl, uri: 'https://github.com/gt-ros-pkg/hrl-kdl.git'}
