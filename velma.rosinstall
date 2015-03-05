@@ -1,5 +1,4 @@
 # Isolated Workspace
-- git: {local-name: underlay_isolated/src/orocos/orocos_kinematics_dynamics, uri: 'https://github.com/orocos/orocos_kinematics_dynamics.git'}
 - git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git'}
 - git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.7'}
 # Normal Workspace
