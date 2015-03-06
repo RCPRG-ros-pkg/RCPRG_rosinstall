@@ -4,7 +4,7 @@
 # Normal Workspace
 - git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'https://github.com/orocos/rtt_ros_integration.git', version: 'indigo-devel'}
 - git: {local-name: underlay/src/conman, uri: 'https://github.com/konradb3/conman.git'}
-- git: {local-name: underlay/pointgrey_camera_driver, uri: 'https://github.com/ros-drivers/pointgrey_camera_driver.git'}
+- git: {local-name: underlay/src/pointgrey_camera_driver, uri: 'https://github.com/ros-drivers/pointgrey_camera_driver.git'}
 - git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
 - git: {local-name: underlay/src/lwr_hardware, uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git'}
 - git: {local-name: underlay/src/lwr_robot, uri: 'https://github.com/RCPRG-ros-pkg/lwr_robot.git'}
