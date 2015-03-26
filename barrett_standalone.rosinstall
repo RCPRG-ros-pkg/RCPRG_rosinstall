@@ -1,0 +1,11 @@
+# Isolated Workspace
+- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git'}
+- git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.8'}
+# Normal Workspace
+- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'https://github.com/orocos/rtt_ros_integration.git', version: 'indigo-devel'}
+- git: {local-name: underlay/src/orocos_controllers, uri: 'https://github.com/RCPRG-ros-pkg/orocos_controllers.git'}
+- git: {local-name: underlay/src/orocos_tools, uri: 'https://github.com/RCPRG-ros-pkg/orocos_tools.git'}
+
+- git: {local-name: underlay/src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git'}
+- git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git'}
+
