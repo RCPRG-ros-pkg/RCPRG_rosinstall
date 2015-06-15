@@ -1,0 +1,30 @@
+# Isolated Workspace
+- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git'}
+- git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.8'}
+- git: {local-name: underlay_isolated/src/openrave, uri: 'https://github.com/dseredyn/openrave.git'}
+- git: {local-name: underlay_isolated/src/openrave_catkin, uri: 'https://github.com/personalrobotics/openrave_catkin.git'}
+# Normal Workspace
+- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'https://github.com/orocos/rtt_ros_integration.git', version: 'indigo-devel'}
+- git: {local-name: underlay/src/conman, uri: 'https://github.com/konradb3/conman.git'}
+- git: {local-name: underlay/src/pointgrey_camera_driver, uri: 'https://github.com/ros-drivers/pointgrey_camera_driver.git'}
+- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
+- git: {local-name: underlay/src/lwr_hardware, uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git'}
+- git: {local-name: underlay/src/lwr_robot, uri: 'https://github.com/RCPRG-ros-pkg/lwr_robot.git'}
+- git: {local-name: underlay/src/orocos_controllers, uri: 'https://github.com/RCPRG-ros-pkg/orocos_controllers.git'}
+- git: {local-name: underlay/src/orocos_tools, uri: 'https://github.com/RCPRG-ros-pkg/orocos_tools.git'}
+- git: {local-name: underlay/src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git'}
+
+- git: {local-name: underlay/src/SOEM, uri: 'https://github.com/konradb3/SOEM.git'}
+- git: {local-name: underlay/src/amc_hardware, uri: 'https://github.com/RCPRG-ros-pkg/amc_hardware.git'}
+- git: {local-name: underlay/src/velma_hardware, uri: 'https://github.com/RCPRG-ros-pkg/velma_hardware.git'}
+- git: {local-name: underlay/src/velma_robot, uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git'}
+- git: {local-name: underlay/src/velma_controllers, uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git'}
+
+- git: {local-name: underlay/src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git'}
+- git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git'}
+- git: {local-name: underlay/src/hrl-kdl, uri: 'https://github.com/gt-ros-pkg/hrl-kdl.git'}
+- git: {local-name: underlay/src/control_subsystem, uri: 'https://github.com/RCPRG-ros-pkg/control_subsystem.git'}
+- git: {local-name: underlay/src/velma_scripts, uri: 'https://github.com/dseredyn/velma_scripts.git'}
+- git: {local-name: underlay/src/or_urdf, uri: 'https://github.com/dseredyn/or_urdf.git'}
+- git: {local-name: underlay/src/or_ompl, uri: 'https://github.com/dseredyn/or_ompl.git'}
+- git: {local-name: underlay/src/or_octomap, uri: 'https://github.com/dseredyn/or_octomap.git'}
