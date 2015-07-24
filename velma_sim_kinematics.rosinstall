@@ -1,0 +1,18 @@
+# Isolated Workspace
+- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git'}
+- git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.8'}
+# Normal Workspace
+- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'https://github.com/orocos/rtt_ros_integration.git', version: 'indigo-devel'}
+
+- git: {local-name: underlay/src/hrl-kdl, uri: 'https://github.com/gt-ros-pkg/hrl-kdl.git'}
+
+- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
+- git: {local-name: underlay/src/barrett_hand_msgs, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git'}
+
+- git: {local-name: underlay/src/lwr_robot, uri: 'https://github.com/RCPRG-ros-pkg/lwr_robot.git'}
+- git: {local-name: underlay/src/velma_robot, uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git'}
+- git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git'}
+
+- git: {local-name: underlay/src/velma_common, uri: 'https://github.com/dseredyn/velma_common.git'}
+- git: {local-name: underlay/src/velma_examples, uri: 'https://github.com/dseredyn/velma_examples.git'}
+
