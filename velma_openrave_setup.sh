@@ -47,8 +47,6 @@ fi
 wstool merge /tmp/velma.rosinstall
 wstool merge /tmp/openrave.rosinstall
 
-exit 0
-
 wstool update
 cp $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
 cd underlay_isolated
