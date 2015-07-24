@@ -30,7 +30,8 @@ else
   fi
 fi
 
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_openrave.rosinstall -O /tmp/velma.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma.rosinstall -O /tmp/velma.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/openrave.rosinstall -O /tmp/openrave.rosinstall
 
 if [ ! -d $1 ]; then
   mkdir $1
@@ -39,8 +40,15 @@ fi
 FRI_DIR=`pwd`
 
 cd $1
-wstool init
+
+if [ ! -e ".rosinstall" ]; then
+  wstool init
+fi
 wstool merge /tmp/velma.rosinstall
+wstool merge /tmp/openrave.rosinstall
+
+exit 0
+
 wstool update
 cp $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
 cd underlay_isolated
@@ -49,3 +57,4 @@ source install_isolated/setup.bash
 cd ../underlay
 catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
 source devel/setup.bash
+
