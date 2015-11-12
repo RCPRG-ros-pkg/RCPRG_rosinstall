@@ -9,6 +9,8 @@
 - git: {local-name: underlay/src/orocos_controllers, uri: 'git@github.com:RCPRG-ros-pkg/orocos_controllers.git'}
 - git: {local-name: underlay/src/orocos_tools, uri: 'git@github.com:RCPRG-ros-pkg/orocos_tools.git'}
 - git: {local-name: underlay/src/common_controllers, uri: 'git@github.com:RCPRG-ros-pkg/common_controllers.git'}
-- git: {local-name: underlay/src/irp6_robot, uri: 'git@github.com:RCPRG-ros-pkg/irp6_robot.git'}
+- git: {local-name: underlay/src/sarkofag_robot, uri: 'git@github.com:RCPRG-ros-pkg/sarkofag_robot.git'}
+- git: {local-name: underlay/src/ec_hardware, uri: 'https://github.com/RCPRG-ros-pkg/ec_hardware.git'}
+- git: {local-name: underlay/src/ec_drivers, uri: 'https://github.com/RCPRG-ros-pkg/ec_drivers.git'}
 
 
