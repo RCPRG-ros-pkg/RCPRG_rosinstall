@@ -15,6 +15,7 @@
 - git: {local-name: underlay/src/velma_robot, uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git'}
 - git: {local-name: underlay/src/velma_controllers, uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git'}
 
+- git: {local-name: underlay/src/can_driver, uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git'}
 - git: {local-name: underlay/src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git'}
 - git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git'}
 - git: {local-name: underlay/src/barrett_hand_msgs, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git'}
