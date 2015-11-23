@@ -1,0 +1,14 @@
+# Isolated Workspace
+- git: {local-name: underlay_isolated/src/orocos/orocos_kinematics_dynamics, uri: 'git@github.com:orocos/orocos_kinematics_dynamics.git'}
+- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'git@github.com:orocos/rtt_geometry.git'}
+- git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'git@github.com:orocos-toolchain/orocos_toolchain.git'}
+# Normal Workspace
+- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'git@github.com:orocos/rtt_ros_integration.git'}
+- git: {local-name: underlay/src/conman, uri: 'git@github.com:RCPRG-ros-pkg/conman.git'}
+- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'git@github.com:RCPRG-ros-pkg/cartesian_trajectory_msgs.git'}
+- git: {local-name: underlay/src/orocos_controllers, uri: 'git@github.com:RCPRG-ros-pkg/orocos_controllers.git'}
+- git: {local-name: underlay/src/orocos_tools, uri: 'git@github.com:RCPRG-ros-pkg/orocos_tools.git'}
+- git: {local-name: underlay/src/common_controllers, uri: 'git@github.com:RCPRG-ros-pkg/common_controllers.git'}
+- git: {local-name: underlay/src/sarkofag_robot, uri: 'git@github.com:RCPRG-ros-pkg/sarkofag_robot.git'}
+
+
