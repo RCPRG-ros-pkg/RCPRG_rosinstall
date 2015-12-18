@@ -68,3 +68,4 @@ catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
 source devel/setup.bash
 cd ../sim
 catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+source devel/setup.bash
