@@ -106,8 +106,7 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ga
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ign-math.xml  -O underlay_isolated/src/gazebo/ign-math/package.xml
 
 # apply the patch for DART collision shapes transformation
-wget https://bitbucket.org/jlee02/gazebo_dart/raw/f7da5e89fa3e9d8ec5fee960a4b8b33ec195c8a3/gazebo/physics/dart/DARTCollision.cc -O underlay_isolated/src/gazebo/gazebo/gazebo/physics/dart/DARTCollision.cc
-wget https://bitbucket.org/jlee02/gazebo_dart/raw/f7da5e89fa3e9d8ec5fee960a4b8b33ec195c8a3/gazebo/physics/dart/DARTTypes.hh -O underlay_isolated/src/gazebo/gazebo/gazebo/physics/dart/DARTTypes.hh
+wget https://raw.githubusercontent.com/dseredyn/dart_patch/master/DARTCollision.cc -O underlay_isolated/src/gazebo/gazebo/gazebo/physics/dart/DARTCollision.cc
 
 cd underlay_isolated
 catkin_make_isolated --install -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON
