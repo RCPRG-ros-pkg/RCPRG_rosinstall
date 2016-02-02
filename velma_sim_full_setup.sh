@@ -7,10 +7,11 @@ installed=(ros-indigo-desktop)
 uninstalled=(ros-indigo-desktop-full libdart libsdformat gazebo)
 
 export LANG=en_US.UTF-8
+export OROCOS_TARGET=gnulinux
 
 # useful functions
 function usage {
-  echo "usage: $0 directory gnulinux|xenomai"
+  echo "usage: $0 directory"
 }
 
 function printError {
@@ -19,7 +20,7 @@ function printError {
     echo -e "${RED}$1${NC}"
 }
 
-if [ $# -ne 2 ]; then 
+if [ $# -ne 1 ]; then 
   usage
   exit 1
 fi
@@ -27,19 +28,6 @@ fi
 if [ -z "$1" ]; then
   usage
   exit 1
-fi
-
-if [ "gnulinux" = $2 ]; then
-  export OROCOS_TARGET=gnulinux
-else
-  if [ "xenomai" = $2 ]; then
-    export XENOMAI_ROOT_DIR=/opt/xenomai
-    export PATH=/opt/xenomai/bin/:$PATH
-    export OROCOS_TARGET=xenomai
-  else
-    usage
-    exit 1
-  fi
 fi
 
 if [ "$ROS_DISTRO" != "indigo" ]; then
