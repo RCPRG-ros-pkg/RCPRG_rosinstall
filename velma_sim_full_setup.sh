@@ -108,6 +108,9 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ig
 # apply the patch for DART collision shapes transformation
 wget https://raw.githubusercontent.com/dseredyn/dart_patch/master/DARTCollision.cc -O underlay_isolated/src/gazebo/gazebo/gazebo/physics/dart/DARTCollision.cc
 
+# copy friComm.h
+cp $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
+
 cd underlay_isolated
 catkin_make_isolated --install -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON
 source install_isolated/setup.bash
