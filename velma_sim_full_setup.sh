@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# the list of packages that should be installed
-installed=(ros-indigo-desktop)
-
-# the list of packages that should be uninstalled
-uninstalled=(ros-indigo-desktop-full libdart libsdformat gazebo)
 
 export LANG=en_US.UTF-8
 export OROCOS_TARGET=gnulinux
@@ -30,10 +25,19 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-if [ "$ROS_DISTRO" != "indigo" ]; then
-    printError "ERROR: ROS Indigo setup.bash have to be sourced!"
+distro="$ROS_DISTRO"
+
+if [ "$distro" != "indigo" ] && [ "$distro" != "jade" ]; then
+    printError "ERROR: ROS indigo or ROS jade setup.bash have to be sourced!"
     exit 1
 fi
+
+# the list of packages that should be installed
+installed=("ros-$distro-desktop" "ros-$distro-fcl" "ros-$distro-driver-base" "ros-$distro-polled-camera" "ros-$distro-control-toolbox"
+"ros-$distro-controller-manager" "ros-$distro-transmission-interface" "ros-$distro-joint-limits-interface")
+
+# the list of packages that should be uninstalled
+uninstalled=("ros-$distro-desktop-full" "libdart" "libsdformat" "gazebo")
 
 error=false
 
@@ -109,13 +113,35 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ig
 wget https://raw.githubusercontent.com/dseredyn/dart_patch/master/DARTCollision.cc -O underlay_isolated/src/gazebo/gazebo/gazebo/physics/dart/DARTCollision.cc
 
 # copy friComm.h
-cp $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
+cp -f $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
+if [ $? -eq 0 ]; then
+    echo "cp friComm.h OK"
+else
+    printError "cp friComm.h FAILED, current dir: `pwd`"
+    exit 1
+fi
 
 cd underlay_isolated
 catkin_make_isolated --install -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON
+
+if [ $? -eq 0 ]; then
+    echo "underlay_isolated build OK"
+else
+    printError "underlay_isolated build FAILED"
+    exit 1
+fi
+
 source install_isolated/setup.bash
 cd ../underlay
 catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+
+if [ $? -eq 0 ]; then
+    echo "underlay build OK"
+else
+    printError "underlay build FAILED"
+    exit 1
+fi
+
 source devel/setup.bash
 cd ../sim
 catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
