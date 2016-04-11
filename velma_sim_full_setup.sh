@@ -87,13 +87,15 @@ fi
 
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim_full.rosinstall -O /tmp/velma_sim_full.rosinstall
 
-if [ ! -d $1 ]; then
-  mkdir $1
+build_dir=$1
+
+if [ ! -d $build_dir ]; then
+  mkdir $build_dir
 fi
 
 FRI_DIR=`pwd`
 
-cd $1
+cd $build_dir
 
 if [ ! -e ".rosinstall" ]; then
   wstool init
@@ -131,9 +133,9 @@ else
     exit 1
 fi
 
-source install_isolated/setup.bash
 cd ../underlay
-catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin config --extend ../underlay_isolated/install_isolated/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin build
 
 if [ $? -eq 0 ]; then
     echo "underlay build OK"
@@ -142,8 +144,8 @@ else
     exit 1
 fi
 
-source devel/setup.bash
 cd ../sim
-catkin_make -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin config --extend ../underlay/devel/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin build
 source devel/setup.bash
 
