@@ -33,7 +33,8 @@ if [ "$distro" != "indigo" ] && [ "$distro" != "jade" ]; then
 fi
 
 # the list of packages that should be installed
-installed=("ncurses-dev" "ruby-full" "omniorb" "omniidl" "libomniorb4-dev" "libxerces-c-dev" "doxygen"
+installed=("libprotobuf-dev" "libprotoc-dev" "protobuf-compiler" "libtar-dev" "libccd"
+"ncurses-dev" "ruby-full" "omniorb" "omniidl" "libomniorb4-dev" "libxerces-c-dev" "doxygen"
 "python-catkin-tools" "ros-$distro-desktop" "ros-$distro-fcl" "ros-$distro-driver-base" "ros-$distro-polled-camera" "ros-$distro-control-toolbox"
 "ros-$distro-controller-manager" "ros-$distro-transmission-interface" "ros-$distro-joint-limits-interface")
 
@@ -83,6 +84,7 @@ done
 
 if [ "$error" = true ]; then
     echo "Please install/uninstall the listed packages"
+    echo "To install libccd please see http://askubuntu.com/questions/664101/dependency-in-ppa"
     exit 1
 fi
 
