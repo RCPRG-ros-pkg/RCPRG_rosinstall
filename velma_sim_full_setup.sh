@@ -33,7 +33,8 @@ if [ "$distro" != "indigo" ] && [ "$distro" != "jade" ]; then
 fi
 
 # the list of packages that should be installed
-installed=("ros-$distro-desktop" "ros-$distro-fcl" "ros-$distro-driver-base" "ros-$distro-polled-camera" "ros-$distro-control-toolbox"
+installed=("ncurses-dev" "ruby-full" "omniorb" "omniidl" "libomniorb4-dev" "libxerces-c-dev" "doxygen"
+"python-catkin-tools" "ros-$distro-desktop" "ros-$distro-fcl" "ros-$distro-driver-base" "ros-$distro-polled-camera" "ros-$distro-control-toolbox"
 "ros-$distro-controller-manager" "ros-$distro-transmission-interface" "ros-$distro-joint-limits-interface")
 
 # the list of packages that should be uninstalled
