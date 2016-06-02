@@ -1,6 +1,6 @@
 # Isolated Workspace
 - git: {local-name: src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git', version: 'jade-devel'}
-- git: {local-name: src/orocos/orocos_kinematics_dynamics, uri: 'https://github.com/orocos/orocos_kinematics_dynamics.git'}
+- git: {local-name: src/orocos/orocos_kinematics_dynamics, uri: 'https://github.com/orocos/orocos_kinematics_dynamics.git', version: 'master'}
 - git: {local-name: src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.8'}
 # Normal Workspace
 - git: {local-name: src/orocos/rtt_ros_integration, uri: 'https://github.com/orocos/rtt_ros_integration.git', version: 'jade-devel'}
