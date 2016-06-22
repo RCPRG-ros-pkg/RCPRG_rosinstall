@@ -27,7 +27,7 @@ fi
 
 distro="$ROS_DISTRO"
 
-if [ "$distro" != "indigo" ] && [ "$distro" != "jade" ]; then
+if [ "$distro" != "indigo" ] && [ "$distro" != "jade" ] && [ "$distro" != "kinetic" ]; then
     printError "ERROR: ROS indigo or ROS jade setup.bash have to be sourced!"
     exit 1
 fi
