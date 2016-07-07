@@ -27,19 +27,48 @@ fi
 
 distro="$ROS_DISTRO"
 
-if [ "$distro" != "indigo" ] && [ "$distro" != "jade" ] && [ "$distro" != "kinetic" ]; then
-    printError "ERROR: ROS indigo or ROS jade setup.bash have to be sourced!"
+if [ "$distro" != "kinetic" ]; then
+    printError "ERROR: ROS kinetic setup.bash have to be sourced!"
     exit 1
 fi
 
 # the list of packages that should be installed
-installed=("libprotobuf-dev" "libprotoc-dev" "protobuf-compiler" "libtar-dev" "libccd"
-"ncurses-dev" "ruby-full" "omniorb" "omniidl" "libomniorb4-dev" "libxerces-c-dev" "doxygen"
-"python-catkin-tools" "ros-$distro-desktop" "ros-$distro-fcl" "ros-$distro-driver-base" "ros-$distro-polled-camera" "ros-$distro-control-toolbox"
-"ros-$distro-controller-manager" "ros-$distro-transmission-interface" "ros-$distro-joint-limits-interface")
+installed=(
+"libprotobuf-dev"
+"libprotoc-dev"
+"protobuf-compiler"
+"tinyxml2"
+"libtar-dev"
+"libtbb-dev"
+"libfreeimage-dev"
+"libignition-transport0-dev"
+"omniorb"
+"omniidl"
+"libomniorb4-dev"
+"libxerces-c-dev"
+"doxygen"
+"python-catkin-tools"
+"libfcl-dev"
+"libqtwebkit-dev"
+"libgts-dev"
+"ros-$distro-desktop"
+"ros-$distro-polled-camera"
+"ros-$distro-camera-info-manager"
+"ros-$distro-control-toolbox"
+"ros-$distro-controller-manager-msgs"
+"ros-$distro-controller-manager"
+"ros-$distro-urdfdom-py"
+"ros-$distro-transmission-interface"
+)
 
 # the list of packages that should be uninstalled
-uninstalled=("ros-$distro-desktop-full" "libdart" "libsdformat" "gazebo")
+uninstalled=(
+"ros-$distro-desktop-full"
+"libdart"
+"libsdformat"
+"libignition-math2"
+"gazebo"
+)
 
 error=false
 
@@ -88,6 +117,7 @@ if [ "$error" = true ]; then
     exit 1
 fi
 
+#cp ~/velma_sim_full.rosinstall /tmp/velma_sim_full.rosinstall
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim_full.rosinstall -O /tmp/velma_sim_full.rosinstall
 
 build_dir=$1
@@ -113,9 +143,6 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_da
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_sdformat.xml  -O underlay_isolated/src/gazebo/sdformat/package.xml
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml    -O underlay_isolated/src/gazebo/gazebo/package.xml
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ign-math.xml  -O underlay_isolated/src/gazebo/ign-math/package.xml
-
-# apply the patch for DART collision shapes transformation
-wget https://raw.githubusercontent.com/dseredyn/dart_patch/master/DARTCollision.cc -O underlay_isolated/src/gazebo/gazebo/gazebo/physics/dart/DARTCollision.cc
 
 # copy friComm.h
 cp -f $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
