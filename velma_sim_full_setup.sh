@@ -37,7 +37,7 @@ installed=(
 "libprotobuf-dev"
 "libprotoc-dev"
 "protobuf-compiler"
-"tinyxml2"
+"libtinyxml2-dev"
 "libtar-dev"
 "libtbb-dev"
 "libfreeimage-dev"
