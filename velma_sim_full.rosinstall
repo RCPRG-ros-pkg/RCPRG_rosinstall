@@ -5,8 +5,8 @@
 - hg:  {local-name: underlay_isolated/src/gazebo/gazebo,            uri: 'https://bitbucket.org/osrf/gazebo', version: 'gazebo7_7.2.0'}
 - git: {local-name: underlay_isolated/src/orocos/rtt_geometry,      uri: 'https://github.com/orocos/rtt_geometry.git'}
 - git: {local-name: underlay_isolated/src/orocos/orocos_toolchain,  uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.8'}
+- git: {local-name: underlay_isolated/src/gazebo/gazebo_ros_pkgs,   uri: 'https://github.com/dseredyn/gazebo_ros_pkgs.git', version: 'kinetic-devel'}
 # Underlay Workspace
-- git: {local-name: underlay/src/gazebo_ros_pkgs,               uri: 'https://github.com/ros-simulation/gazebo_ros_pkgs.git', version: 'kinetic-devel'}
 - git: {local-name: underlay/src/barrett_hand_common,           uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_common.git'}
 - git: {local-name: underlay/src/barrett_hand_move_action,      uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_move_action.git'}
 - git: {local-name: underlay/src/barrett_hand_msgs,             uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git'}
