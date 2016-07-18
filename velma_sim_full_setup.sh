@@ -168,7 +168,7 @@ else
 fi
 
 cd underlay_isolated
-catkin_make_isolated --install -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON
+catkin_make_isolated --install -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DENABLE_MQUEUE=ON
 
 if [ $? -eq 0 ]; then
     echo "underlay_isolated build OK"
@@ -178,7 +178,7 @@ else
 fi
 
 cd ../underlay
-catkin config --extend ../underlay_isolated/install_isolated/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin config --extend ../underlay_isolated/install_isolated/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF -DENABLE_MQ=ON
 catkin build
 
 if [ $? -eq 0 ]; then
