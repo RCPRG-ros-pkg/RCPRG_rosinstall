@@ -189,7 +189,7 @@ else
 fi
 
 cd ../sim
-catkin config --extend ../underlay/devel/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin config --extend ../underlay/devel/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF -DENABLE_MQ=ON
 catkin build
 source devel/setup.bash
 
