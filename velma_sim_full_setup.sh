@@ -118,17 +118,17 @@ if [ "$error" = true ]; then
 fi
 
 # test
-cp ~/common_orocos.rosinstall       /tmp/common_orocos.rosinstall
-cp ~/common_velma.rosinstall        /tmp/common_velma.rosinstall
-cp ~/gazebo7_2_dart.rosinstall      /tmp/gazebo7_2_dart.rosinstall
-cp ~/velma_sim.rosinstall           /tmp/velma_sim.rosinstall
-cp ~/velma_applications.rosinstall  /tmp/velma_applications.rosinstall
+#cp ~/common_orocos.rosinstall       /tmp/common_orocos.rosinstall
+#cp ~/common_velma.rosinstall        /tmp/common_velma.rosinstall
+#cp ~/gazebo7_2_dart.rosinstall      /tmp/gazebo7_2_dart.rosinstall
+#cp ~/velma_sim.rosinstall           /tmp/velma_sim.rosinstall
+#cp ~/velma_applications.rosinstall  /tmp/velma_applications.rosinstall
 
-#wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
-#wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
-#wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
-#wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim.rosinstall           -O /tmp/velma_sim.rosinstall
-#wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_applications.rosinstall  -O /tmp/velma_applications.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim.rosinstall           -O /tmp/velma_sim.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_applications.rosinstall  -O /tmp/velma_applications.rosinstall
 
 build_dir=$1
 
