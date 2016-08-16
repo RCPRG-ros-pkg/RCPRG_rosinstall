@@ -1,0 +1,10 @@
+# repositories for BarrettHand: gripper, tactile sensors and optoforce sensors
+# requires: common_orocos.rosinstall
+# Underlay Workspace
+- git: {local-name: underlay/src/barrett_hand,                  uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git'}
+- git: {local-name: underlay/src/barrett_hand_msgs,             uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git'}
+- git: {local-name: underlay/src/barrett_hand_robot,            uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git'}
+- git: {local-name: underlay/src/can_driver,                    uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git'}
+- git: {local-name: underlay/src/optoforce_can,                 uri: 'https://github.com/RCPRG-ros-pkg/optoforce_can.git'}
+- git: {local-name: underlay/src/optoforce_component,           uri: 'https://github.com/RCPRG-ros-pkg/optoforce_component.git'}
+
