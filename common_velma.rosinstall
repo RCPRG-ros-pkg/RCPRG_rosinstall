@@ -11,4 +11,5 @@
 - git: {local-name: underlay/src/velma_robot,                   uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git'}
 # Normal Workspace
 - git: {local-name: sim/src/velma_common,                       uri: 'https://github.com/dseredyn/velma_common.git'}
-
+- git: {local-name: sim/src/common_interfaces,                  uri: 'https://github.com/dseredyn/common_interfaces.git'}
+- git: {local-name: sim/src/shm_comm,                           uri: 'https://github.com/dseredyn/shm_comm.git', version: 'catkin'}
