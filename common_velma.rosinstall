@@ -13,3 +13,6 @@
 - git: {local-name: sim/src/velma_common,                       uri: 'https://github.com/dseredyn/velma_common.git'}
 - git: {local-name: sim/src/common_interfaces,                  uri: 'https://github.com/dseredyn/common_interfaces.git'}
 - git: {local-name: sim/src/shm_comm,                           uri: 'https://github.com/dseredyn/shm_comm.git', version: 'catkin'}
+- git: {local-name: sim/src/common_behavior,                    uri: 'https://github.com/dseredyn/common_behavior.git'}
+- git: {local-name: sim/src/velma_low_level_behaviors,          uri: 'https://github.com/dseredyn/velma_low_level_behaviors.git'}
+
