@@ -7,8 +7,10 @@
 - git: {local-name: underlay/src/planer_utils,                  uri: 'https://github.com/dseredyn/planer_utils.git'}
 - git: {local-name: underlay/src/octomap_mapping,               uri: 'https://github.com/OctoMap/octomap_mapping.git'}
 # Simulation Workspace
-- git: {local-name: sim/src/pointcloud_utils,       uri: 'https://github.com/dseredyn/pointcloud_utils.git'}
-- git: {local-name: sim/src/pointcloud_utils_msgs,  uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git'}
-- git: {local-name: sim/src/velma_scripts,          uri: 'https://github.com/dseredyn/velma_scripts.git'}
+- git: {local-name: sim/src/pointcloud_utils,           uri: 'https://github.com/dseredyn/pointcloud_utils.git'}
+- git: {local-name: sim/src/pointcloud_utils_msgs,      uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git'}
+- git: {local-name: sim/src/velma_scripts,              uri: 'https://github.com/dseredyn/velma_scripts.git'}
+
+
 
 

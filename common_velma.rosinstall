@@ -15,4 +15,7 @@
 - git: {local-name: sim/src/shm_comm,                           uri: 'https://github.com/dseredyn/shm_comm.git', version: 'catkin'}
 - git: {local-name: sim/src/common_behavior,                    uri: 'https://github.com/dseredyn/common_behavior.git'}
 - git: {local-name: sim/src/velma_low_level_behaviors,          uri: 'https://github.com/dseredyn/velma_low_level_behaviors.git'}
+- git: {local-name: sim/src/velma_core_cs,                      uri: 'https://github.com/dseredyn/velma_core_cs.git'}
+- git: {local-name: sim/src/velma_core_cs_msgs,                 uri: 'https://github.com/dseredyn/velma_core_cs_msgs.git'}
+- git: {local-name: sim/src/velma_core_cs_interface,            uri: 'https://github.com/dseredyn/velma_core_cs_interface.git'}
 
