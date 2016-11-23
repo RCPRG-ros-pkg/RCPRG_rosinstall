@@ -4,5 +4,4 @@
 - git: {local-name: underlay/src/rtt_gazebo,                uri: 'https://github.com/dseredyn/rtt_gazebo.git'}
 # Simulation Workspace
 - git: {local-name: sim/src/velma_sim_gazebo,               uri: 'https://github.com/dseredyn/velma_sim_gazebo.git'}
-- git: {local-name: sim/src/velma_low_level_interface_msgs, uri: 'https://github.com/dseredyn/velma_low_level_interface_msgs.git'}
-- git: {local-name: sim/src/velma_low_level_interface,      uri: 'https://github.com/dseredyn/velma_low_level_interface.git'}
+
