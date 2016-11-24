@@ -20,6 +20,6 @@
 - git: {local-name: sim/src/velma_core_cs_task_cs_interface,    uri: 'https://github.com/dseredyn/velma_core_cs_task_cs_interface.git'}
 - git: {local-name: sim/src/velma_core_cs_ve_body_msgs,         uri: 'https://github.com/dseredyn/velma_core_cs_ve_body_msgs.git'}
 - git: {local-name: sim/src/velma_core_cs_ve_body_interface,    uri: 'https://github.com/dseredyn/velma_core_cs_ve_body_interface.git'}
-- git: {local-name: sim/src/velma_core_ve_body_re_body_interface    uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_interface.git'}
-- git: {local-name: sim/src/velma_core_ve_body_re_body_msgs     uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_msgs.git'}
+- git: {local-name: sim/src/velma_core_ve_body_re_body_interface,    uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_interface.git'}
+- git: {local-name: sim/src/velma_core_ve_body_re_body_msgs,     uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_msgs.git'}
 
