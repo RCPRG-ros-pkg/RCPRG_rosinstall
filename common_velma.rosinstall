@@ -23,4 +23,5 @@
 - git: {local-name: sim/src/velma_core_ve_body_re_body_interface,    uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_interface.git'}
 - git: {local-name: sim/src/velma_core_ve_body_re_body_msgs,    uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_msgs.git'}
 - git: {local-name: sim/src/velma_task_cs_ros_interface,        uri: 'https://github.com/dseredyn/velma_task_cs_ros_interface.git'}
+- git: {local-name: sim/src/subsystem_deployer,                 uri: 'https://github.com/dseredyn/subsystem_deployer.git'}
 
