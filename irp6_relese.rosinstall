@@ -14,8 +14,8 @@
 - git: {local-name: src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git', version: 'stable'}
 - git: {local-name: src/ec_hardware, uri: 'https://github.com/RCPRG-ros-pkg/ec_hardware.git', version: 'stable'}
 - git: {local-name: src/ec_drivers, uri: 'https://github.com/RCPRG-ros-pkg/ec_drivers.git', version: 'stable'}
-# temporary line below, because of the bug in kinetic 
-# - git: {local-name: src/rqt_robot_plugins, uri: 'https://github.com/twiniars/rqt_robot_plugins.git', version: 'master'}
+# temporary line below, because of the bug in kinetic
+- git: {local-name: src/pointgrey_camara_driver, uri: 'https://github.com/konradb3/pointgrey_camera_driver.git', version: 'sdk_update_16.04'}
 # Robot Workspace
 - git: {local-name: src/irp6_robot, uri: 'https://github.com/RCPRG-ros-pkg/irp6_robot.git', version: 'stable'}
 
