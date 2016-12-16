@@ -23,4 +23,6 @@
 - git: {local-name: sim/src/subsystem_deployer,                 uri: 'https://github.com/dseredyn/subsystem_deployer.git'}
 - git: {local-name: sim/src/rtt_subsystem_ports,                uri: 'https://github.com/dseredyn/rtt_subsystem_ports.git'}
 - git: {local-name: sim/src/velma_data_conversions,             uri: 'https://github.com/dseredyn/velma_data_conversions.git'}
+- git: {local-name: sim/src/rqt_agent,                          uri: 'https://github.com/dseredyn/rqt_agent.git'}
+- git: {local-name: sim/src/subsystem_msgs,                     uri: 'https://github.com/dseredyn/subsystem_msgs.git'}
 
