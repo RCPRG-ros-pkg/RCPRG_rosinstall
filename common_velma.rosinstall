@@ -25,4 +25,5 @@
 - git: {local-name: sim/src/velma_data_conversions,             uri: 'https://github.com/dseredyn/velma_data_conversions.git'}
 - git: {local-name: sim/src/rqt_agent,                          uri: 'https://github.com/dseredyn/rqt_agent.git'}
 - git: {local-name: sim/src/subsystem_msgs,                     uri: 'https://github.com/dseredyn/subsystem_msgs.git'}
+- git: {local-name: sim/src/rtt_dot_service,                    uri: 'https://github.com/kuka-isir/rtt_dot_service.git'}
 
