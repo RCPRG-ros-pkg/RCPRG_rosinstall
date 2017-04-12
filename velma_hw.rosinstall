@@ -1,9 +1,9 @@
 # repositories for Velma robot: real hardware
 # requires: common_orocos.rosinstall, common_velma.rosinstall
 # Underlay Workspace
-- git: {local-name: underlay/src/velma_hardware,                uri: 'https://github.com/RCPRG-ros-pkg/velma_hardware.git'}
-- git: {local-name: underlay/src/can_driver, uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git'}
-- git: {local-name: underlay/src/ec_hardware, uri: 'https://github.com/RCPRG-ros-pkg/ec_hardware.git'}
-- git: {local-name: underlay/src/ec_drivers, uri: 'https://github.com/RCPRG-ros-pkg/ec_drivers.git'}
+- git: {local-name: hw/underlay/velma_hardware,     uri: 'https://github.com/RCPRG-ros-pkg/velma_hardware.git'}
+- git: {local-name: hw/underlay/can_driver,         uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git'}
+- git: {local-name: hw/underlay/ec_hardware,        uri: 'https://github.com/RCPRG-ros-pkg/ec_hardware.git'}
+- git: {local-name: hw/underlay/ec_drivers,         uri: 'https://github.com/RCPRG-ros-pkg/ec_drivers.git'}
 
 
