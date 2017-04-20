@@ -1,15 +1,15 @@
 # repositories for Velma robot: gazebo simulation
 # requires: common_orocos.rosinstall, common_velma.rosinstall, (velma_hw.rosinstall or velma_sim.rosinstall)
 # Underlay Workspace
-##- git: {local-name: common/underlay/pointgrey_camera_driver,     uri: 'https://github.com/ros-drivers/pointgrey_camera_driver.git'}
-- git: {local-name: common/underlay/collision_convex_model,        uri: 'https://github.com/dseredyn/collision_convex_model.git'}
-- git: {local-name: common/underlay/kin_dyn_model,                 uri: 'https://github.com/dseredyn/kin_dyn_model.git'}
-- git: {local-name: common/underlay/planer_utils,                  uri: 'https://github.com/dseredyn/planer_utils.git'}
-- git: {local-name: common/underlay/octomap_mapping,               uri: 'https://github.com/OctoMap/octomap_mapping.git'}
+##- git: {local-name: underlay/src/pointgrey_camera_driver,     uri: 'https://github.com/ros-drivers/pointgrey_camera_driver.git'}
+- git: {local-name: underlay/src/collision_convex_model,        uri: 'https://github.com/dseredyn/collision_convex_model.git'}
+- git: {local-name: underlay/src/kin_dyn_model,                 uri: 'https://github.com/dseredyn/kin_dyn_model.git'}
+- git: {local-name: underlay/src/planer_utils,                  uri: 'https://github.com/dseredyn/planer_utils.git'}
+- git: {local-name: underlay/src/octomap_mapping,               uri: 'https://github.com/OctoMap/octomap_mapping.git'}
 # Simulation Workspace
-- git: {local-name: common/top/pointcloud_utils,           uri: 'https://github.com/dseredyn/pointcloud_utils.git'}
-- git: {local-name: common/top/pointcloud_utils_msgs,      uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git'}
-- git: {local-name: common/top/velma_scripts,              uri: 'https://github.com/dseredyn/velma_scripts.git'}
+- git: {local-name: top/src/pointcloud_utils,           uri: 'https://github.com/dseredyn/pointcloud_utils.git'}
+- git: {local-name: top/src/pointcloud_utils_msgs,      uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git'}
+- git: {local-name: top/src/velma_scripts,              uri: 'https://github.com/dseredyn/velma_scripts.git'}
 
 
 
