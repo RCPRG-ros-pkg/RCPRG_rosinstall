@@ -8,7 +8,7 @@
 - git: {local-name: underlay/src/lwr_hardware,                  uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git'}
 - git: {local-name: underlay/src/lwr_robot,                     uri: 'https://github.com/dseredyn/lwr_robot.git'}
 - git: {local-name: underlay/src/velma_controllers,             uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git', version: 'safe-controller'}
-- git: {local-name: underlay/src/velma_robot,                   uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git'}
+- git: {local-name: underlay/src/velma_robot,                   uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git', version: 'one_ve'}
 # Normal Workspace
 - git: {local-name: top/src/velma_common,                       uri: 'https://github.com/dseredyn/velma_common.git'}
 - git: {local-name: top/src/common_interfaces,                  uri: 'https://github.com/dseredyn/common_interfaces.git'}
