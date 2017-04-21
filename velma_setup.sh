@@ -178,7 +178,7 @@ fi
 # underlay_isolated
 #
 cd $WORKSPACE_ROOT_DIR/underlay_isolated
-catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF
+catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DENABLE_MQUEUE=ON -DBUILD_HELLOWORLD=OFF
 catkin build
 if [ $? -eq 0 ]; then
     echo "underlay_isolated build OK"
@@ -191,7 +191,7 @@ fi
 # underlay
 #
 cd $WORKSPACE_ROOT_DIR/underlay
-catkin config --extend ../underlay_isolated/devel/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin config --extend ../underlay_isolated/devel/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF -DENABLE_MQUEUE=ON
 catkin build
 if [ $? -eq 0 ]; then
     echo "underlay build OK"
@@ -204,7 +204,7 @@ fi
 # top
 #
 cd $WORKSPACE_ROOT_DIR/top
-catkin config --extend ../underlay/devel/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF
+catkin config --extend ../underlay/devel/ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_ENABLE_TESTING=OFF -DENABLE_MQUEUE=ON
 catkin build
 source devel/setup.bash
 
