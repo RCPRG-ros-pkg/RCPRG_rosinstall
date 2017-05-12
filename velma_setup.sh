@@ -47,7 +47,7 @@ installed=(
 "libxerces-c-dev"
 "doxygen"
 "python-catkin-tools"
-"libfcl-dev"
+#"libfcl-dev"
 "libqtwebkit-dev"
 "libgts-dev"
 #"ros-$distro-desktop"
