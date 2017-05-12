@@ -50,7 +50,7 @@ installed=(
 "libfcl-dev"
 "libqtwebkit-dev"
 "libgts-dev"
-"ros-$distro-desktop"
+#"ros-$distro-desktop"
 "ros-$distro-polled-camera"
 "ros-$distro-camera-info-manager"
 "ros-$distro-control-toolbox"
