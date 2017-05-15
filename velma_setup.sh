@@ -5,7 +5,10 @@ export LANG=en_US.UTF-8
 
 # useful functions
 function usage {
-  echo "usage: $0 directory"
+  echo "usage: $0 [version] directory"
+  echo "If version is omitted, the newest stable version is downloaded."
+  echo "Version can be on of the following:"
+  svn ls https://github.com/RCPRG-ros-pkg/RCPRG_rosinstall.git/trunk/velma
 }
 
 function printError {
@@ -14,12 +17,22 @@ function printError {
     echo -e "${RED}$1${NC}"
 }
 
-if [ $# -ne 1 ]; then
-  usage
-  exit 1
-fi
-
-if [ -z "$1" ]; then
+if [ $# -eq 1 ]; then
+    if [ -z "$1" ]; then
+      usage
+      exit 1
+    fi
+    version_stable=true
+    build_dir=$1
+elif  [ $# -eq 2 ]; then
+    if [ -z "$2" ]; then
+      usage
+      exit 1
+    fi
+    version_stable=false
+    version=$1
+    build_dir=$2
+else
   usage
   exit 1
 fi
@@ -118,22 +131,24 @@ if [ "$error" = true ]; then
     exit 1
 fi
 
-# test
-#cp common_orocos.rosinstall       /tmp/common_orocos.rosinstall
-#cp common_velma.rosinstall        /tmp/common_velma.rosinstall
-#cp gazebo7_2_dart.rosinstall      /tmp/gazebo7_2_dart.rosinstall
-#cp velma_sim.rosinstall           /tmp/velma_sim.rosinstall
-#cp velma_applications.rosinstall  /tmp/velma_applications.rosinstall
-#cp velma_hw.rosinstall            /tmp/velma_hw.rosinstall
+if [ $version_stable = true ]; then
+    # test
+    #cp common_orocos.rosinstall       /tmp/common_orocos.rosinstall
+    #cp common_velma.rosinstall        /tmp/common_velma.rosinstall
+    #cp gazebo7_2_dart.rosinstall      /tmp/gazebo7_2_dart.rosinstall
+    #cp velma_sim.rosinstall           /tmp/velma_sim.rosinstall
+    #cp velma_applications.rosinstall  /tmp/velma_applications.rosinstall
+    #cp velma_hw.rosinstall            /tmp/velma_hw.rosinstall
 
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim.rosinstall           -O /tmp/velma_sim.rosinstall
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_applications.rosinstall  -O /tmp/velma_applications.rosinstall
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_hw.rosinstall            -O /tmp/velma_hw.rosinstall
-
-build_dir=$1
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim.rosinstall           -O /tmp/velma_sim.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_applications.rosinstall  -O /tmp/velma_applications.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_hw.rosinstall            -O /tmp/velma_hw.rosinstall
+else
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma/$version       -O /tmp/velma.rosinstall
+fi
 
 if [ ! -d $build_dir ]; then
   mkdir $build_dir
@@ -149,12 +164,16 @@ if [ ! -e ".rosinstall" ]; then
   wstool init
 fi
 
-wstool merge /tmp/common_orocos.rosinstall
-wstool merge /tmp/common_velma.rosinstall
-wstool merge /tmp/gazebo7_2_dart.rosinstall
-wstool merge /tmp/velma_sim.rosinstall
-wstool merge /tmp/velma_applications.rosinstall
-wstool merge /tmp/velma_hw.rosinstall
+if [ $version_stable = true ]; then
+    wstool merge /tmp/common_orocos.rosinstall
+    wstool merge /tmp/common_velma.rosinstall
+    wstool merge /tmp/gazebo7_2_dart.rosinstall
+    wstool merge /tmp/velma_sim.rosinstall
+    wstool merge /tmp/velma_applications.rosinstall
+    wstool merge /tmp/velma_hw.rosinstall
+else
+    wstool merge /tmp/velma.rosinstall
+fi
 
 #TODO: uncomment
 wstool update
