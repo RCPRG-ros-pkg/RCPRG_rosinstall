@@ -75,7 +75,7 @@ def main(argv):
 #        print r.type, r.local_name, r.commit_sha
 
     for r in repos:
-        print "- %s: {local-name: %s, uri: %s, version: '%s'}"%(r.type, r.local_name, r.uri, r.commit_sha)
+        print "- %s: {local-name: %s, uri: '%s', version: '%s'}"%(r.type, r.local_name, r.uri, r.commit_sha)
 
 #- git: {local-name: underlay_isolated/src/gazebo/dart,              uri: 'https://github.com/dartsim/dart.git', version: 'release-4.3'}
 #- hg:  {local-name: underlay_isolated/src/gazebo/ign-math,          uri: 'https://bitbucket.org/ignitionrobotics/ign-math', version: 'ignition-math2_2.4.0'}

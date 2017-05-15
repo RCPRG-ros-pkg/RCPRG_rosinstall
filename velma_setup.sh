@@ -7,7 +7,7 @@ export LANG=en_US.UTF-8
 function usage {
   echo "usage: $0 [version] directory"
   echo "If version is omitted, the newest stable version is downloaded."
-  echo "Version can be on of the following:"
+  echo "Version can be one of the following:"
   svn ls https://github.com/RCPRG-ros-pkg/RCPRG_rosinstall.git/trunk/velma
 }
 
