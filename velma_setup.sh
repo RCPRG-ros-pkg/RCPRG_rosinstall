@@ -10,11 +10,6 @@ function usage {
   svn ls https://github.com/RCPRG-ros-pkg/RCPRG_rosinstall.git/trunk/velma
   echo "latest"
   echo "latest_hw"
-  echo ""
-  echo "example 1: build workspace for version 0.1.0 with simulation only:"
-  echo "$0 v0.1.0 sim ws_velma"
-  echo "example 2: build workspace for tha latest version with simulation and hardware support:"
-  echo "$0 latest hw ws_velma"
 }
 
 function printError {
