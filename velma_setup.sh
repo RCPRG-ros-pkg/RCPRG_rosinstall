@@ -5,10 +5,16 @@ export LANG=en_US.UTF-8
 
 # useful functions
 function usage {
-  echo "usage: $0 [version] directory"
-  echo "If version is omitted, the newest stable version is downloaded."
-  echo "Version can be one of the following:"
+  echo "usage: $0 <version> directory"
+  echo "The <version> can be one of the following:"
   svn ls https://github.com/RCPRG-ros-pkg/RCPRG_rosinstall.git/trunk/velma
+  echo "latest"
+  echo "latest_hw"
+  echo ""
+  echo "example 1: build workspace for version 0.1.0 with simulation only:"
+  echo "$0 v0.1.0 sim ws_velma"
+  echo "example 2: build workspace for tha latest version with simulation and hardware support:"
+  echo "$0 latest hw ws_velma"
 }
 
 function printError {
@@ -17,25 +23,21 @@ function printError {
     echo -e "${RED}$1${NC}"
 }
 
-if [ $# -eq 1 ]; then
-    if [ -z "$1" ]; then
-      usage
-      exit 1
-    fi
-    version_stable=true
-    build_dir=$1
-elif  [ $# -eq 2 ]; then
-    if [ -z "$2" ]; then
-      usage
-      exit 1
-    fi
-    version_stable=false
-    version=$1
-    build_dir=$2
-else
-  usage
-  exit 1
+if [ $# -ne 2 ]; then
+    echo "Wrong number of arguments."
+    usage
+    exit 1
 fi
+
+version=$1
+
+if [ -z "$2" ]; then
+    echo "Wrong argument: $2"
+    usage
+    exit 1
+fi
+
+build_dir=$2
 
 distro="$ROS_DISTRO"
 
@@ -131,25 +133,6 @@ if [ "$error" = true ]; then
     exit 1
 fi
 
-if [ $version_stable = true ]; then
-    # test
-    #cp common_orocos.rosinstall       /tmp/common_orocos.rosinstall
-    #cp common_velma.rosinstall        /tmp/common_velma.rosinstall
-    #cp gazebo7_2_dart.rosinstall      /tmp/gazebo7_2_dart.rosinstall
-    #cp velma_sim.rosinstall           /tmp/velma_sim.rosinstall
-    #cp velma_applications.rosinstall  /tmp/velma_applications.rosinstall
-    #cp velma_hw.rosinstall            /tmp/velma_hw.rosinstall
-
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim.rosinstall           -O /tmp/velma_sim.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_applications.rosinstall  -O /tmp/velma_applications.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_hw.rosinstall            -O /tmp/velma_hw.rosinstall
-else
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma/$version       -O /tmp/velma.rosinstall
-fi
-
 if [ ! -d $build_dir ]; then
   mkdir $build_dir
 fi
@@ -164,7 +147,34 @@ if [ ! -e ".rosinstall" ]; then
   wstool init
 fi
 
-if [ $version_stable = true ]; then
+# test
+#cp common_orocos.rosinstall       /tmp/common_orocos.rosinstall
+#cp common_velma.rosinstall        /tmp/common_velma.rosinstall
+#cp gazebo7_2_dart.rosinstall      /tmp/gazebo7_2_dart.rosinstall
+#cp velma_sim.rosinstall           /tmp/velma_sim.rosinstall
+#cp velma_applications.rosinstall  /tmp/velma_applications.rosinstall
+#cp velma_hw.rosinstall            /tmp/velma_hw.rosinstall
+
+if [ "$version" -eq "latest" ]; then
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim.rosinstall           -O /tmp/velma_sim.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_applications.rosinstall  -O /tmp/velma_applications.rosinstall
+
+    wstool merge /tmp/common_orocos.rosinstall
+    wstool merge /tmp/common_velma.rosinstall
+    wstool merge /tmp/gazebo7_2_dart.rosinstall
+    wstool merge /tmp/velma_sim.rosinstall
+    wstool merge /tmp/velma_applications.rosinstall
+elif [ "$version" -eq "latest_hw" ]; then
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_sim.rosinstall           -O /tmp/velma_sim.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_applications.rosinstall  -O /tmp/velma_applications.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_hw.rosinstall            -O /tmp/velma_hw.rosinstall
+
     wstool merge /tmp/common_orocos.rosinstall
     wstool merge /tmp/common_velma.rosinstall
     wstool merge /tmp/gazebo7_2_dart.rosinstall
@@ -172,10 +182,16 @@ if [ $version_stable = true ]; then
     wstool merge /tmp/velma_applications.rosinstall
     wstool merge /tmp/velma_hw.rosinstall
 else
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma/$version       -O /tmp/velma.rosinstall
+
+    if [ $? -ne 0 ]; then
+        echo "Could not find version: $version"
+        exit 4
+    fi
+
     wstool merge /tmp/velma.rosinstall
 fi
 
-#TODO: uncomment
 wstool update
 
 # download package.xml for some packages
@@ -184,13 +200,15 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_sd
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml    -O underlay_isolated/src/gazebo/gazebo/package.xml
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ign-math.xml  -O underlay_isolated/src/gazebo/ign-math/package.xml
 
-# copy friComm.h
-cp -f $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
-if [ $? -eq 0 ]; then
-    echo "cp friComm.h OK"
-else
-    printError "cp friComm.h FAILED, fri dir: $FRI_DIR"
-    exit 1
+if [ -d "underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
+    # copy friComm.h
+    cp -f $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
+    if [ $? -eq 0 ]; then
+        echo "cp friComm.h OK"
+    else
+        printError "cp friComm.h FAILED, fri dir: $FRI_DIR"
+        exit 1
+    fi
 fi
 
 #

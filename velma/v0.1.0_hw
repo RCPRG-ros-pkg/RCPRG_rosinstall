@@ -25,12 +25,16 @@
 - git: {local-name: underlay/src/barrett_hand_move_action, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_move_action.git', version: 'eb70e0367edddee19ec33e871227832e872cb8d1'}
 - git: {local-name: underlay/src/barrett_hand_msgs, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git', version: '3cc738ab3d761e5f3981d9856d572149c8980b50'}
 - git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git', version: '56305f0d7d3103dd3def42d3393e5ee00a0cf096'}
+- git: {local-name: underlay/src/can_driver, uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git', version: '38c32dfff07d75b33a89a97bdb24c41dd667eaa3'}
 - git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git', version: '9b2eb9c4bfa00daaf79a6ebe8f8b6c2c4cac0be7'}
 - git: {local-name: underlay/src/collision_convex_model, uri: 'https://github.com/dseredyn/collision_convex_model.git', version: '7fbd7bb48d1b2cfd8e6d73140adaeb0b28861650'}
 - git: {local-name: underlay/src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git', version: '69be346acec0667d32f00a3592c5bc6949ebb63f'}
 - git: {local-name: underlay/src/conman, uri: 'https://github.com/RCPRG-ros-pkg/conman.git', version: '8a895a5b05f806514a6a81eb44d6e11cfab8e3a9'}
+- git: {local-name: underlay/src/ec_drivers, uri: 'https://github.com/RCPRG-ros-pkg/ec_drivers.git', version: 'e681cd02b51625c5b1dfdc020e3bf95b1fd03a74'}
+- git: {local-name: underlay/src/ec_hardware, uri: 'https://github.com/RCPRG-ros-pkg/ec_hardware.git', version: 'd241d6651a16698bef39003eb07ff104a132e39e'}
 - git: {local-name: underlay/src/hrl-kdl, uri: 'https://github.com/gt-ros-pkg/hrl-kdl.git', version: '125e8746814804b69ae1cd919276304da10e5d3c'}
 - git: {local-name: underlay/src/kin_dyn_model, uri: 'https://github.com/dseredyn/kin_dyn_model.git', version: '0d09056048cbbd2d99a278095732f2dadd428e7c'}
+- git: {local-name: underlay/src/lwr_hardware, uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git', version: '229a89be2d8d934a7bd463de432c58c18cece23e'}
 - git: {local-name: underlay/src/lwr_robot, uri: 'https://github.com/dseredyn/lwr_robot.git', version: 'a0204a2210ae08e8e3c02eea1278c9d789c0d4f3'}
 - git: {local-name: underlay/src/octomap_mapping, uri: 'https://github.com/OctoMap/octomap_mapping.git', version: '981506fc89cfd41015fdfeecb69777c77f22a900'}
 - git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'https://github.com/dseredyn/rtt_ros_integration.git', version: 'de56568b7ea3dc3188ce3ebe011de1ff4b60139f'}

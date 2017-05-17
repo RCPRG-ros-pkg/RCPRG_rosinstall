@@ -4,5 +4,6 @@
 - git: {local-name: underlay/src/can_driver,         uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git'}
 - git: {local-name: underlay/src/ec_hardware,        uri: 'https://github.com/RCPRG-ros-pkg/ec_hardware.git'}
 - git: {local-name: underlay/src/ec_drivers,         uri: 'https://github.com/RCPRG-ros-pkg/ec_drivers.git'}
-
+- git: {local-name: underlay/src/lwr_hardware,       uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git'}
+#TODO: add BarrettHand HW component
 
