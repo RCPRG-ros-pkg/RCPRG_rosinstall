@@ -70,6 +70,7 @@ installed=(
 "ros-$distro-transmission-interface"
 "ros-$distro-eigen-conversions"
 "ros-$distro-octomap"
+"ros-$distro-octomap-ros"
 )
 
 # the list of packages that should be uninstalled
