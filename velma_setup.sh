@@ -71,6 +71,7 @@ installed=(
 "ros-$distro-eigen-conversions"
 "ros-$distro-octomap"
 "ros-$distro-octomap-ros"
+"ros-$distro-joint-limits-interface"
 )
 
 # the list of packages that should be uninstalled
