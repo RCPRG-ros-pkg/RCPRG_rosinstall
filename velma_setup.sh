@@ -72,6 +72,7 @@ installed=(
 "ros-$distro-octomap"
 "ros-$distro-octomap-ros"
 "ros-$distro-joint-limits-interface"
+"ros-$distro-controller-interface"
 )
 
 # the list of packages that should be uninstalled
