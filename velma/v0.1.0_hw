@@ -18,8 +18,8 @@
 - git: {local-name: top/src/velma_core_ve_body_re_body_msgs, uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_msgs.git', version: '41d5f8dc76148535ef5f84d8f8ad8b21b352ca67'}
 - git: {local-name: top/src/velma_data_conversions, uri: 'https://github.com/dseredyn/velma_data_conversions.git', version: '5e926da6031e6848f2bedc6cb0de5b35f7f74894'}
 - git: {local-name: top/src/velma_scripts, uri: 'https://github.com/dseredyn/velma_scripts.git', version: 'd5d3c0a7b8efff88436c7d9ad9b15df8f5f80b32'}
-- git: {local-name: top/src/velma_sim, uri: 'https://github.com/dseredyn/velma_sim.git', version: 'd8a71b6935464af80a5f41b36b23367d065eb53a'}
-- git: {local-name: top/src/velma_sim_gazebo, uri: 'https://github.com/dseredyn/velma_sim_gazebo.git', version: '91a70a4c74f4005819719e0482707703e92fffec'}
+- git: {local-name: top/src/velma_sim, uri: 'https://github.com/dseredyn/velma_sim.git', version: '556fd5e1ce48a77114f57e17408625e8aca35883'}
+- git: {local-name: top/src/velma_sim_gazebo, uri: 'https://github.com/dseredyn/velma_sim_gazebo.git', version: 'bbb5c5ee80daf7ad95cba11fb79d39828335a43a'}
 - git: {local-name: top/src/velma_task_cs_ros_interface, uri: 'https://github.com/dseredyn/velma_task_cs_ros_interface.git', version: '03271de9f2b59aa184aff841fa4251d8f3ce6dbb'}
 - git: {local-name: underlay/src/barrett_hand_common, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_common.git', version: '876c48534455c8bfd701c9e9a49411ad16df7fa1'}
 - git: {local-name: underlay/src/barrett_hand_move_action, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_move_action.git', version: 'eb70e0367edddee19ec33e871227832e872cb8d1'}
@@ -49,4 +49,4 @@
 - hg: {local-name: underlay_isolated/src/gazebo/ign-math, uri: 'https://bitbucket.org/ignitionrobotics/ign-math', version: 'ac12fe30079e7ebd6c0420c967a2bde037a89f37'}
 - hg: {local-name: underlay_isolated/src/gazebo/sdformat, uri: 'https://bitbucket.org/osrf/sdformat', version: '01885813c0b9d60ff568ceca9eb09ec836795757'}
 - git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: '56f036b88162b49f0a40f33cee27fb2cce6c5fd5'}
-- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git', version: '5f568ed099eebca2eef4d9520af611c8ac419a45'}
+- git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git', version: '43d5195dc36f0b739f258ddbe50af0d4e1efe9ac'}
