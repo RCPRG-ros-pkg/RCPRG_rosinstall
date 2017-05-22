@@ -9,22 +9,20 @@
 - git: {local-name: underlay/src/velma_controllers,             uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git', version: 'safe-controller'}
 - git: {local-name: underlay/src/velma_robot,                   uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git', version: 'one_ve'}
 # Normal Workspace
-- git: {local-name: top/src/velma_common,                       uri: 'https://github.com/dseredyn/velma_common.git'}
-- git: {local-name: top/src/common_interfaces,                  uri: 'https://github.com/dseredyn/common_interfaces.git'}
+- git: {local-name: top/src/velma_common,                       uri: 'https://github.com/dseredyn/velma_common.git', version: 'stable'}
+- git: {local-name: top/src/common_interfaces,                  uri: 'https://github.com/dseredyn/common_interfaces.git', version: 'stable'}
 - git: {local-name: top/src/shm_comm,                           uri: 'https://github.com/dseredyn/shm_comm.git', version: 'catkin'}
-- git: {local-name: top/src/common_behavior,                    uri: 'https://github.com/dseredyn/common_behavior.git', version: 'states'}
-- git: {local-name: top/src/common_core_cs_components,          uri: 'https://github.com/dseredyn/common_core_cs_components.git'}
-- git: {local-name: top/src/velma_core_ve_body,                 uri: 'https://github.com/dseredyn/velma_core_ve_body.git', version: 'states'}
-- git: {local-name: top/src/velma_core_cs,                      uri: 'https://github.com/dseredyn/velma_core_cs.git', version: 'states'}
-- git: {local-name: top/src/velma_core_cs_task_cs_msgs,         uri: 'https://github.com/dseredyn/velma_core_cs_task_cs_msgs.git', version: 'one_ve'}
-- git: {local-name: top/src/velma_core_cs_ve_body_msgs,         uri: 'https://github.com/dseredyn/velma_core_cs_ve_body_msgs.git', version: 'one_ve'}
-- git: {local-name: top/src/velma_core_ve_body_re_body_msgs,    uri: 'https://github.com/dseredyn/velma_core_ve_body_re_body_msgs.git', version: 'one_ve'}
-- git: {local-name: top/src/velma_task_cs_ros_interface,        uri: 'https://github.com/dseredyn/velma_task_cs_ros_interface.git', version: 'states'}
-- git: {local-name: top/src/subsystem_deployer,                 uri: 'https://github.com/dseredyn/subsystem_deployer.git'}
-- git: {local-name: top/src/rtt_subsystem_ports,                uri: 'https://github.com/dseredyn/rtt_subsystem_ports.git'}
-- git: {local-name: top/src/velma_data_conversions,             uri: 'https://github.com/dseredyn/velma_data_conversions.git', version: 'one_ve'}
-- git: {local-name: top/src/rqt_agent,                          uri: 'https://github.com/dseredyn/rqt_agent.git'}
-- git: {local-name: top/src/subsystem_msgs,                     uri: 'https://github.com/dseredyn/subsystem_msgs.git'}
-- git: {local-name: top/src/rtt_dot_service,                    uri: 'https://github.com/kuka-isir/rtt_dot_service.git'}
-- git: {local-name: top/src/velma_sim,                          uri: 'https://github.com/dseredyn/velma_sim.git'}
+- git: {local-name: top/src/common_behavior,                    uri: 'https://github.com/dseredyn/common_behavior.git', version: 'stable'}
+- git: {local-name: top/src/common_core_cs_components,          uri: 'https://github.com/dseredyn/common_core_cs_components.git', version: 'stable'}
+- git: {local-name: top/src/velma_core_ve_body,                 uri: 'https://github.com/dseredyn/velma_core_ve_body.git', version: 'stable'}
+- git: {local-name: top/src/velma_core_cs,                      uri: 'https://github.com/dseredyn/velma_core_cs.git', version: 'stable'}
+- git: {local-name: top/src/velma_core_cs_task_cs_msgs,         uri: 'https://github.com/dseredyn/velma_core_cs_task_cs_msgs.git', version: 'stable'}
+- git: {local-name: top/src/velma_core_cs_ve_body_msgs,         uri: 'https://github.com/dseredyn/velma_core_cs_ve_body_msgs.git', version: 'stable'}
+- git: {local-name: top/src/velma_task_cs_ros_interface,        uri: 'https://github.com/dseredyn/velma_task_cs_ros_interface.git', version: 'stable'}
+- git: {local-name: top/src/subsystem_deployer,                 uri: 'https://github.com/dseredyn/subsystem_deployer.git', version: 'stable'}
+- git: {local-name: top/src/rtt_subsystem_ports,                uri: 'https://github.com/dseredyn/rtt_subsystem_ports.git', version: 'stable'}
+- git: {local-name: top/src/velma_data_conversions,             uri: 'https://github.com/dseredyn/velma_data_conversions.git', version: 'stable'}
+- git: {local-name: top/src/rqt_agent,                          uri: 'https://github.com/dseredyn/rqt_agent.git', version: 'stable'}
+- git: {local-name: top/src/subsystem_msgs,                     uri: 'https://github.com/dseredyn/subsystem_msgs.git', version: 'stable'}
+- git: {local-name: top/src/velma_sim,                          uri: 'https://github.com/dseredyn/velma_sim.git', version: 'stable'}
 
