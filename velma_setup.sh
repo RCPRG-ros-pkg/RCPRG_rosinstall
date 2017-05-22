@@ -24,7 +24,7 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
-version=$1
+version="$1"
 
 if [ -z "$2" ]; then
     echo "Wrong argument: $2"
@@ -154,7 +154,7 @@ fi
 #cp velma_applications.rosinstall  /tmp/velma_applications.rosinstall
 #cp velma_hw.rosinstall            /tmp/velma_hw.rosinstall
 
-if [ "$version" -eq "latest" ]; then
+if [ "$version" == "latest" ]; then
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
@@ -166,7 +166,7 @@ if [ "$version" -eq "latest" ]; then
     wstool merge /tmp/gazebo7_2_dart.rosinstall
     wstool merge /tmp/velma_sim.rosinstall
     wstool merge /tmp/velma_applications.rosinstall
-elif [ "$version" -eq "latest_hw" ]; then
+elif [ "$version" == "latest_hw" ]; then
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
