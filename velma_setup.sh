@@ -77,6 +77,8 @@ installed=(
 "ros-$distro-controller-interface"
 "ros-$distro-ompl"
 "ros-$distro-moveit-planners"
+"ros-$distro-moveit-planners-ompl"
+"ros-$distro-moveit-ros-planning-interface"
 )
 
 # the list of packages that should be uninstalled
