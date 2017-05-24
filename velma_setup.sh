@@ -43,6 +43,8 @@ fi
 
 # the list of packages that should be installed
 installed=(
+"python-wstool"
+"ruby-dev"
 "libprotobuf-dev"
 "libprotoc-dev"
 "protobuf-compiler"
