@@ -25,4 +25,5 @@
 - git: {local-name: top/src/rqt_agent,                          uri: 'https://github.com/dseredyn/rqt_agent.git', version: 'stable'}
 - git: {local-name: top/src/subsystem_msgs,                     uri: 'https://github.com/dseredyn/subsystem_msgs.git', version: 'stable'}
 - git: {local-name: top/src/velma_sim,                          uri: 'https://github.com/dseredyn/velma_sim.git', version: 'stable'}
+- git: {local-name: top/src/planner,                            uri: 'https://github.com/dseredyn/planner.git', version: 'stable'}
 

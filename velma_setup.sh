@@ -74,6 +74,7 @@ installed=(
 "ros-$distro-joint-limits-interface"
 "ros-$distro-controller-interface"
 "ros-$distro-ompl"
+"ros-$distro-moveit-planners"
 )
 
 # the list of packages that should be uninstalled
