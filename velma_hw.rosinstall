@@ -1,9 +1,10 @@
 # repositories for Velma robot: real hardware
 # requires: common_orocos.rosinstall, common_velma.rosinstall
 # Underlay Workspace
-- git: {local-name: underlay/src/can_driver,         uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git'}
-- git: {local-name: underlay/src/ec_hardware,        uri: 'https://github.com/RCPRG-ros-pkg/ec_hardware.git'}
-- git: {local-name: underlay/src/ec_drivers,         uri: 'https://github.com/RCPRG-ros-pkg/ec_drivers.git'}
-- git: {local-name: underlay/src/lwr_hardware,       uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git'}
-#TODO: add BarrettHand HW component
+- git: {local-name: underlay/src/lwr_hardware, uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git', version: 'hydro-devel'}
+- git: {local-name: underlay/src/cifx_driver, uri: 'https://github.com/RCPRG-ros-pkg/cifx_driver.git', version: 'catkin'}
+- git: {local-name: underlay/src/can_driver, uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git', version: 'stable-velma'}
+- git: {local-name: top/src/sockets_can_queue, uri: 'https://github.com/dseredyn/sockets_can_queue.git', version: 'stable'}
+- git: {local-name: top/src/velma_ec_driver, uri: 'https://github.com/dseredyn/velma_ec_driver.git', version: 'stable'}
+
 

@@ -2,14 +2,15 @@
 # requires: common_orocos.rosinstall, common_velma.rosinstall, (velma_hw.rosinstall or velma_sim.rosinstall)
 # Underlay Workspace
 ##- git: {local-name: underlay/src/pointgrey_camera_driver,     uri: 'https://github.com/ros-drivers/pointgrey_camera_driver.git'}
-- git: {local-name: underlay/src/collision_convex_model,        uri: 'https://github.com/dseredyn/collision_convex_model.git'}
-- git: {local-name: underlay/src/kin_dyn_model,                 uri: 'https://github.com/dseredyn/kin_dyn_model.git'}
-- git: {local-name: underlay/src/planer_utils,                  uri: 'https://github.com/dseredyn/planer_utils.git'}
-- git: {local-name: underlay/src/octomap_mapping,               uri: 'https://github.com/OctoMap/octomap_mapping.git'}
-# Simulation Workspace
-- git: {local-name: top/src/pointcloud_utils,           uri: 'https://github.com/dseredyn/pointcloud_utils.git'}
-- git: {local-name: top/src/pointcloud_utils_msgs,      uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git'}
-- git: {local-name: top/src/velma_scripts,              uri: 'https://github.com/dseredyn/velma_scripts.git'}
+- git: {local-name: underlay/src/octomap_mapping, uri: 'https://github.com/OctoMap/octomap_mapping.git', version: 'jade-devel'}
+- git: {local-name: top/src/planner, uri: 'https://github.com/dseredyn/planner.git', version: 'stable'}
+- git: {local-name: top/src/rqt_agent, uri: 'https://github.com/dseredyn/rqt_agent.git', version: 'stable'}
+- git: {local-name: top/src/velma_scripts, uri: 'https://github.com/dseredyn/velma_scripts.git', version: 'master'}
+- git: {local-name: top/src/velma_common, uri: 'https://github.com/dseredyn/velma_common.git', version: 'stable'}
+- git: {local-name: top/src/pointcloud_utils_msgs, uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git', version: 'master'}
+- git: {local-name: top/src/pointcloud_utils, uri: 'https://github.com/dseredyn/pointcloud_utils.git', version: 'master'}
+- git: {local-name: top/src/rtt_malloc_hook, uri: 'https://github.com/dseredyn/rtt_malloc_hook.git', version: 'master'}
+
 
 
 

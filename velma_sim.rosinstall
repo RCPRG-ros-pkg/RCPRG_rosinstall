@@ -1,6 +1,6 @@
 # repositories for Velma robot: gazebo simulation
 # requires: common_orocos.rosinstall, common_velma.rosinstall
 # Simulation Workspace
-- git: {local-name: top/src/rtt_gazebo,                     uri: 'https://github.com/dseredyn/rtt_gazebo.git'}
-- git: {local-name: top/src/velma_sim_gazebo,               uri: 'https://github.com/dseredyn/velma_sim_gazebo.git', version: 'stable'}
+- git: {local-name: top/src/rtt_gazebo, uri: 'https://github.com/dseredyn/rtt_gazebo.git', version: 'master'}
+- git: {local-name: top/src/velma_sim_gazebo, uri: 'https://github.com/dseredyn/velma_sim_gazebo.git', version: 'stable'}
 
