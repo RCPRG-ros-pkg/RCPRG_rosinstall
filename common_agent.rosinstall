@@ -1,0 +1,11 @@
+- git: {local-name: underlay/src/rtt_malloc_hook, uri: 'https://github.com/dseredyn/rtt_malloc_hook.git', version: 'master'}
+- git: {local-name: underlay/src/rtt_subsystem_ports, uri: 'https://github.com/dseredyn/rtt_subsystem_ports.git', version: 'stable'}
+- git: {local-name: underlay/src/rtt_subsystem, uri: 'https://github.com/dseredyn/rtt_subsystem.git', version: 'stable'}
+- git: {local-name: underlay/src/common_interfaces, uri: 'https://github.com/dseredyn/common_interfaces.git', version: 'stable'}
+- git: {local-name: underlay/src/shm_comm, uri: 'https://github.com/dseredyn/shm_comm.git', version: 'catkin'}
+- git: {local-name: top/src/common_behavior, uri: 'https://github.com/dseredyn/common_behavior.git', version: 'stable'}
+- git: {local-name: top/src/common_core_cs_components, uri: 'https://github.com/dseredyn/common_core_cs_components.git', version: 'stable'}
+- git: {local-name: top/src/subsystem_deployer, uri: 'https://github.com/dseredyn/subsystem_deployer.git', version: 'stable'}
+- git: {local-name: top/src/rqt_agent, uri: 'https://github.com/dseredyn/rqt_agent.git', version: 'stable'}
+- git: {local-name: top/src/subsystem_msgs, uri: 'https://github.com/dseredyn/subsystem_msgs.git', version: 'stable'}
+

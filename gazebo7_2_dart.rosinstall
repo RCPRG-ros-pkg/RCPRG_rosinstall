@@ -1,6 +1,7 @@
-# Isolated Workspace
-- git: {local-name: underlay_isolated/src/gazebo/dart,              uri: 'https://github.com/dartsim/dart.git', version: 'release-4.3'}
-- hg:  {local-name: underlay_isolated/src/gazebo/ign-math,          uri: 'https://bitbucket.org/ignitionrobotics/ign-math', version: 'ignition-math2_2.4.0'}
-- hg:  {local-name: underlay_isolated/src/gazebo/sdformat,          uri: 'https://bitbucket.org/osrf/sdformat', version: 'sdformat4_4.1.0'}
-- hg:  {local-name: underlay_isolated/src/gazebo/gazebo,            uri: 'https://bitbucket.org/osrf/gazebo', version: 'gazebo7_7.2.0'}
-- git: {local-name: underlay_isolated/src/gazebo/gazebo_ros_pkgs,   uri: 'https://github.com/dseredyn/gazebo_ros_pkgs.git', version: 'kinetic-devel'}
+- git: {local-name: underlay_isolated/src/gazebo/dart, uri: 'https://github.com/dartsim/dart.git', version: 'release-4.3'}
+- hg: {local-name: underlay_isolated/src/gazebo/gazebo, uri: 'https://bitbucket.org/osrf/gazebo', version: 'gazebo7_7.2.0'}
+- git: {local-name: underlay_isolated/src/gazebo/gazebo_ros_pkgs, uri: 'https://github.com/dseredyn/gazebo_ros_pkgs.git', version: 'kinetic-devel'}
+- hg: {local-name: underlay_isolated/src/gazebo/ign-math, uri: 'https://bitbucket.org/ignitionrobotics/ign-math', version: 'ignition-math2_2.4.0'}
+- hg: {local-name: underlay_isolated/src/gazebo/sdformat, uri: 'https://bitbucket.org/osrf/sdformat', version: 'sdformat4_4.1.0'}
+- git: {local-name: top/src/rtt_gazebo, uri: 'https://github.com/dseredyn/rtt_gazebo.git', version: 'master'}
+

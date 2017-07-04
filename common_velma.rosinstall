@@ -1,29 +1,20 @@
-# common repositories for Velma robot: gazebo simulation and real hardware
-# requires: common_orocos.rosinstall
-# Underlay Workspace
-- git: {local-name: underlay/src/barrett_hand_common,           uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_common.git'}
-- git: {local-name: underlay/src/barrett_hand_move_action,      uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_move_action.git', version: 'safe-controller'}
-- git: {local-name: underlay/src/barrett_hand_msgs,             uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git'}
-- git: {local-name: underlay/src/barrett_hand_robot,            uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git'}
-- git: {local-name: underlay/src/lwr_robot,                     uri: 'https://github.com/dseredyn/lwr_robot.git'}
-- git: {local-name: underlay/src/velma_controllers,             uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git', version: 'safe-controller'}
-- git: {local-name: underlay/src/velma_robot,                   uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git', version: 'one_ve'}
-# Normal Workspace
-- git: {local-name: top/src/velma_common,                       uri: 'https://github.com/dseredyn/velma_common.git', version: 'stable'}
-- git: {local-name: top/src/common_interfaces,                  uri: 'https://github.com/dseredyn/common_interfaces.git', version: 'stable'}
-- git: {local-name: top/src/shm_comm,                           uri: 'https://github.com/dseredyn/shm_comm.git', version: 'catkin'}
-- git: {local-name: top/src/common_behavior,                    uri: 'https://github.com/dseredyn/common_behavior.git', version: 'stable'}
-- git: {local-name: top/src/common_core_cs_components,          uri: 'https://github.com/dseredyn/common_core_cs_components.git', version: 'stable'}
-- git: {local-name: top/src/velma_core_ve_body,                 uri: 'https://github.com/dseredyn/velma_core_ve_body.git', version: 'stable'}
-- git: {local-name: top/src/velma_core_cs,                      uri: 'https://github.com/dseredyn/velma_core_cs.git', version: 'stable'}
-- git: {local-name: top/src/velma_core_cs_task_cs_msgs,         uri: 'https://github.com/dseredyn/velma_core_cs_task_cs_msgs.git', version: 'stable'}
-- git: {local-name: top/src/velma_core_cs_ve_body_msgs,         uri: 'https://github.com/dseredyn/velma_core_cs_ve_body_msgs.git', version: 'stable'}
-- git: {local-name: top/src/velma_task_cs_ros_interface,        uri: 'https://github.com/dseredyn/velma_task_cs_ros_interface.git', version: 'stable'}
-- git: {local-name: top/src/subsystem_deployer,                 uri: 'https://github.com/dseredyn/subsystem_deployer.git', version: 'stable'}
-- git: {local-name: top/src/rtt_subsystem_ports,                uri: 'https://github.com/dseredyn/rtt_subsystem_ports.git', version: 'stable'}
-- git: {local-name: top/src/velma_data_conversions,             uri: 'https://github.com/dseredyn/velma_data_conversions.git', version: 'stable'}
-- git: {local-name: top/src/rqt_agent,                          uri: 'https://github.com/dseredyn/rqt_agent.git', version: 'stable'}
-- git: {local-name: top/src/subsystem_msgs,                     uri: 'https://github.com/dseredyn/subsystem_msgs.git', version: 'stable'}
-- git: {local-name: top/src/velma_sim,                          uri: 'https://github.com/dseredyn/velma_sim.git', version: 'stable'}
-- git: {local-name: top/src/planner,                            uri: 'https://github.com/dseredyn/planner.git', version: 'stable'}
+- git: {local-name: underlay/src/octomap_mapping, uri: 'https://github.com/OctoMap/octomap_mapping.git', version: 'jade-devel'}
+- git: {local-name: underlay/src/collision_convex_model, uri: 'https://github.com/dseredyn/collision_convex_model.git', version: 'master'}
+- git: {local-name: underlay/src/planer_utils, uri: 'https://github.com/dseredyn/planer_utils.git', version: 'master'}
+- git: {local-name: underlay/src/kin_dyn_model, uri: 'https://github.com/dseredyn/kin_dyn_model.git', version: 'master'}
+- git: {local-name: underlay/src/barrett_hand_move_action, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_move_action.git', version: 'safe-controller'}
+- git: {local-name: underlay/src/barrett_hand_tactile, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_tactile.git', version: 'master'}
+- git: {local-name: underlay/src/barrett_hand_msgs, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git', version: 'master'}
+- git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git', version: 'master'}
+- git: {local-name: underlay/src/lwr_robot, uri: 'https://github.com/dseredyn/lwr_robot.git', version: 'hydro-devel'}
+- git: {local-name: underlay/src/velma_controllers, uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git', version: 'safe-controller'}
+- git: {local-name: underlay/src/velma_robot, uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git', version: 'sim_re'}
+- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git', version: 'stable'}
+- git: {local-name: top/src/pointcloud_utils_msgs, uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git', version: 'master'}
+- git: {local-name: top/src/pointcloud_utils, uri: 'https://github.com/dseredyn/pointcloud_utils.git', version: 'master'}
+- git: {local-name: top/src/velma_system, uri: 'https://github.com/dseredyn/velma_system.git', version: 'stable'}
+- git: {local-name: top/src/planner, uri: 'https://github.com/dseredyn/planner.git', version: 'stable'}
+- git: {local-name: top/src/velma_scripts, uri: 'https://github.com/dseredyn/velma_scripts.git', version: 'master'}
+- git: {local-name: top/src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git', version: 'stable'}
+- git: {local-name: top/src/barrett_hand_system, uri: 'https://github.com/dseredyn/barrett_hand_system.git', version: 'master'}
 
