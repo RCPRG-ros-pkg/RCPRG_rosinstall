@@ -21,7 +21,7 @@
 - git: {local-name: top/src/velma_sim, uri: 'https://github.com/dseredyn/velma_sim.git', version: '556fd5e1ce48a77114f57e17408625e8aca35883'}
 - git: {local-name: top/src/velma_sim_gazebo, uri: 'https://github.com/dseredyn/velma_sim_gazebo.git', version: 'bbb5c5ee80daf7ad95cba11fb79d39828335a43a'}
 - git: {local-name: top/src/velma_task_cs_ros_interface, uri: 'https://github.com/dseredyn/velma_task_cs_ros_interface.git', version: '03271de9f2b59aa184aff841fa4251d8f3ce6dbb'}
-- git: {local-name: underlay/src/barrett_hand_common, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_common.git', version: '876c48534455c8bfd701c9e9a49411ad16df7fa1'}
+- git: {local-name: underlay/src/barrett_hand_tactile, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_tactile.git', version: '876c48534455c8bfd701c9e9a49411ad16df7fa1'}
 - git: {local-name: underlay/src/barrett_hand_move_action, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_move_action.git', version: 'eb70e0367edddee19ec33e871227832e872cb8d1'}
 - git: {local-name: underlay/src/barrett_hand_msgs, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_msgs.git', version: '3cc738ab3d761e5f3981d9856d572149c8980b50'}
 - git: {local-name: underlay/src/barrett_hand_robot, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand_robot.git', version: '56305f0d7d3103dd3def42d3393e5ee00a0cf096'}
