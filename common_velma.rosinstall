@@ -12,9 +12,10 @@
 - git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git', version: 'stable'}
 - git: {local-name: top/src/pointcloud_utils_msgs, uri: 'https://github.com/dseredyn/pointcloud_utils_msgs.git', version: 'master'}
 - git: {local-name: top/src/pointcloud_utils, uri: 'https://github.com/dseredyn/pointcloud_utils.git', version: 'master'}
-- git: {local-name: top/src/velma_system, uri: 'https://github.com/dseredyn/velma_system.git', version: 'stable'}
+- git: {local-name: top/src/velma_system, uri: 'https://github.com/RCPRG-ros-pkg/velma_system.git', version: 'stable'}
 - git: {local-name: top/src/planner, uri: 'https://github.com/dseredyn/planner.git', version: 'stable'}
 - git: {local-name: top/src/velma_scripts, uri: 'https://github.com/dseredyn/velma_scripts.git', version: 'master'}
 - git: {local-name: top/src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git', version: 'stable'}
 - git: {local-name: top/src/barrett_hand_system, uri: 'https://github.com/dseredyn/barrett_hand_system.git', version: 'master'}
+- git: {local-name: top/src/motor_homing_action, uri: 'https://github.com/dseredyn/motor_homing_action.git', version: 'stable'}
 
