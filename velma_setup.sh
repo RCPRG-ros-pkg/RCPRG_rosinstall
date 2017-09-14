@@ -79,6 +79,7 @@ installed=(
 "ros-$distro-moveit-planners"
 "ros-$distro-moveit-planners-ompl"
 "ros-$distro-moveit-ros-planning-interface"
+"unzip"
 )
 
 # the list of packages that should be uninstalled
@@ -162,12 +163,21 @@ if [ "$version" == "latest" ]; then
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_agent.rosinstall        -O /tmp/common_agent.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+    #wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+
 
     wstool merge /tmp/common_orocos.rosinstall
     wstool merge /tmp/common_agent.rosinstall
     wstool merge /tmp/common_velma.rosinstall
     wstool merge /tmp/gazebo7_2_dart.rosinstall
+    
+    #not working hg repo fix
+    wget https://bitbucket.org/osrf/gazebo/get/gazebo7_7.2.0.zip                                                -O /tmp/gazebo7_2.zip
+    rm -rf underlay_isolated/src/gazebo
+    mkdir -p underlay_isolated/src/gazebo
+    unzip -o -d underlay_isolated/src/gazebo /tmp/gazebo7_2.zip
+    mv -v underlay_isolated/src/gazebo/osrf-gazebo-baa1cf34ff0e underlay_isolated/src/gazebo/gazebo
+
 elif [ "$version" == "latest_hw" ]; then
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_agent.rosinstall        -O /tmp/common_agent.rosinstall
