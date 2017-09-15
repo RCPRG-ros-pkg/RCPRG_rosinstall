@@ -211,6 +211,12 @@ if [ -d "underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
 fi
 
 #
+# patch for gazebo -> set fsaa to 0
+#
+
+wget https://raw.githubusercontent.com/dudekw/gazebo-fsaa-patch/master/Camera.cc            -O $WORKSPACE_ROOT_DIR/underlay_isolated/src/gazebo/gazebo/gazebo/rendering/Camera.cc
+
+#
 # underlay_isolated
 #
 cd $WORKSPACE_ROOT_DIR/underlay_isolated
