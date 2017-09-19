@@ -217,9 +217,9 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_sd
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml    -O underlay_isolated/src/gazebo/gazebo/package.xml
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ign-math.xml  -O underlay_isolated/src/gazebo/ign-math/package.xml
 
-if [ -d "underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
+if [ -d "top/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
     # copy friComm.h
-    cp -f $FRI_DIR/friComm.h underlay/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
+    cp -f $FRI_DIR/friComm.h top/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/
     if [ $? -eq 0 ]; then
         echo "cp friComm.h OK"
     else
