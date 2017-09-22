@@ -52,7 +52,8 @@ chmod 755 /tmp/setup_fabric.sh
 chmod 755 /tmp/setup_velma_os.sh
 chmod 755 /tmp/setup_elektron.sh
 
-if [ -n "$install_dir" ]; then
+if [ -n $install_dir ]; then
+    echo "do not install"
     cd "$script_dir"
     bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type"
     if [ $? -ne 0 ]; then
@@ -74,6 +75,7 @@ if [ -n "$install_dir" ]; then
         exit 1
     fi
 else
+    echo "install to $install_dir"
     cd "$script_dir"
     bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type" -i "$install_dir/ws_gazebo_orocos"
     if [ $? -ne 0 ]; then

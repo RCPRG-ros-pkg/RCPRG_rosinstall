@@ -179,7 +179,7 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ig
 
 wget https://raw.githubusercontent.com/dudekw/gazebo-fsaa-patch/master/Camera.cc            -O $WORKSPACE_ROOT_DIR/src/gazebo/gazebo/gazebo/rendering/Camera.cc
 
-if [ -n "$install_dir" ]; then
+if [ -n $install_dir ]; then
     catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE="$build_type" -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
 else
     catkin config -i "$install_dir/install" --install --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE="$build_type" -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False

@@ -103,7 +103,7 @@ wstool update
 cd $WORKSPACE_ROOT_DIR/top/src/elektron
 git submodule deinit elektron_apps/elektron-rapps netusb_camera_driver rapp-api-elektron
 
-if [ -n "$install_dir" ]; then
+if [ -n $install_dir ]; then
     catkin config --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
 else
     catkin config -i "$install_dir/install" --install --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
