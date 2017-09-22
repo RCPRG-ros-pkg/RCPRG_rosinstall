@@ -41,8 +41,6 @@ FRI_DIR=`pwd`
 
 cd $build_dir
 
-WORKSPACE_ROOT_DIR=`pwd`
-
 if [ ! -e ".rosinstall" ]; then
   wstool init
 fi
@@ -52,6 +50,17 @@ wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/com
 wstool merge /tmp/common_velma.rosinstall
 
 wstool update
+
+if [ -d "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
+    # copy friComm.h
+    cp -f "$FRI_DIR/friComm.h" "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/"
+    if [ $? -eq 0 ]; then
+        echo "cp friComm.h OK"
+    else
+        printError "cp friComm.h FAILED, fri dir: $FRI_DIR"
+        exit 1
+    fi
+fi
 
 if [ -n "$install_dir" ]; then
     catkin config -i "$install_dir/install" --install --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
