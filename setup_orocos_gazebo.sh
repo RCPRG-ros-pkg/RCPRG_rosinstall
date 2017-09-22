@@ -4,7 +4,7 @@ export LANG=en_US.UTF-8
 
 # useful functions
 function usage {
-  echo "usage: $0 build_directory [-i install_directory]"
+  echo "usage: $0 build_directory build_type [-i install_directory]"
 }
 
 function printError {
@@ -15,9 +15,9 @@ function printError {
 
 install_dir=""
 
-if [ $# -eq 3 ] && [ "$2" == "-i" ]; then
-    install_dir=$2
-elif [ $# -ne 1 ]; then
+if [ $# -eq 4 ] && [ "$3" == "-i" ]; then
+    install_dir=$4
+elif [ $# -ne 2 ]; then
     echo "Wrong number of arguments."
     usage
     exit 1
@@ -29,7 +29,8 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-build_dir=$1
+build_dir="$1"
+build_type="$2"
 
 distro="$ROS_DISTRO"
 
@@ -136,8 +137,6 @@ if [ ! -d $build_dir ]; then
   mkdir $build_dir
 fi
 
-FRI_DIR=`pwd`
-
 cd $build_dir
 
 WORKSPACE_ROOT_DIR=`pwd`
@@ -181,9 +180,9 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ig
 wget https://raw.githubusercontent.com/dudekw/gazebo-fsaa-patch/master/Camera.cc            -O $WORKSPACE_ROOT_DIR/src/gazebo/gazebo/gazebo/rendering/Camera.cc
 
 if [ -n "$install_dir" ]; then
-    catkin config -i "$install_dir/install" --install --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=Release -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
+    catkin config -i "$install_dir/install" --install --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE="$build_type" -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
 else
-    catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=Release -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
+    catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE="$build_type" -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
 fi
 catkin build
 if [ $? -eq 0 ]; then
