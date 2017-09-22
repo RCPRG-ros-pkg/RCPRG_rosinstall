@@ -18,4 +18,5 @@
 - git: {local-name: src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git', version: 'stable'}
 - git: {local-name: src/barrett_hand_system, uri: 'https://github.com/dseredyn/barrett_hand_system.git', version: 'stable'}
 - git: {local-name: src/motor_homing_action, uri: 'https://github.com/dseredyn/motor_homing_action.git', version: 'stable'}
+- git: {local-name: src/common_core_cs_components,  uri: 'https://github.com/dseredyn/common_core_cs_components.git', version: 'stable'}
 
