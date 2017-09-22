@@ -2,4 +2,8 @@
 - git: {local-name: underlay/src/agent_orocos,      uri: 'https://github.com/RCPRG-ros-pkg/agent_orocos.git', version: 'stable'}
 - git: {local-name: underlay/src/shm_comm, uri: 'https://github.com/dseredyn/shm_comm.git', version: 'catkin'}
 - git: {local-name: top/src/common_core_cs_components, uri: 'https://github.com/dseredyn/common_core_cs_components.git', version: 'stable'}
+- git: {local-name: underlay/src/orocos_controllers, uri: 'https://github.com/RCPRG-ros-pkg/orocos_controllers.git', version: 'safe-controller'}
+- git: {local-name: underlay/src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git', version: 'safe-controller'}
+- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git', version: 'stable'}
+- git: {local-name: underlay/src/conman, uri: 'https://github.com/RCPRG-ros-pkg/conman.git', version: 'safe-controller'}
 

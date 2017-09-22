@@ -1,10 +1,6 @@
-- git: {local-name: underlay/src/hrl-kdl, uri: 'https://github.com/gt-ros-pkg/hrl-kdl.git', version: 'indigo-devel'}
-- git: {local-name: underlay/src/orocos_controllers, uri: 'https://github.com/RCPRG-ros-pkg/orocos_controllers.git', version: 'safe-controller'}
-- git: {local-name: underlay/src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git', version: 'safe-controller'}
-- git: {local-name: underlay/src/orocos_tools, uri: 'https://github.com/RCPRG-ros-pkg/orocos_tools.git', version: 'stable'}
-- git: {local-name: underlay/src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git', version: 'stable'}
-- git: {local-name: underlay/src/conman, uri: 'https://github.com/RCPRG-ros-pkg/conman.git', version: 'safe-controller'}
-- git: {local-name: underlay/src/orocos/rtt_ros_integration, uri: 'https://github.com/dseredyn/rtt_ros_integration.git', version: 'safe-controller'}
+- git: {local-name: underlay_isolated/src/hrl-kdl, uri: 'https://github.com/gt-ros-pkg/hrl-kdl.git', version: 'indigo-devel'}
+- git: {local-name: underlay_isolated/src/orocos_tools, uri: 'https://github.com/RCPRG-ros-pkg/orocos_tools.git', version: 'stable'}
+- git: {local-name: underlay_isolated/src/orocos/rtt_ros_integration, uri: 'https://github.com/dseredyn/rtt_ros_integration.git', version: 'safe-controller'}
 - git: {local-name: underlay_isolated/src/orocos/orocos_toolchain, uri: 'https://github.com/orocos-toolchain/orocos_toolchain.git', version: 'toolchain-2.9'}
 - git: {local-name: underlay_isolated/src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git', version: 'toolchain-2.9'}
 
