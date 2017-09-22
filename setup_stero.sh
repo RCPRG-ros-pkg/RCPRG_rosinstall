@@ -1,11 +1,10 @@
 #!/bin/bash
 
-
 export LANG=en_US.UTF-8
 
 # useful functions
 function usage {
-  echo "usage: $0 directory"
+  echo "usage: $0 build_directory [-i install_directory]"
 }
 
 function printError {
@@ -14,7 +13,11 @@ function printError {
     echo -e "${RED}$1${NC}"
 }
 
-if [ $# -ne 1 ]; then
+install_dir=""
+
+if [ $# -eq 3 ] && [ "$2" == "-i" ]; then
+    install_dir=$2
+elif [ $# -ne 1 ]; then
     echo "Wrong number of arguments."
     usage
     exit 1
@@ -202,11 +205,19 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ig
 
 wget https://raw.githubusercontent.com/dudekw/gazebo-fsaa-patch/master/Camera.cc            -O $WORKSPACE_ROOT_DIR/underlay_isolated/src/gazebo/gazebo/gazebo/rendering/Camera.cc
 
+# unregister submodules for hw camera support and for Rapp
+cd $WORKSPACE_ROOT_DIR/top/src/elektron
+git submodule deinit elektron_apps/elektron-rapps netusb_camera_driver rapp-api-elektron
+
 #
 # underlay_isolated
 #
 cd $WORKSPACE_ROOT_DIR/underlay_isolated
-catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=Release -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
+if [ -n "$install_dir" ]; then
+    catkin config -i "$install_dir/underlay_isolated/install" --install --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=Release -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
+else
+    catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE=Release -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
+fi
 catkin build
 if [ $? -eq 0 ]; then
     echo "underlay_isolated build OK"
@@ -219,7 +230,11 @@ fi
 # underlay
 #
 cd $WORKSPACE_ROOT_DIR/underlay
-catkin config --extend ../underlay_isolated/devel/ --cmake-args -DCMAKE_BUILD_TYPE=Release -DCATKIN_ENABLE_TESTING=OFF
+if [ -n "$install_dir" ]; then
+    catkin config -i "$install_dir/underlay/install" --install --extend "$install_dir/underlay_isolated/install" --cmake-args -DCMAKE_BUILD_TYPE=Release -DCATKIN_ENABLE_TESTING=OFF
+else
+    catkin config --extend ../underlay_isolated/devel/ --cmake-args -DCMAKE_BUILD_TYPE=Release -DCATKIN_ENABLE_TESTING=OFF
+fi
 catkin build
 if [ $? -eq 0 ]; then
     echo "underlay build OK"
@@ -232,6 +247,10 @@ fi
 # top
 #
 cd $WORKSPACE_ROOT_DIR/top
-catkin config --extend ../underlay/devel/ --cmake-args -DCMAKE_BUILD_TYPE=Release -DCATKIN_ENABLE_TESTING=OFF
+if [ -n "$install_dir" ]; then
+    catkin config -i "$install_dir/top/install" --install --extend "$install_dir/underlay/install" --cmake-args -DCMAKE_BUILD_TYPE=Release -DCATKIN_ENABLE_TESTING=OFF
+else
+    catkin config --extend ../underlay/devel/ --cmake-args -DCMAKE_BUILD_TYPE=Release -DCATKIN_ENABLE_TESTING=OFF
+fi
 catkin build
 
