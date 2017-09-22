@@ -1,2 +1,2 @@
-- git: {local-name: top/src/elektron, uri: 'https://github.com/dudekw/elektron.git', version: 'kinetic'}
+- git: {local-name: src/elektron, uri: 'https://github.com/dudekw/elektron.git', version: 'kinetic'}
 

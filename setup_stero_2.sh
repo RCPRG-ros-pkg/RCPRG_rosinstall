@@ -55,20 +55,44 @@ chmod 755 /tmp/setup_elektron.sh
 if [ -n "$install_dir" ]; then
     cd "$script_dir"
     bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     cd "$script_dir"
     bash /tmp/setup_fabric.sh "$build_dir/ws_gazebo_orocos" "$build_dir/ws_fabric" "$build_type"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     cd "$script_dir"
     bash /tmp/setup_velma.sh "$build_dir/ws_fabric" "$build_dir/ws_velma" "$build_type"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     cd "$script_dir"
     bash /tmp/setup_elektron.sh "$build_dir/ws_fabric" "$build_dir/ws_elektron" "$build_type"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
 else
     cd "$script_dir"
     bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type" -i "$install_dir/ws_gazebo_orocos"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     cd "$script_dir"
     bash /tmp/setup_fabric.sh "$install_dir/ws_gazebo_orocos" "$build_dir/ws_fabric" "$build_type" -i "$install_dir/ws_fabric"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     cd "$script_dir"
     bash /tmp/setup_velma.sh "$install_dir/ws_fabric" "$build_dir/ws_velma" "$build_type" -i "$install_dir/ws_velma"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
     cd "$script_dir"
     bash /tmp/setup_elektron.sh "$install_dir/ws_fabric" "$build_dir/ws_elektron" "$build_type" -i "$install_dir/ws_elektron"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
 fi
 
