@@ -100,7 +100,7 @@ wstool merge /tmp/elektron.rosinstall
 wstool update
 
 # unregister submodules for hw camera support and for Rapp
-cd $WORKSPACE_ROOT_DIR/top/src/elektron
+cd $WORKSPACE_ROOT_DIR/src/elektron
 git submodule deinit elektron_apps/elektron-rapps netusb_camera_driver rapp-api-elektron
 
 if [ -n $install_dir ]; then

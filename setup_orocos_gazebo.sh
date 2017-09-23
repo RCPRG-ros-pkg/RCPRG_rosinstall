@@ -154,6 +154,7 @@ wstool merge /tmp/gazebo7_2_dart.rosinstall
 wstool update
 
 #not working hg repo fix
+#TODO: uncomment
 wget https://bitbucket.org/osrf/gazebo/get/gazebo7_7.2.0.zip                                                -O /tmp/gazebo7_2.zip
 if [ $? -ne 0 ]; then
     printError "could not download gazebo zip file"

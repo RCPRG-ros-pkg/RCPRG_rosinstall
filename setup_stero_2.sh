@@ -42,9 +42,15 @@ cd "$build_dir"
 
 build_dir=`pwd`
 
+# test
+#cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo.sh     /tmp/setup_orocos_gazebo.sh
+#cp ~/code/RCPRG_rosinstall/setup_fabric.sh            /tmp/setup_fabric.sh
+#cp ~/code/RCPRG_rosinstall/setup_velma_os.sh          /tmp/setup_velma_os.sh
+#cp ~/code/RCPRG_rosinstall/setup_elektron.sh          /tmp/setup_elektron.sh
+
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_orocos_gazebo.sh     -O /tmp/setup_orocos_gazebo.sh
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_fabric.sh            -O /tmp/setup_fabric.sh
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_velma_os.sh             -O /tmp/setup_velma_os.sh
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_velma_os.sh          -O /tmp/setup_velma_os.sh
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_elektron.sh          -O /tmp/setup_elektron.sh
 
 chmod 755 /tmp/setup_orocos_gazebo.sh
@@ -60,17 +66,17 @@ if [ -n $install_dir ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_fabric.sh "$build_dir/ws_gazebo_orocos" "$build_dir/ws_fabric" "$build_type"
+    bash /tmp/setup_fabric.sh "$build_dir/ws_gazebo_orocos/devel" "$build_dir/ws_fabric" "$build_type"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_velma_os.sh "$build_dir/ws_fabric" "$build_dir/ws_velma" "$build_type"
+    bash /tmp/setup_velma_os.sh "$build_dir/ws_fabric/devel" "$build_dir/ws_velma" "$build_type"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_elektron.sh "$build_dir/ws_fabric" "$build_dir/ws_elektron" "$build_type"
+    bash /tmp/setup_elektron.sh "$build_dir/ws_fabric/devel" "$build_dir/ws_elektron" "$build_type"
     if [ $? -ne 0 ]; then
         exit 1
     fi
@@ -82,17 +88,17 @@ else
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_fabric.sh "$install_dir/ws_gazebo_orocos" "$build_dir/ws_fabric" "$build_type" -i "$install_dir/ws_fabric"
+    bash /tmp/setup_fabric.sh "$install_dir/ws_gazebo_orocos/install" "$build_dir/ws_fabric" "$build_type" -i "$install_dir/ws_fabric"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_velma_os.sh "$install_dir/ws_fabric" "$build_dir/ws_velma" "$build_type" -i "$install_dir/ws_velma"
+    bash /tmp/setup_velma_os.sh "$install_dir/ws_fabric/install" "$build_dir/ws_velma" "$build_type" -i "$install_dir/ws_velma"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_elektron.sh "$install_dir/ws_fabric" "$build_dir/ws_elektron" "$build_type" -i "$install_dir/ws_elektron"
+    bash /tmp/setup_elektron.sh "$install_dir/ws_fabric/install" "$build_dir/ws_elektron" "$build_type" -i "$install_dir/ws_elektron"
     if [ $? -ne 0 ]; then
         exit 1
     fi
