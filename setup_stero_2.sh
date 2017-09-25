@@ -33,13 +33,19 @@ build_type="$2"
 
 script_dir=`pwd`
 
-if [ ! -d $build_dir ]; then
-  mkdir $build_dir
+if [ ! -d "$build_dir" ]; then
+  mkdir -p "$build_dir"
+fi
+if [ ! -d "$install_dir" ]; then
+  mkdir -p "$install_dir"
 fi
 
 cd "$build_dir"
-
 build_dir=`pwd`
+
+cd "$script_dir"
+cd "$install_dir"
+install_dir=`pwd`
 
 # test
 #cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo.sh     /tmp/setup_orocos_gazebo.sh
