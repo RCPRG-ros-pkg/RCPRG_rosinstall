@@ -154,7 +154,6 @@ wstool merge /tmp/gazebo7_2_dart.rosinstall
 wstool update
 
 #not working hg repo fix
-#TODO: uncomment
 wget https://bitbucket.org/osrf/gazebo/get/gazebo7_7.2.0.zip                                                -O /tmp/gazebo7_2.zip
 if [ $? -ne 0 ]; then
     printError "could not download gazebo zip file"
@@ -177,10 +176,9 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ig
 #
 # patch for gazebo -> set fsaa to 0
 #
-
 wget https://raw.githubusercontent.com/dudekw/gazebo-fsaa-patch/master/Camera.cc            -O $WORKSPACE_ROOT_DIR/src/gazebo/gazebo/gazebo/rendering/Camera.cc
 
-if [ -n $install_dir ]; then
+if [ -z "$install_dir" ]; then
     catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE="$build_type" -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
 else
     catkin config -i "$install_dir/install" --install --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE="$build_type" -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False

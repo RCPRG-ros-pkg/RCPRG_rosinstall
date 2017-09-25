@@ -14,9 +14,8 @@ function printError {
 }
 
 install_dir=""
-
 if [ $# -eq 4 ] && [ "$3" == "-i" ]; then
-    install_dir=$4
+    install_dir="$4"
 elif [ $# -ne 2 ]; then
     echo "Wrong number of arguments."
     usage
@@ -58,7 +57,7 @@ chmod 755 /tmp/setup_fabric.sh
 chmod 755 /tmp/setup_velma_os.sh
 chmod 755 /tmp/setup_elektron.sh
 
-if [ -n $install_dir ]; then
+if [ -z "$install_dir" ]; then
     echo "do not install"
     cd "$script_dir"
     bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type"
