@@ -44,7 +44,7 @@ installed=(
 "python-wstool"
 "ruby-dev"
 "libprotobuf-dev"
-"libprotoc-dev"
+#"libprotoc-dev"
 "protobuf-compiler"
 "libtinyxml2-dev"
 "libtar-dev"
@@ -160,7 +160,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 rm -rf src/gazebo/gazebo
-unzip -o -d src/gazebo /tmp/gazebo7_2.zip
+unzip -q -o -d src/gazebo /tmp/gazebo7_2.zip
 mv -v src/gazebo/osrf-gazebo-baa1cf34ff0e src/gazebo/gazebo
 if [ $? -ne 0 ]; then
     printError "an unknown error: gazebo zip file"
