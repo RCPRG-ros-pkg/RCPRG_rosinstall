@@ -44,7 +44,7 @@ installed=(
 "python-wstool"
 "ruby-dev"
 "libprotobuf-dev"
-#"libprotoc-dev"
+"libprotoc-dev"
 "protobuf-compiler"
 "libtinyxml2-dev"
 "libtar-dev"
