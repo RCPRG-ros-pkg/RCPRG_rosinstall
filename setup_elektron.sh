@@ -16,7 +16,7 @@ function printError {
 install_dir=""
 
 if [ $# -eq 5 ] && [ "$4" == "-i" ]; then
-    install_dir=$5
+    install_dir="$5"
 elif [ $# -ne 3 ]; then
     echo "Wrong number of arguments."
     usage
@@ -87,7 +87,6 @@ fi
 
 cd $build_dir
 
-WORKSPACE_ROOT_DIR=`pwd`
 
 if [ ! -e ".rosinstall" ]; then
   wstool init
@@ -100,8 +99,9 @@ wstool merge /tmp/elektron.rosinstall
 wstool update
 
 # unregister submodules for hw camera support and for Rapp
-cd $WORKSPACE_ROOT_DIR/src/elektron
+cd $build_dir/src/elektron
 git submodule deinit elektron_apps/elektron-rapps netusb_camera_driver rapp-api-elektron
+cd $build_dir
 
 if [ -z "$install_dir" ]; then
     catkin config --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
