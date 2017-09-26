@@ -1,5 +1,3 @@
-# pointgrey-driver
-- git: {local-name: src/pointgrey_camera_driver, uri: 'https://github.com/konradb3/pointgrey_camera_driver.git', version: 'sdk_update_16.04'}
 # Isolated Workspace
 - git: {local-name: src/orocos/rtt_geometry, uri: 'https://github.com/orocos/rtt_geometry.git', version: 'jade-devel'}
 - git: {local-name: src/orocos/orocos_kinematics_dynamics, uri: 'https://github.com/orocos/orocos_kinematics_dynamics.git', version: 'master'}
