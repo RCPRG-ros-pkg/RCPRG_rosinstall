@@ -108,5 +108,5 @@ if [ -z "$install_dir" ]; then
 else
     catkin config -i "$install_dir/install" --install --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
 fi
-catkin build
+catkin build --no-status
 
