@@ -86,7 +86,7 @@ if [ ! -d $build_dir ]; then
 fi
 
 cd $build_dir
-
+build_dir=`pwd`
 
 if [ ! -e ".rosinstall" ]; then
   wstool init
