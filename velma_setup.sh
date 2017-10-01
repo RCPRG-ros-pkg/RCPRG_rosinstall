@@ -156,32 +156,32 @@ fi
 #cp common_orocos.rosinstall       /tmp/common_orocos.rosinstall
 #cp common_agent.rosinstall        /tmp/common_agent.rosinstall
 #cp common_velma.rosinstall        /tmp/common_velma.rosinstall
-#cp gazebo7_2_dart.rosinstall      /tmp/gazebo7_2_dart.rosinstall
+#cp gazebo7_dart.rosinstall        /tmp/gazebo7_dart.rosinstall
 #cp velma_hw.rosinstall            /tmp/velma_hw.rosinstall
 
 if [ "$version" == "latest" ]; then
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_agent.rosinstall        -O /tmp/common_agent.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_dart.rosinstall        -O /tmp/gazebo7_dart.rosinstall
 
 
     wstool merge /tmp/common_orocos.rosinstall
     wstool merge /tmp/common_agent.rosinstall
     wstool merge /tmp/common_velma.rosinstall
-    wstool merge /tmp/gazebo7_2_dart.rosinstall
+    wstool merge /tmp/gazebo7_dart.rosinstall
     
 elif [ "$version" == "latest_hw" ]; then
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_agent.rosinstall        -O /tmp/common_agent.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
-    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+    wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_dart.rosinstall        -O /tmp/gazebo7_dart.rosinstall
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma_hw.rosinstall            -O /tmp/velma_hw.rosinstall
 
     wstool merge /tmp/common_orocos.rosinstall
     wstool merge /tmp/common_agent.rosinstall
     wstool merge /tmp/common_velma.rosinstall
-    wstool merge /tmp/gazebo7_2_dart.rosinstall
+    wstool merge /tmp/gazebo7_dart.rosinstall
     wstool merge /tmp/velma_hw.rosinstall
 else
     wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/velma/$version       -O /tmp/velma.rosinstall

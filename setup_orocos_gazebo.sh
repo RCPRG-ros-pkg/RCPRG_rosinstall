@@ -146,10 +146,10 @@ if [ ! -e ".rosinstall" ]; then
 fi
 
 wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_orocos.rosinstall       -O /tmp/common_orocos.rosinstall
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_2_dart.rosinstall      -O /tmp/gazebo7_2_dart.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/gazebo7_dart.rosinstall        -O /tmp/gazebo7_dart.rosinstall
 
 wstool merge /tmp/common_orocos.rosinstall
-wstool merge /tmp/gazebo7_2_dart.rosinstall
+wstool merge /tmp/gazebo7_dart.rosinstall
 
 wstool update
 
@@ -172,11 +172,6 @@ wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_da
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_sdformat.xml  -O src/gazebo/sdformat/package.xml
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml    -O src/gazebo/gazebo/package.xml
 wget https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_ign-math.xml  -O src/gazebo/ign-math/package.xml
-
-#
-# patch for gazebo -> set fsaa to 0
-#
-#wget https://raw.githubusercontent.com/dudekw/gazebo-fsaa-patch/master/Camera.cc            -O $WORKSPACE_ROOT_DIR/src/gazebo/gazebo/gazebo/rendering/Camera.cc
 
 if [ -z "$install_dir" ]; then
     catkin config --cmake-args -DENABLE_CORBA=ON -DCORBA_IMPLEMENTATION=OMNIORB -DCMAKE_BUILD_TYPE="$build_type" -DBUILD_CORE_ONLY=ON   -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON -DBUILD_HELLOWORLD=OFF -DENABLE_TESTS_COMPILATION=False -DENABLE_SCREEN_TESTS=False
