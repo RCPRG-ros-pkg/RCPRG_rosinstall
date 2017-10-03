@@ -32,6 +32,9 @@ fi
 wstool merge /tmp/barretthand_sim.rosinstall
 wstool update
 
+wget https://raw.githubusercontent.com/dseredyn/pcl_patch/master/CMakeLists.txt -O underlay/src/pcl/CMakeLists.txt
+wget https://raw.githubusercontent.com/dseredyn/pcl_patch/master/package.xml -O underlay/src/pcl/package.xml
+
 cd underlay
 
 catkin config --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=ON   -DUSE_DOUBLE_PRECISION=ON

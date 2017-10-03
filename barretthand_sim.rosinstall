@@ -3,6 +3,7 @@
 - git: {local-name: underlay/src/planer_utils, uri: 'https://github.com/dseredyn/planer_utils.git'}
 - git: {local-name: underlay/src/collision_convex_model, uri: 'https://github.com/dseredyn/collision_convex_model.git'}
 - git: {local-name: underlay/src/kin_dyn_model, uri: 'https://github.com/dseredyn/kin_dyn_model.git'}
+- git: {local-name: underlay/src/pcl, uri: 'https://github.com/PointCloudLibrary/pcl.git', version: 'tags/pcl-1.8.1'}
 
 - git: {local-name: sim/src/barrett_hand_sim_dart, uri: 'https://github.com/dseredyn/barrett_hand_sim_dart.git'}
 
