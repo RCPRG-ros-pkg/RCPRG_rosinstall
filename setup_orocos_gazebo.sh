@@ -60,6 +60,7 @@ installed=(
 "libqtwebkit-dev"
 "libgts-dev"
 "unzip"
+"libcomedi0"
 "ros-$distro-desktop"
 "ros-$distro-polled-camera"
 "ros-$distro-camera-info-manager"

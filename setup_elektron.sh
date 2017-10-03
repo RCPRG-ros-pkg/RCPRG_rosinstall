@@ -51,6 +51,8 @@ installed=(
 "ros-$distro-yocs-cmd-vel-mux"
 "ros-$distro-navigation"
 "ros-$distro-gmapping"
+"ros-$distro-teleop-twist-keyboard"
+"ros-$distro-rqt"
 )
 
 error=false
