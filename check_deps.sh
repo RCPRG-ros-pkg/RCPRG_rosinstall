@@ -26,13 +26,11 @@ fi
 
 installed=()
 while read -r line || [[ -n "$line" ]]; do
-    echo "Text read from file: $line"
     installed=("${installed[@]}" "$line")
 done < "$file_deps"
 
 uninstalled=()
 while read -r line || [[ -n "$line" ]]; do
-    echo "Text read from file: $line"
     uninstalled=("${uninstalled[@]}" "$line")
 done < "$file_conflicts"
 
