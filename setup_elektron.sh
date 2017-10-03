@@ -40,48 +40,21 @@ if [ "$distro" != "kinetic" ]; then
     exit 1
 fi
 
-# the list of packages that should be installed
-installed=(
-# elektron-specific
-"ros-$distro-joint-state-controller"
-"ros-$distro-diff-drive-controller"
-"ros-$distro-effort-controllers"
-"ros-$distro-position-controllers"
-"ros-$distro-scan-tools"
-"ros-$distro-yocs-cmd-vel-mux"
-"ros-$distro-navigation"
-"ros-$distro-gmapping"
-"ros-$distro-teleop-twist-keyboard"
-"ros-$distro-rqt"
-)
+echo "checking dependencies and conflicts..."
+#cp ~/code/RCPRG_rosinstall/setup_elektron_deps /tmp/setup_elektron_deps
+#cp ~/code/RCPRG_rosinstall/setup_elektron_conflicts /tmp/setup_elektron_conflicts
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_elektron_deps       -O /tmp/setup_elektron_deps
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/check_deps.sh                  -O /tmp/check_deps.sh
+chmod 755 /tmp/check_deps.sh
 
-error=false
-
-# check the list of packages that should be installed
-for item in ${installed[*]}
-do
-    aaa=`dpkg --get-selections | grep $item`
-    if [ -z "$aaa" ]; then
-        printError "ERROR: package $item is not installed. Please INSTALL it."
-        error=true
-    else
-        arr=($aaa)
-        name=${arr[0]}
-        status=${arr[1]}
-        if [ "$status" != "install" ]; then
-            printError "ERROR: package $name is not installed. Please INSTALL it."
-            error=true
-        else
-            echo "OK: package $name is installed"
-        fi
-    fi
-done
-
-if [ "$error" = true ]; then
-    echo "Please install/uninstall the listed packages"
-    echo "To install libccd please see http://askubuntu.com/questions/664101/dependency-in-ppa"
+bash /tmp/check_deps.sh /tmp/setup_elektron_deps
+error=$?
+if [ ! "$error" == "0" ]; then
+    printError "error in dependencies: $error"
     exit 1
 fi
+
+echo "dependencies OK"
 
 if [ ! -d $build_dir ]; then
   mkdir $build_dir
