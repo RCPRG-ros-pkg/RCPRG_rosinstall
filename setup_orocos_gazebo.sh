@@ -39,100 +39,22 @@ if [ "$distro" != "kinetic" ]; then
     exit 1
 fi
 
-# the list of packages that should be installed
-installed=(
-"python-wstool"
-"ruby-dev"
-"libprotobuf-dev"
-"libprotoc-dev"
-"protobuf-compiler"
-"libtinyxml2-dev"
-"libtar-dev"
-"libtbb-dev"
-"libfreeimage-dev"
-"libignition-transport0-dev"
-"omniorb"
-"omniidl"
-"libomniorb4-dev"
-"libxerces-c-dev"
-"doxygen"
-"python-catkin-tools"
-"libqtwebkit-dev"
-"libgts-dev"
-"unzip"
-"libcomedi0"
-"ros-$distro-desktop"
-"ros-$distro-polled-camera"
-"ros-$distro-camera-info-manager"
-"ros-$distro-control-toolbox"
-"ros-$distro-controller-manager-msgs"
-"ros-$distro-controller-manager"
-"ros-$distro-urdfdom-py"
-"ros-$distro-transmission-interface"
-"ros-$distro-octomap-ros"
-"ros-$distro-joint-limits-interface"
-"ros-$distro-controller-interface"
-"ros-$distro-ompl"
-"ros-$distro-moveit-planners"
-"ros-$distro-moveit-planners-ompl"
-"ros-$distro-moveit-ros-planning-interface"
-)
+echo "checking dependencies and conflicts..."
+#cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo_deps /tmp/setup_orocos_gazebo_deps
+#cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo_conflicts /tmp/setup_orocos_gazebo_conflicts
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_orocos_gazebo_deps       -O /tmp/setup_orocos_gazebo_deps
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_orocos_gazebo_conflicts  -O /tmp/setup_orocos_gazebo_conflicts
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/check_deps.sh                  -O /tmp/check_deps.sh
+chmod 755 /tmp/check_deps.sh
 
-# the list of packages that should be uninstalled
-uninstalled=(
-"ros-$distro-desktop-full"
-"libdart"
-"libsdformat"
-"libignition-math2"
-"gazebo"
-)
-
-error=false
-
-# check the list of packages that should be installed
-for item in ${installed[*]}
-do
-    aaa=`dpkg --get-selections | grep $item`
-    if [ -z "$aaa" ]; then
-        printError "ERROR: package $item is not installed. Please INSTALL it."
-        error=true
-    else
-        arr=($aaa)
-        name=${arr[0]}
-        status=${arr[1]}
-        if [ "$status" != "install" ]; then
-            printError "ERROR: package $name is not installed. Please INSTALL it."
-            error=true
-        else
-            echo "OK: package $name is installed"
-        fi
-    fi
-done
-
-# check the list of packages that should be uninstalled
-for item in ${uninstalled[*]}
-do
-    aaa=`dpkg --get-selections | grep $item`
-    if [ -z "$aaa" ]; then
-        echo "OK: the package $item is not installed."
-    else
-        arr=($aaa)
-        name=${arr[0]}
-        status=${arr[1]}
-        if [ "$status" != "install" ]; then
-            echo "OK: the package $name is not installed."
-        else
-            printError "ERROR: package $name is installed. Please UNINSTALL it."
-            error=true
-        fi
-    fi
-done
-
-if [ "$error" = true ]; then
-    echo "Please install/uninstall the listed packages"
-    echo "To install libccd please see http://askubuntu.com/questions/664101/dependency-in-ppa"
+bash /tmp/check_deps.sh /tmp/setup_orocos_gazebo_deps /tmp/setup_orocos_gazebo_conflicts
+error=$?
+if [ ! "$error" == "0" ]; then
+    printError "error in dependencies: $error"
     exit 1
 fi
+
+echo "dependencies OK"
 
 if [ ! -d $build_dir ]; then
   mkdir $build_dir
