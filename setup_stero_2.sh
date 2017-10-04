@@ -43,10 +43,6 @@ fi
 cd "$build_dir"
 build_dir=`pwd`
 
-cd "$script_dir"
-cd "$install_dir"
-install_dir=`pwd`
-
 # test
 #cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo.sh     /tmp/setup_orocos_gazebo.sh
 #cp ~/code/RCPRG_rosinstall/setup_fabric.sh            /tmp/setup_fabric.sh
@@ -86,6 +82,10 @@ if [ -z "$install_dir" ]; then
         exit 1
     fi
 else
+    cd "$script_dir"
+    cd "$install_dir"
+    install_dir=`pwd`
+
     echo "install to $install_dir"
     cd "$script_dir"
     bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type" -i "$install_dir/ws_gazebo_orocos"
