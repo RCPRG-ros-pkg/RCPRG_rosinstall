@@ -11,4 +11,5 @@
 - git: {local-name: src/orocos_tools, uri: 'https://github.com/RCPRG-ros-pkg/orocos_tools.git', version: 'stable'}
 - git: {local-name: src/common_controllers, uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git', version: 'stable'}
 - git: {local-name: src/irp6_robot, uri: 'https://github.com/RCPRG-ros-pkg/irp6_robot.git', version: 'stable'}
+- git: {local-name: src/irp6_ui, uri: 'https://github.com/RCPRG-ros-pkg/irp6_ui.git', version: 'stable'}
 
