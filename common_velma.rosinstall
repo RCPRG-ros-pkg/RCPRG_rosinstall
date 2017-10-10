@@ -1,4 +1,3 @@
-#- git: {local-name: src/octomap_mapping, uri: 'https://github.com/OctoMap/octomap_mapping.git', version: 'jade-devel'}
 - git: {local-name: src/collision_convex_model, uri: 'https://github.com/dseredyn/collision_convex_model.git', version: 'master'}
 - git: {local-name: src/planer_utils, uri: 'https://github.com/dseredyn/planer_utils.git', version: 'master'}
 - git: {local-name: src/kin_dyn_model, uri: 'https://github.com/dseredyn/kin_dyn_model.git', version: 'master'}
@@ -14,10 +13,10 @@
 - git: {local-name: src/pointcloud_utils, uri: 'https://github.com/dseredyn/pointcloud_utils.git', version: 'master'}
 - git: {local-name: src/velma_system, uri: 'https://github.com/RCPRG-ros-pkg/velma_system.git', version: 'stable'}
 - git: {local-name: src/planner, uri: 'https://github.com/dseredyn/planner.git', version: 'stable'}
-#- git: {local-name: src/velma_scripts, uri: 'https://github.com/dseredyn/velma_scripts.git', version: 'master'}
 - git: {local-name: src/barrett_hand, uri: 'https://github.com/RCPRG-ros-pkg/barrett_hand.git', version: 'stable'}
 - git: {local-name: src/barrett_hand_system, uri: 'https://github.com/dseredyn/barrett_hand_system.git', version: 'stable'}
 - git: {local-name: src/motor_homing_action, uri: 'https://github.com/dseredyn/motor_homing_action.git', version: 'stable'}
 - git: {local-name: src/common_core_cs_components,  uri: 'https://github.com/dseredyn/common_core_cs_components.git', version: 'stable'}
 - git: {local-name: src/rcprg_gazebo_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_gazebo_utils.git', version: 'master'}
+- git: {local-name: src/rcprg_ros_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_ros_utils.git', version: 'master'}
 
