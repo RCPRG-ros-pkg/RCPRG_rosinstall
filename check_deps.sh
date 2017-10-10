@@ -8,12 +8,26 @@ function printError {
     echo -e "${RED}$1${NC}"
 }
 
-if [ $# -ne 2 ] && [ $# -ne 1 ]; then
+function printWarning {
+    YELLOW='\033[33m'
+    NC='\033[0m' # No Color
+    echo -e "${YELLOW}$1${NC}"
+}
+
+if [ $# -ne 3 ] && [ $# -ne 2 ] && [ $# -ne 1 ]; then
     echo "wrong number of arguments: $#"
     exit 1
 fi
 
-file_deps="$1"
+install_req="$1"
+if [ "$install_req" != "-i" ]; then
+    file_deps="$1"
+    file_conflicts="$2"
+else
+    file_deps="$2"
+    file_conflicts="$3"
+fi
+
 if [ ! -f "$file_deps" ]; then
     exit 2
 fi
@@ -30,27 +44,35 @@ for item in ${installed[*]}
 do
     aaa=`dpkg --get-selections | grep $item`
     if [ -z "$aaa" ]; then
-        printError "ERROR: package $item is not installed. Please INSTALL it."
-        error=true
+	if [ "$install_req" == "-i" ]; then
+		printWarning "Need to install "$item""
+	        sudo apt-get install "$item"
+	else
+            printError "ERROR: package $item is not installed. Please INSTALL it."
+            error=true
+	fi
     else
         arr=($aaa)
         name=${arr[0]}
         status=${arr[1]}
         if [ "$status" != "install" ]; then
-            printError "ERROR: package $name is not installed. Please INSTALL it."
-            error=true
+	    if [$install_req == "-i"]; then
+		printWarning "Need to install "$name""
+	        sudo apt-get install "$name"
+	    else
+                printError "ERROR: package $name is not installed. Please INSTALL it."
+                error=true
+	    fi
         else
             echo "OK: package $name is installed"
         fi
     fi
 done
 
-if [ $# -eq 2 ]; then
-    file_conflicts="$2"
+if [ $# -eq 3 ] || ([ $# -eq 2 ] &&  [ "$install_req" != "-i" ]); then
     if [ ! -f "$file_conflicts" ]; then
         exit 3
     fi
-
     uninstalled=()
     while read -r line || [[ -n "$line" ]]; do
         uninstalled=("${uninstalled[@]}" "$line")
