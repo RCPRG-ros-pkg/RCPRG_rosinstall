@@ -18,6 +18,8 @@ libqtwebkit-dev
 libgts-dev
 unzip
 libcomedi0
+libccd2
+libfcl0.5
 ros-kinetic-desktop
 ros-kinetic-polled-camera
 ros-kinetic-camera-info-manager
