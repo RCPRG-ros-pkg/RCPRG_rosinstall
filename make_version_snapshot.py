@@ -3,7 +3,8 @@
 import sys, getopt, os, subprocess
 import math
 import copy
-
+from datetime import datetime
+ 
 class Repository:
     def __init__(self):
         self.type = None
@@ -78,6 +79,20 @@ def getHgUrl(path):
     os.close(out_read)
     return url_str
 
+def getGitSha(path):
+    out_read, out_write = os.pipe()
+    subprocess.call(['git', 'log', "--pretty=format:'%H'", '-n', '1'], stdout=out_write, cwd=path)
+    sha_str = os.read(out_read, 1000)
+    os.close(out_read)
+    return sha_str.strip('\'')
+
+def getHgSha(path):
+    out_read, out_write = os.pipe()
+    subprocess.call(['hg', '--debug', "id", '-i'], stdout=out_write, cwd=path)
+    sha_str = os.read(out_read, 1000)
+    os.close(out_read)
+    return sha_str.strip()
+
 def recursiveFindRepositories(path, repo_list):
     if isGitRepo(path) or isHgRepo(path):
         repo_list.append(path)
@@ -88,10 +103,11 @@ def recursiveFindRepositories(path, repo_list):
         recursiveFindRepositories(path + "/" + d, repo_list)
 
 def main(argv):
-    usage_str = 'test.py [-i <rosinstallfile>]'
+    usage_str = 'test.py [-h] [-i <rosinstallfile>] [-s]'
     rosinstallfile = None
+    version_as_sha = False
     try:
-        opts, args = getopt.getopt(argv,"hi:",["rosinstallfile="])
+        opts, args = getopt.getopt(argv,"hi:s",["rosinstallfile="])
     except getopt.GetoptError:
         print usage_str
         sys.exit(2)
@@ -101,6 +117,12 @@ def main(argv):
             sys.exit(0)
         elif opt in ("-i", "--rosinstallfile"):
             rosinstallfile = arg
+        elif opt == '-s':
+            version_as_sha = True
+
+    now = datetime.now()
+ 
+    print now.strftime('# generated on %Y-%m-%d %H:%M:%S')
 
     if not rosinstallfile:
         # scan subdirectories
@@ -119,17 +141,21 @@ def main(argv):
                 uri = getGitRemoteUrl(path)
                 version = getGitBranch(path)
                 changes = getGitChanges(path)
+                sha = getGitSha(path)
             elif isHgRepo(path):
                 repo = "hg"
                 uri = getHgUrl(path)
                 version = getHgTag(path)
                 changes = None  # TODO
+                sha = getHgSha(path)
             else:
                 raise
             if path.startswith("./"):
                 p = path[2:]
             else:
                 p = path
+            if version_as_sha:
+                version = sha
             print "- %s: {local-name: %s, uri: '%s', version: '%s'}"%(repo, p, uri.strip(), version.strip())
             if changes:
                 changes_list[path] = changes
@@ -169,17 +195,9 @@ def main(argv):
 
     for r in repos:
         if r.type == "git":
-            out_read, out_write = os.pipe()
-            subprocess.call(['git', 'log', "--pretty=format:'%H'", '-n', '1'], stdout=out_write, cwd=workspace_dir + '/' + r.local_name)
-            sha_str = os.read(out_read, 1000)
-            os.close(out_read)
-            r.commit_sha = sha_str.strip('\'')
+            r.commit_sha = getGitSha(workspace_dir + '/' + r.local_name)
         if r.type == "hg":
-            out_read, out_write = os.pipe()
-            subprocess.call(['hg', '--debug', "id", '-i'], stdout=out_write, cwd=workspace_dir + '/' + r.local_name)
-            sha_str = os.read(out_read, 1000)
-            os.close(out_read)
-            r.commit_sha = sha_str.strip()
+            r.commit_sha = getHgSha(workspace_dir + '/' + r.local_name)
 
 #    for r in repos:
 #        print r.type, r.local_name, r.commit_sha
