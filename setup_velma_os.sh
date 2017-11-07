@@ -33,6 +33,22 @@ extend_dir="$1"
 build_dir="$2"
 build_type="$3"
 
+echo "checking dependencies and conflicts..."
+#cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo_deps /tmp/setup_orocos_gazebo_deps
+#cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo_conflicts /tmp/setup_orocos_gazebo_conflicts
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_velma_os_deps            -O /tmp/setup_velma_os_deps
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/check_deps.sh                  -O /tmp/check_deps.sh
+chmod 755 /tmp/check_deps.sh
+
+bash /tmp/check_deps.sh /tmp/setup_velma_os_deps
+error=$?
+if [ ! "$error" == "0" ]; then
+    printError "error in dependencies: $error"
+    exit 1
+fi
+
+echo "dependencies OK"
+
 if [ ! -d $build_dir ]; then
   mkdir $build_dir
 fi
