@@ -20,6 +20,7 @@ unzip
 libcomedi0
 libccd2
 libfcl0.5
+libbullet-dev
 ros-kinetic-desktop
 ros-kinetic-polled-camera
 ros-kinetic-camera-info-manager
@@ -28,11 +29,6 @@ ros-kinetic-controller-manager-msgs
 ros-kinetic-controller-manager
 ros-kinetic-urdfdom-py
 ros-kinetic-transmission-interface
-ros-kinetic-octomap-ros
 ros-kinetic-joint-limits-interface
 ros-kinetic-controller-interface
-ros-kinetic-ompl
-ros-kinetic-moveit-planners
-ros-kinetic-moveit-planners-ompl
-ros-kinetic-moveit-ros-planning-interface
 
