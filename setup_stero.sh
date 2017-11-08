@@ -4,7 +4,11 @@ export LANG=en_US.UTF-8
 
 # useful functions
 function usage {
-  echo "usage: $0 build_directory build_type [-i install_directory]"
+  echo "usage: $0 <build_directory> <build_type> [options]"
+  echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
+  echo "Options:"
+  echo "  -i [ --install ] arg   Install to directory"
+  echo "  -j arg (=4)            Pass -j arg option to make, i.e. number of threads"
 }
 
 function printError {
@@ -14,22 +18,58 @@ function printError {
 }
 
 install_dir=""
-if [ $# -eq 4 ] && [ "$3" == "-i" ]; then
-    install_dir="$4"
-elif [ $# -ne 2 ]; then
-    echo "Wrong number of arguments."
+num_threads=4
+
+# parse command line arguments
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    -i|--install)
+    install_dir="$2"
+    shift # past argument
+    shift # past value
+    if [ -z "$install_dir" ]; then
+        printError "ERROR: wrong argument: install_dir"
+        usage
+        exit 1
+    fi
+    ;;
+    -j)
+    num_threads="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    *)    # unknown option
+    POSITIONAL+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+if [ $# -ne 2 ]; then
+    printError "Wrong number of arguments."
     usage
     exit 1
 fi
 
 if [ -z "$1" ]; then
-    echo "Wrong argument: $1"
+    printError "Wrong argument: $1"
     usage
     exit 1
 fi
 
 build_dir="$1"
 build_type="$2"
+
+if [ "$build_type" != "Debug" ] && [ "$build_type" != "RelWithDebInfo" ] && [ "$build_type" != "Release" ]; then
+    printError "ERROR: wrong argument: build_type=$build_type"
+    usage
+    exit 1
+fi
 
 script_dir=`pwd`
 
@@ -62,17 +102,17 @@ chmod 755 /tmp/setup_elektron.sh
 if [ -z "$install_dir" ]; then
     echo "do not install"
     cd "$script_dir"
-    bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type"
+    bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type" -j "$num_threads"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_fabric.sh "$build_dir/ws_gazebo_orocos/devel" "$build_dir/ws_fabric" "$build_type"
+    bash /tmp/setup_fabric.sh "$build_dir/ws_gazebo_orocos/devel" "$build_dir/ws_fabric" "$build_type" -j "$num_threads"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_velma_os.sh "$build_dir/ws_fabric/devel" "$build_dir/ws_velma" "$build_type"
+    bash /tmp/setup_velma_os.sh "$build_dir/ws_fabric/devel" "$build_dir/ws_velma" "$build_type" -j "$num_threads"
     if [ $? -ne 0 ]; then
         exit 1
     fi
@@ -88,17 +128,17 @@ else
 
     echo "install to $install_dir"
     cd "$script_dir"
-    bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type" -i "$install_dir/ws_gazebo_orocos"
+    bash /tmp/setup_orocos_gazebo.sh "$build_dir/ws_gazebo_orocos" "$build_type" -i "$install_dir/ws_gazebo_orocos" -j "$num_threads"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_fabric.sh "$install_dir/ws_gazebo_orocos/install" "$build_dir/ws_fabric" "$build_type" -i "$install_dir/ws_fabric"
+    bash /tmp/setup_fabric.sh "$install_dir/ws_gazebo_orocos/install" "$build_dir/ws_fabric" "$build_type" -i "$install_dir/ws_fabric" -j "$num_threads"
     if [ $? -ne 0 ]; then
         exit 1
     fi
     cd "$script_dir"
-    bash /tmp/setup_velma_os.sh "$install_dir/ws_fabric/install" "$build_dir/ws_velma" "$build_type" -i "$install_dir/ws_velma"
+    bash /tmp/setup_velma_os.sh "$install_dir/ws_fabric/install" "$build_dir/ws_velma" "$build_type" -i "$install_dir/ws_velma" -j "$num_threads"
     if [ $? -ne 0 ]; then
         exit 1
     fi
