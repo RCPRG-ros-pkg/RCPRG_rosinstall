@@ -85,3 +85,6 @@ else
 fi
 catkin build --no-status
 
+# Patch for gmapping install BUG fix
+sudo wget https://raw.githubusercontent.com/gavanderhoorn/slam_gmapping/hydro-devel/gmapping/nodelet_plugins.xml              -O /opt/ros/kinetic/share/gmapping/nodelet_plugins.xml
+
