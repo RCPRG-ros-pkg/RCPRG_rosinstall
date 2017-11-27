@@ -7,4 +7,4 @@ ros-kinetic-yocs-cmd-vel-mux
 ros-kinetic-navigation
 ros-kinetic-gmapping
 ros-kinetic-rqt
-
+ros-kinetic-teleop-twist-keyboard
