@@ -4,7 +4,7 @@ export LANG=en_US.UTF-8
 
 # useful functions
 function usage {
-  echo "usage: $0 <build_directory> <build_type> [options]"
+  echo "usage: $0 <extend_directory> <build_directory> <build_type> [options]"
   echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
   echo "Options:"
   echo "  -i [ --install ] arg   Install to directory"
