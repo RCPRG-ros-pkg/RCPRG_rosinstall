@@ -1,5 +1,0 @@
-- git: {local-name: src/gazebo/dart, uri: 'https://github.com/dartsim/dart.git', version: 'release-4.3'}
-- git: {local-name: src/gazebo/gazebo_ros_pkgs, uri: 'https://github.com/dseredyn/gazebo_ros_pkgs.git', version: 'kinetic-devel'}
-- hg: {local-name: src/gazebo/ign-math, uri: 'https://bitbucket.org/ignitionrobotics/ign-math', version: 'ignition-math2_2.4.0'}
-- hg: {local-name: src/gazebo/sdformat, uri: 'https://bitbucket.org/osrf/sdformat', version: 'sdformat4_4.1.0'}
-

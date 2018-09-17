@@ -1,8 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-export LANG=en_US.UTF-8
-
-# useful functions
 function usage {
   echo "usage: $0 <extend_directory> <build_directory> <build_type> [options]"
   echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
@@ -66,23 +63,7 @@ extend_dir="$1"
 build_dir="$2"
 build_type="$3"
 
-if [ "$build_type" != "Debug" ] && [ "$build_type" != "RelWithDebInfo" ] && [ "$build_type" != "Release" ]; then
-    printError "ERROR: wrong argument: build_type=$build_type"
-    usage
-    exit 1
-fi
-
-distro="$ROS_DISTRO"
-
-if [ "$distro" != "kinetic" ]; then
-    printError "ERROR: ROS kinetic setup.bash have to be sourced!"
-    exit 1
-fi
-
-if [ ! -d $build_dir ]; then
-  mkdir $build_dir
-fi
-
+mkdir -p $build_dir
 cd $build_dir
 
 WORKSPACE_ROOT_DIR=`pwd`
@@ -91,10 +72,8 @@ if [ ! -e ".rosinstall" ]; then
   wstool init
 fi
 
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_agent.rosinstall        -O /tmp/common_agent.rosinstall
-
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_agent.rosinstall -O /tmp/common_agent.rosinstall
 wstool merge /tmp/common_agent.rosinstall
-
 wstool update
 
 if [ -z "$install_dir" ]; then
@@ -110,3 +89,11 @@ catkin build --no-status -j "$num_threads"
 #    exit 1
 #fi
 
+#### FIX
+# src/rtt_gazebo/rtt_gazebo_examples/src/default_gazebo_component.cpp:98
+# src/rtt_gazebo/rtt_gazebo_system/src/rtt_system_plugin.cpp:114
+# GetSimTime() -> SimTime()
+
+#### FIX2
+# build/rtt_gazebo_system/CMakeFiles/rtt_gazebo_system.dir/link.txt
+# -lUUID::UUID -> -luuid

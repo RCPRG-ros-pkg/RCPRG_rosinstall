@@ -1,10 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-export LANG=en_US.UTF-8
-
-# useful functions
 function usage {
-  echo "usage: $0 extend_directory build_directory build_type [-i install_directory]"
+    echo "usage: $0 extend_directory build_directory build_type [-i install_directory]"
 }
 
 function printError {

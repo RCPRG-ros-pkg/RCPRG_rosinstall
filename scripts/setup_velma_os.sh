@@ -1,14 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-export LANG=en_US.UTF-8
-
-# useful functions
 function usage {
-  echo "usage: $0 <extend_directory> <build_directory> <build_type> [options]"
-  echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
-  echo "Options:"
-  echo "  -i [ --install ] arg   Install to directory"
-  echo "  -j arg (=4)            Pass -j arg option to make, i.e. number of threads"
+    echo "usage: $0 <extend_directory> <build_directory> <build_type> [options]"
+    echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
+    echo "Options:"
+    echo "  -i [ --install ] arg   Install to directory"
+    echo "  -j arg (=4)            Pass -j arg option to make, i.e. number of threads"
 }
 
 function printError {

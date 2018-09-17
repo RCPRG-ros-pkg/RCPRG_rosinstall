@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import sys, getopt, os, subprocess
 import math
 import copy
 from datetime import datetime
- 
+
 class Repository:
     def __init__(self):
         self.type = None
@@ -121,7 +121,7 @@ def main(argv):
             version_as_sha = True
 
     now = datetime.now()
- 
+
     print now.strftime('# generated on %Y-%m-%d %H:%M:%S')
 
     if not rosinstallfile:

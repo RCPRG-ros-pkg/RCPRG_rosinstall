@@ -1,9 +1,0 @@
-# Isolated Workspace
-- git: {local-name: underlay_isolated/src/openrave, uri: 'https://github.com/dseredyn/openrave.git'}
-- git: {local-name: underlay_isolated/src/openrave_catkin, uri: 'https://github.com/personalrobotics/openrave_catkin.git'}
-# Normal Workspace
-- git: {local-name: underlay/src/or_fcl, uri: 'https://github.com/dseredyn/or_fcl.git'}
-- git: {local-name: underlay/src/or_urdf, uri: 'https://github.com/dseredyn/or_urdf.git'}
-- git: {local-name: underlay/src/or_ompl, uri: 'https://github.com/dseredyn/or_ompl.git'}
-- git: {local-name: underlay/src/or_octomap, uri: 'https://github.com/dseredyn/or_octomap.git'}
-- git: {local-name: underlay/src/or_velma, uri: 'https://github.com/dseredyn/or_velma.git'}
