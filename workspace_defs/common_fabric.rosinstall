@@ -1,5 +1,6 @@
 - git: {local-name: src/agent_orocos,               uri: 'https://github.com/RCPRG-ros-pkg/agent_orocos.git', version: 'melodic-devel'}
 - git: {local-name: src/cartesian_trajectory_msgs,  uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git', version: 'stable'}
+- git: {local-name: src/trapezoid_trajectory_msgs,  uri: 'https://github.com/RCPRG-ros-pkg/trapezoid_trajectory_msgs.git', version: 'master'}
 - git: {local-name: src/common_controllers,         uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git', version: 'safe-controller'}
 - git: {local-name: src/conman,                     uri: 'https://github.com/RCPRG-ros-pkg/conman.git', version: 'melodic-devel'}
 - git: {local-name: src/orocos_controllers,         uri: 'https://github.com/RCPRG-ros-pkg/orocos_controllers.git', version: 'safe-controller'}

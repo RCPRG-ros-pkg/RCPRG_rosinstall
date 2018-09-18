@@ -79,7 +79,8 @@ CMAKE_ARGS="\
  -DBUILD_HELLOWORLD=OFF\
  -DENABLE_SCREEN_TESTS=False\
 "
-catkin config $install_opt --cmake-args $CMAKE_ARGS
+
+catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
 
 ### Build
 catkin build

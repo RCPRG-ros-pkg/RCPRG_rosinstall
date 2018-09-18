@@ -31,10 +31,8 @@ if [ ! -f "$file_deps" ]; then
 	exit 2
 fi
 
-installed=()
-while read -r line || [[ -n "$line" ]]; do
-	installed=("${installed[@]}" "$line")
-done < "$file_deps"
+IFS=$'\n' read -d '' -r -a installed < $file_deps
+
 
 error=false
 
@@ -42,17 +40,24 @@ error=false
 package_list=`dpkg --get-selections`
 
 # check the list of packages that should be installed
+to_install=""
 for item in ${installed[*]}; do
-	if [[ $"package_list" =~ *"$item"* ]]; then
-		if [ "$install_req" == "-i" ]; then
-			printWarning "Need to install "$item""
-			sudo apt install "$item"
-		else
-			printError "ERROR: package $item is not installed. Please INSTALL it."
-			error=true
-		fi
+	echo "$package_list" | grep -q "$item"
+	if [ $? -ne 0 ]; then
+		echo $item
+		to_install="$item $to_install"
 	fi
 done
+
+if [ "$to_install" ]; then
+	printWarning "Need to install $to_install"
+	sudo apt install  $to_install
+	if [ $? -ne 0 ]; then
+		printError "ERROR: packages    $to_install is not installed. Please INSTALL it."
+		error true;
+	fi
+fi
+
 
 # Remove packages passed as conflicting ones (make sure they're not in the system)
 if [ $# -eq 3 ] || ([ $# -eq 2 ] &&  [ "$install_req" != "-i" ]); then

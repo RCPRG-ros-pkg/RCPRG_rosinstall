@@ -26,9 +26,9 @@ function buildWorkspace {
 	dep_dir=""
 	if [ ! -z dependency ]; then
 		if [ -z install_dir ]; then
-			dep_dir="${build_dir}/${dependency}/devel"
+			dep_dir="${build_dir}/ws_${dependency}/devel"
 		else
-			dep_dir="${install_dir}/${dependency}/install"
+			dep_dir="${install_dir}/ws_${dependency}/install"
 		fi
 	fi
 	ws_dir="${build_dir}/ws_${name}"
@@ -117,7 +117,7 @@ else
 fi
 
 ### Build workspaces
-buildWorkspace "gazebo" "" $build_type $script_dir $build_dir $install_dir
-buildWorkspace "orocos" "gazebo" $build_type $script_dir $build_dir $install_dir
-# buildWorkspace "fabric" "orocos" $build_type $script_dir $build_dir $install_dir
-# buildWorkspace "velma_os" "fabric" $build_type $script_dir $build_dir $install_dir
+# buildWorkspace "gazebo" "" $build_type $script_dir $build_dir $install_dir
+# buildWorkspace "orocos" "gazebo" $build_type $script_dir $build_dir $install_dir
+buildWorkspace "fabric" "orocos" $build_type $script_dir $build_dir $install_dir
+buildWorkspace "velma_os" "fabric" $build_type $script_dir $build_dir $install_dir

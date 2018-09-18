@@ -77,8 +77,13 @@ mv src/gazebo/osrf-gazebo-* src/gazebo/gazebo
 wget -c https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml -O src/gazebo/gazebo/package.xml
 # Fix it for new dartsim identifier ("dartsim" instead of "dart")
 sed -i -e 's/>dart</>dartsim</g' src/gazebo/gazebo/package.xml
-sed -i -e 's/>libgazebo9-dev</>gazebo</g' src/gazebo/gazebo_ros_pkgs/package.xml
-sed -i -e 's/>gazebo9</>gazebo</g' src/gazebo/gazebo_ros_pkgs/package.xml
+
+#fix gazebo compile depenedencies
+sed -i -e 's/<build_export_depend>libgazebo9-dev<\/build_export_depend>/ /g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
+# sed -i -e 's/<build_export_depend>libgazebo9-dev<\/build_export_depend>/<build_depend>gazebo<\/build_depend>/g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
+sed -i -e 's/<exec_depend>gazebo9<\/exec_depend>/<depend>gazebo<\/depend>/g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
+
+echo "seds"
 
 ### Config
 CMAKE_ARGS="\
@@ -91,6 +96,7 @@ CMAKE_ARGS="\
  -DBUILD_HELLOWORLD=OFF\
  -DENABLE_SCREEN_TESTS=False\
 "
+
 catkin config $install_opt --cmake-args $CMAKE_ARGS
 
 ### Build

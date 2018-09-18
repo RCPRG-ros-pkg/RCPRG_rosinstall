@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-
+echo "valma install"
 function usage {
     echo "usage: $0 <extend_directory> <build_directory> <build_type> [options]"
     echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
     echo "Options:"
     echo "  -i [ --install ] arg   Install to directory"
-    echo "  -j arg (=4)            Pass -j arg option to make, i.e. number of threads"
 }
 
 function printError {
@@ -33,11 +32,6 @@ case $key in
         usage
         exit 1
     fi
-    ;;
-    -j)
-    num_threads="$2"
-    shift # past argument
-    shift # past value
     ;;
     *)    # unknown option
     POSITIONAL+=("$1") # save it in an array for later
@@ -69,39 +63,17 @@ if [ "$build_type" != "Debug" ] && [ "$build_type" != "RelWithDebInfo" ] && [ "$
     exit 1
 fi
 
-echo "checking dependencies and conflicts..."
-#cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo_deps /tmp/setup_orocos_gazebo_deps
-#cp ~/code/RCPRG_rosinstall/setup_orocos_gazebo_conflicts /tmp/setup_orocos_gazebo_conflicts
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_velma_os_deps            -O /tmp/setup_velma_os_deps
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/check_deps.sh                  -O /tmp/check_deps.sh
-chmod 755 /tmp/check_deps.sh
 
-bash /tmp/check_deps.sh /tmp/setup_velma_os_deps
-error=$?
-if [ ! "$error" == "0" ]; then
-    printError "error in dependencies: $error"
-    exit 1
-fi
-
-echo "dependencies OK"
-
-if [ ! -d $build_dir ]; then
-  mkdir $build_dir
-fi
-
+mkdir -p $build_dir/src
 FRI_DIR=`pwd`
-
 cd $build_dir
-
 if [ ! -e ".rosinstall" ]; then
   wstool init
 fi
 
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/common_velma.rosinstall        -O /tmp/common_velma.rosinstall
-
-wstool merge /tmp/common_velma.rosinstall
-
+wstool merge ${script_dir}/workspace_defs/common_velma.rosinstall
 wstool update
+
 
 if [ -d "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
     # copy friComm.h
@@ -114,10 +86,15 @@ if [ -d "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
     fi
 fi
 
+
 if [ -z "$install_dir" ]; then
+    echo "extend"
+    echo $extend_dir
     catkin config --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
 else
+    echo "extend_dir install"
+    echo $extend_dir
     catkin config -i "$install_dir" --install --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
 fi
-catkin build --no-status -j "$num_threads"
+catkin build
 
