@@ -119,5 +119,5 @@ fi
 ### Build workspaces
 # buildWorkspace "gazebo" "" $build_type $script_dir $build_dir $install_dir
 # buildWorkspace "orocos" "gazebo" $build_type $script_dir $build_dir $install_dir
-buildWorkspace "fabric" "orocos" $build_type $script_dir $build_dir $install_dir
+# buildWorkspace "fabric" "orocos" $build_type $script_dir $build_dir $install_dir
 buildWorkspace "velma_os" "fabric" $build_type $script_dir $build_dir $install_dir
