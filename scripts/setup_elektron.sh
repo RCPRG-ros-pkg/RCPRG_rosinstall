@@ -32,8 +32,8 @@ build_type="$3"
 
 distro="$ROS_DISTRO"
 
-if [ "$distro" != "kinetic" ]; then
-    printError "ERROR: ROS kinetic setup.bash have to be sourced!"
+if [ "$distro" != "melodic" ]; then
+    printError "ERROR: ROS melodic setup.bash have to be sourced!"
     exit 1
 fi
 
@@ -83,5 +83,5 @@ fi
 catkin build --no-status
 
 # Patch for gmapping install BUG fix
-sudo wget https://raw.githubusercontent.com/gavanderhoorn/slam_gmapping/hydro-devel/gmapping/nodelet_plugins.xml              -O /opt/ros/kinetic/share/gmapping/nodelet_plugins.xml
+# sudo wget https://raw.githubusercontent.com/gavanderhoorn/slam_gmapping/hydro-devel/gmapping/nodelet_plugins.xml              -O /opt/ros/kinetic/share/gmapping/nodelet_plugins.xml
 
