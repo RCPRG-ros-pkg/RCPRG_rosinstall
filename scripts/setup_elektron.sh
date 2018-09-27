@@ -33,18 +33,18 @@ build_type="$3"
 distro="$ROS_DISTRO"
 
 if [ "$distro" != "melodic" ]; then
-    printError "ERROR: ROS melodic setup.bash have to be sourced!"
+    printError "ERFROR: ROS melodic setup.bash have to be sourced!"
     exit 1
 fi
 
 echo "checking dependencies and conflicts..."
 #cp ~/code/RCPRG_rosinstall/setup_elektron_deps /tmp/setup_elektron_deps
 #cp ~/code/RCPRG_rosinstall/setup_elektron_conflicts /tmp/setup_elektron_conflicts
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/setup_elektron_deps       -O /tmp/setup_elektron_deps
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/check_deps.sh                  -O /tmp/check_deps.sh
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/melodic-devel/workspace_defs/elektron_deps       -O /tmp/elektron_deps
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/melodic-devel/scripts/check_deps.sh                  -O /tmp/check_deps.sh
 chmod 755 /tmp/check_deps.sh
 
-bash /tmp/check_deps.sh /tmp/setup_elektron_deps
+bash /tmp/check_deps.sh /tmp/elektron_deps
 error=$?
 if [ ! "$error" == "0" ]; then
     printError "error in dependencies: $error"
@@ -64,7 +64,7 @@ if [ ! -e ".rosinstall" ]; then
   wstool init
 fi
 
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/master/elektron.rosinstall            -O /tmp/elektron.rosinstall
+wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/melodic-devel/workspace_defs/elektron.rosinstall            -O /tmp/elektron.rosinstall
 
 wstool merge /tmp/elektron.rosinstall
 
@@ -73,14 +73,19 @@ wstool update
 # unregister submodules for hw camera support and for Rapp
 cd $build_dir/src/elektron
 git submodule deinit elektron_apps/elektron-rapps netusb_camera_driver rapp-api-elektron
+cd $build_dir/src
+git clone https://github.com/ros-perception/slam_gmapping
+svn checkout https://github.com/yujinrobot/yujin_ocs/branches/release/0.8-melodic/yocs_cmd_vel_mux
+svn export  https://github.com/dudekw/scan_tools/branches/melodic-devel/laser_scan_matcher
+git clone https://github.com/AndreaCensi/csm
+git clone https://github.com/ros-perception/openslam_gmapping
 cd $build_dir
-
 if [ -z "$install_dir" ]; then
     catkin config --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
 else
     catkin config -i "$install_dir" --install --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
 fi
-catkin build --no-status
+catkin build #--no-status
 
 # Patch for gmapping install BUG fix
 # sudo wget https://raw.githubusercontent.com/gavanderhoorn/slam_gmapping/hydro-devel/gmapping/nodelet_plugins.xml              -O /opt/ros/kinetic/share/gmapping/nodelet_plugins.xml
