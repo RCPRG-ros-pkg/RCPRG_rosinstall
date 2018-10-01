@@ -42,3 +42,11 @@ libncurses5-dev
 libncursesw5-dev
 ros-melodic-pcl-conversions
 ros-melodic-perception-pcl
+python-wstool
+python-catkin-tools
+ros-melodic-polled-camera
+ros-melodic-camera-info-manager
+ros-melodic-control-toolbox
+ros-melodic-controller-manager
+ros-melodic-joint-limits-interface
+ruby-dev

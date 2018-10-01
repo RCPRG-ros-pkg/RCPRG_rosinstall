@@ -12,7 +12,7 @@
 - git: {local-name: src/motor_homing_action, uri: 'https://github.com/RCPRG-ros-pkg/motor_homing_action.git', version: 'master'}
 - git: {local-name: src/pointcloud_utils, uri: 'https://github.com/RCPRG-ros-pkg/pointcloud_utils.git', version: 'melodic-devel'}
 - git: {local-name: src/pointcloud_utils_msgs, uri: 'https://github.com/RCPRG-ros-pkg/pointcloud_utils_msgs.git', version: 'master'}
-- git: {local-name: src/rcprg_gazebo_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_gazebo_utils.git', version: 'melodic_devel'}
+- git: {local-name: src/rcprg_gazebo_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_gazebo_utils.git', version: 'melodic-devel'}
 - git: {local-name: src/rcprg_planner_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_planner_utils.git', version: 'melodic-devel'}
 - git: {local-name: src/rcprg_ros_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_ros_utils.git', version: 'melodic-devel'}
 - git: {local-name: src/velma_controller, uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git', version: 'safe-controller'}

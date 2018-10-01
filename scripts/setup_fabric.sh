@@ -13,6 +13,14 @@ function printError {
     echo -e "${RED}$1${NC}"
 }
 
+# The following code is a workaround for bug in FindUUID in ROS melodic.
+#TODO: check status of the bug and update the script when resolved
+if [ -f /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake ]; then
+	printError "ERROR: file /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake causes linker error (/usr/bin/ld: cannot find -lUUID::UUID). You should remove it using command:"
+	printError "sudo rm /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake"
+ 	exit 3
+fi
+
 install_dir=""
 
 # parse command line arguments

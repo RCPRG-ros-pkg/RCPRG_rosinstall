@@ -39,6 +39,10 @@ function buildWorkspace {
 
 	cd $root_dir
 	bash $setup_script $dep_dir $ws_dir $build_type $install
+	if [ $? -ne 0 ]; then
+		printError "The command finished with error. Terminating the setup script."
+		exit 2
+	fi
 }
 
 install_dir=""
@@ -117,8 +121,8 @@ else
 fi
 
 ### Build workspaces
-# buildWorkspace "gazebo" "" $build_type $script_dir $build_dir $install_dir
-# buildWorkspace "orocos" "gazebo" $build_type $script_dir $build_dir $install_dir
-# buildWorkspace "fabric" "orocos" $build_type $script_dir $build_dir $install_dir
-# buildWorkspace "velma_os" "fabric" $build_type $script_dir $build_dir $install_dir
+buildWorkspace "gazebo" "" $build_type $script_dir $build_dir $install_dir
+buildWorkspace "orocos" "gazebo" $build_type $script_dir $build_dir $install_dir
+buildWorkspace "fabric" "orocos" $build_type $script_dir $build_dir $install_dir
+buildWorkspace "velma_os" "fabric" $build_type $script_dir $build_dir $install_dir
 # buildWorkspace "elektron" "gazebo" $build_type $script_dir $build_dir $install_dir
