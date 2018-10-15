@@ -5,6 +5,7 @@ function usage {
 	echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
 	echo "Options:"
 	echo "  -i [ --install ] arg   Install to directory"
+	echo "  -j arg                 Use 'arg' CPU cores"
 }
 
 function printError {
@@ -14,16 +15,17 @@ function printError {
 }
 
 install_opt=""
+num_cores=""
 
 # parse command line arguments
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do
 	key="$1"
 	case $key in
-		-i|--install)
+		-i | --install )
 			install_opt="$2"
-			shift # past argument
-			shift # past value
+			shift 2 # past argument
+			#shift # past value
 			if [ -z "$install_opt" ]; then
 				printError "ERROR: wrong argument: install_opt"
 				usage
@@ -31,6 +33,11 @@ while [[ $# -gt 0 ]]; do
 			else
 				install_opt="-i $install_opt --install"
 			fi
+		;;
+		-j )
+			num_cores="$2"
+			shift 2 # past argument
+			#shift # past value
 		;;
 		*)
 			POSITIONAL+=("$1") # save it in an array for later
@@ -40,14 +47,20 @@ while [[ $# -gt 0 ]]; do
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-if [ $# -ne 3 ]; then
-	printError "Wrong number of arguments."
+if [ -z "$1" ]; then
+	printError "Wrong argument 1: $1"
 	usage
 	exit 1
 fi
 
-if [ -z "$1" ]; then
-	printError "Wrong argument: $1"
+if [ -z "$2" ]; then
+	printError "Wrong argument 2: $2"
+	usage
+	exit 1
+fi
+
+if [ -z "$3" ]; then
+	printError "Wrong argument 3: $3"
 	usage
 	exit 1
 fi
@@ -97,8 +110,14 @@ CMAKE_ARGS="\
  -DENABLE_SCREEN_TESTS=False\
 "
 
-catkin config $install_opt --cmake-args $CMAKE_ARGS
+catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
+
+if [ ! -z "$num_cores" ]; then
+	num_cores_str=" -j $num_cores"
+else
+	num_cores_str=""
+fi
 
 ### Build
 # catkin build --no-status
-catkin build
+catkin build "$num_cores_str"

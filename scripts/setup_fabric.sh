@@ -5,6 +5,7 @@ function usage {
   echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
   echo "Options:"
   echo "  -i [ --install ] arg   Install to directory"
+  echo "  -j arg                 Use 'arg' CPU cores"
 }
 
 function printError {
@@ -22,6 +23,7 @@ if [ -f /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake ]; the
 fi
 
 install_dir=""
+num_cores=""
 
 # parse command line arguments
 POSITIONAL=()
@@ -40,6 +42,11 @@ case $key in
         exit 1
     fi
     ;;
+	-j)
+		num_cores="$2"
+		shift # past argument
+		shift # past value
+	;;
     *)    # unknown option
     POSITIONAL+=("$1") # save it in an array for later
     shift # past argument
@@ -48,14 +55,26 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-if [ $# -ne 3 ]; then
-    printError "Wrong number of arguments."
+#if [ $# -ne 3 ]; then
+#    printError "Wrong number of arguments."
+#    usage
+#    exit 1
+#fi
+
+if [ -z "$1" ]; then
+    printError "Wrong argument 1: $1"
     usage
     exit 1
 fi
 
-if [ -z "$1" ]; then
-    printError "Wrong argument: $1"
+if [ -z "$2" ]; then
+    printError "Wrong argument 2: $2"
+    usage
+    exit 1
+fi
+
+if [ -z "$3" ]; then
+    printError "Wrong argument 3: $3"
     usage
     exit 1
 fi
@@ -83,4 +102,10 @@ else
     catkin config -i "$install_dir" --install --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
 fi
 
-catkin build
+if [ ! -z "$num_cores" ]; then
+	num_cores_str=" -j $num_cores"
+else
+	num_cores_str=""
+fi
+
+catkin build "$num_cores_str"

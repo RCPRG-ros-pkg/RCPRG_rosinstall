@@ -2,10 +2,11 @@
 
 function usage {
 	echo "usage: $0 [build_directory] [build_type] [options]"
-	echo "  [build_directory] defaults to 'ws'"
+#	echo "  [build_directory] defaults to 'ws'"
 	echo "  [build_type] can be one of (Debug|RelWithDebInfo|Release), defaults to 'RelWithDebInfo'"
 	echo "Options:"
 	echo "  -i [ --install ] arg   Install to directory"
+	echo "  -j arg                 Use 'arg' CPU cores"
 }
 
 function printError {
@@ -14,38 +15,8 @@ function printError {
 	echo -e "${RED}$1${NC}"
 }
 
-function buildWorkspace {
-	name=$1
-	dependency=$2
-	build_type=$3
-	root_dir=$4
-	build_dir=$5
-	install_dir=$6
-
-	setup_script="scripts/setup_${name}.sh"
-	dep_dir=""
-	if [ ! -z dependency ]; then
-		if [ -z install_dir ]; then
-			dep_dir="${build_dir}/ws_${dependency}/devel"
-		else
-			dep_dir="${install_dir}/ws_${dependency}/install"
-		fi
-	fi
-	ws_dir="${build_dir}/ws_${name}"
-	install=""
-	if [ ! -z install_dir ]; then
-		install="-i ${install_dir}/ws_${name}/install"
-	fi
-
-	cd $root_dir
-	bash $setup_script $dep_dir $ws_dir $build_type $install
-	if [ $? -ne 0 ]; then
-		printError "The command finished with error. Terminating the setup script."
-		exit 2
-	fi
-}
-
 install_dir=""
+num_cores=""
 
 # parse command line arguments
 POSITIONAL=()
@@ -55,13 +26,16 @@ while [[ $# -gt 0 ]]; do
 	case $key in
 		-i|--install)
 			install_dir="$2"
-			shift # past argument
-			shift # past value
+			shift 2
 			if [ -z "$install_dir" ]; then
 				printError "ERROR: wrong argument: install_dir"
 				usage
 				exit 1
 			fi
+		;;
+		-j)
+			num_cores="$2"
+			shift 2
 		;;
 		*)
 			POSITIONAL+=("$1") # save it in an array for later
@@ -83,8 +57,10 @@ if [ $# -eq 1 ]; then
 	build_type="RelWithDebInfo"
 fi
 if [ $# -eq 0 ]; then
-	build_dir="ws"
-	build_type="RelWithDebInfo"
+#	build_dir="ws"
+#	build_type="RelWithDebInfo"
+	usage
+	exit 1
 fi
 if [ "$build_type" != "Debug" ] && [ "$build_type" != "RelWithDebInfo" ] && [ "$build_type" != "Release" ]; then
 	printError "ERROR: wrong argument: build_type=$build_type"
@@ -112,17 +88,52 @@ export script_dir=`pwd`
 mkdir -p "$build_dir"
 cd "$build_dir"
 build_dir=`pwd`
+
+if [ ! -z "$num_cores" ]; then
+	num_cores_str="-j $num_cores"
+else
+	num_cores_str=""
+fi
+
 if [ ! -z "$install_dir" ]; then
 	mkdir -p "$install_dir"
 	cd "$install_dir"
 	install_dir=`pwd`
+    install_dir_gazebo="$install_dir/ws_gazebo"
+	install_dir_orocos="$install_dir/ws_orocos"
+	install_dir_fabric="$install_dir/ws_fabric"
+	install_dir_velma_os_str="-i $install_dir/ws_velma_os"
 else
-	install_dir=$build_dir
+	install_dir_gazebo="$build_dir/ws_gazebo/install"
+	install_dir_orocos="$build_dir/ws_orocos/install"
+	install_dir_fabric="$build_dir/ws_fabric/install"
+	install_dir_velma_os_str=""
 fi
 
-### Build workspaces
-buildWorkspace "gazebo" "" $build_type $script_dir $build_dir $install_dir
-buildWorkspace "orocos" "gazebo" $build_type $script_dir $build_dir $install_dir
-buildWorkspace "fabric" "orocos" $build_type $script_dir $build_dir $install_dir
-buildWorkspace "velma_os" "fabric" $build_type $script_dir $build_dir $install_dir
-# buildWorkspace "elektron" "gazebo" $build_type $script_dir $build_dir $install_dir
+cd "$build_dir"
+
+# build in home folder, without install of the highest ws
+echo "bash $script_dir/scripts/setup_gazebo.sh /opt/ros/melodic $build_dir/ws_gazebo $build_type -i $install_dir_gazebo $num_cores_str"
+bash $script_dir/scripts/setup_gazebo.sh /opt/ros/melodic $build_dir/ws_gazebo $build_type -i $install_dir_gazebo $num_cores_str
+if [ $? -ne 0 ]; then
+	printError "The command finished with error. Terminating the setup script."
+	exit 2
+fi
+
+echo "bash $script_dir/scripts/setup_orocos.sh $install_dir_gazebo $build_dir/ws_orocos $build_type -i $install_dir_orocos $num_cores_str"
+bash $script_dir/scripts/setup_orocos.sh $install_dir_gazebo $build_dir/ws_orocos $build_type -i $install_dir_orocos $num_cores_str
+if [ $? -ne 0 ]; then
+	printError "The command finished with error. Terminating the setup script."
+	exit 2
+fi
+
+echo "bash $script_dir/scripts/setup_fabric.sh $install_dir_orocos $build_dir/ws_fabric $build_type -i $install_dir_fabric $num_cores_str"
+bash $script_dir/scripts/setup_fabric.sh $install_dir_orocos $build_dir/ws_fabric $build_type -i $install_dir_fabric $num_cores_str
+if [ $? -ne 0 ]; then
+	printError "The command finished with error. Terminating the setup script."
+	exit 2
+fi
+
+echo "bash $script_dir/scripts/setup_velma_os.sh $install_dir_fabric $build_dir/ws_velma_os $build_type $install_dir_velma_os_str $num_cores_str"
+bash $script_dir/scripts/setup_velma_os.sh $install_dir_fabric $build_dir/ws_velma_os $build_type $install_dir_velma_os_str $num_cores_str
+
