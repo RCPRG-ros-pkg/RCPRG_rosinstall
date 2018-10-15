@@ -16,7 +16,7 @@
 - git: {local-name: src/rcprg_planner_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_planner_utils.git', version: 'melodic-devel'}
 - git: {local-name: src/rcprg_ros_utils, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_ros_utils.git', version: 'melodic-devel'}
 - git: {local-name: src/velma_controller, uri: 'https://github.com/RCPRG-ros-pkg/velma_controllers.git', version: 'safe-controller'}
-- git: {local-name: src/velma_planner, uri: 'https://github.com/RCPRG-ros-pkg/velma_planner.git', version: 'melodic-devel'}
+- git: {local-name: src/rcprg_planner, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_planner.git', version: 'melodic-devel'}
 - git: {local-name: src/velma_robot, uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git', version: 'sim_re'}
 - git: {local-name: src/velma_system, uri: 'https://github.com/RCPRG-ros-pkg/velma_system.git', version: 'melodic-devel'}
 - git: {local-name: src/octomap_mapping, uri: 'https://github.com/OctoMap/octomap_mapping.git', version: 'melodic-devel'}
