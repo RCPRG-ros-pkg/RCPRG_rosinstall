@@ -7,6 +7,7 @@ function usage {
 	echo "Options:"
 	echo "  -i [ --install ] arg   Install to directory"
 	echo "  -j arg                 Use 'arg' CPU cores"
+	echo "  --fakechroot           build in fake root directory"
 }
 
 function printError {
@@ -17,6 +18,7 @@ function printError {
 
 install_dir=""
 num_cores=""
+use_fakechroot=0
 
 # parse command line arguments
 POSITIONAL=()
@@ -37,6 +39,10 @@ while [[ $# -gt 0 ]]; do
 			num_cores="$2"
 			shift 2
 		;;
+        --fakechroot)
+            use_fakechroot=1
+            shift
+        ;;
 		*)
 			POSITIONAL+=("$1") # save it in an array for later
 			shift # past argument
@@ -57,8 +63,6 @@ if [ $# -eq 1 ]; then
 	build_type="RelWithDebInfo"
 fi
 if [ $# -eq 0 ]; then
-#	build_dir="ws"
-#	build_type="RelWithDebInfo"
 	usage
 	exit 1
 fi
@@ -66,6 +70,12 @@ if [ "$build_type" != "Debug" ] && [ "$build_type" != "RelWithDebInfo" ] && [ "$
 	printError "ERROR: wrong argument: build_type=$build_type"
 	usage
 	exit 1
+fi
+
+if [ ! -z "$num_cores" ]; then
+	num_cores_str="-j $num_cores"
+else
+	num_cores_str=""
 fi
 
 ### Dependencies
@@ -76,11 +86,50 @@ if [ ! "$error" == "0" ]; then
 	exit 1
 fi
 
-### ROS check
-if [ "$ROS_DISTRO" != "melodic" ]; then
-    printError "ERROR: ROS melodic setup.bash have to be sourced!"
-    exit 1
+if [ $use_fakechroot -eq 1 ]; then
+    # create jail
+    mkdir -p $build_dir
+    if [ "$(ls -A $build_dir)" ]; then
+        echo "$build_dir is not empty"
+#        exit 1
+    fi
+
+    # copy setup scripts etc.
+    cp -a scripts $build_dir/
+    cp -a workspace_defs $build_dir/
+    cp -a setup.sh $build_dir/
+
+    # link root bins, libs, etc.
+    # we do not need to copy because we use fakechroot
+    ln -s /bin $build_dir/bin
+    ln -s /sbin $build_dir/sbin
+    ln -s /lib $build_dir/lib
+    ln -s /lib64 $build_dir/lib64
+    ln -s /etc $build_dir/etc
+    ln -s /usr $build_dir/usr
+    ln -s /var $build_dir/var
+
+    # link /opt/ros
+    mkdir -p $build_dir/opt
+    mkdir -p $build_dir/tmp
+    ln -s /opt/ros $build_dir/opt/ros
+
+    # move to jail
+    cd $build_dir
+
+    # perform fakechroot and execute this script again, in jail
+    fakeroot fakechroot /usr/sbin/chroot . /bin/bash setup.sh /build $build_type -i $install_dir $num_cores_str
+    #fakeroot fakechroot /usr/sbin/chroot . /bin/bash
+
+    exit 0
+    #build_dir="/"
 fi
+
+### ROS check
+#if [ "$ROS_DISTRO" != "melodic" ]; then
+#    printError "ERROR: ROS melodic setup.bash have to be sourced!"
+#    exit 1
+#fi
 
 ### Paths
 # Get absolute path for script root, build and install directories
@@ -88,12 +137,6 @@ export script_dir=`pwd`
 mkdir -p "$build_dir"
 cd "$build_dir"
 build_dir=`pwd`
-
-if [ ! -z "$num_cores" ]; then
-	num_cores_str="-j $num_cores"
-else
-	num_cores_str=""
-fi
 
 if [ ! -z "$install_dir" ]; then
 	mkdir -p "$install_dir"
