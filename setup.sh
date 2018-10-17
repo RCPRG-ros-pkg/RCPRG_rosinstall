@@ -86,12 +86,14 @@ if [ ! "$error" == "0" ]; then
 	exit 1
 fi
 
+export script_dir=`pwd`
+
+#export FAKECHROOT_CMD_ORIG=
 if [ $use_fakechroot -eq 1 ]; then
     # create jail
     mkdir -p $build_dir
     if [ "$(ls -A $build_dir)" ]; then
-        echo "$build_dir is not empty"
-#        exit 1
+        echo "WARNING: $build_dir is not empty"
     fi
 
     # copy setup scripts etc.
@@ -99,41 +101,30 @@ if [ $use_fakechroot -eq 1 ]; then
     cp -a workspace_defs $build_dir/
     cp -a setup.sh $build_dir/
 
-    # link root bins, libs, etc.
-    # we do not need to copy because we use fakechroot
-    ln -s /bin $build_dir/bin
-    ln -s /sbin $build_dir/sbin
-    ln -s /lib $build_dir/lib
-    ln -s /lib64 $build_dir/lib64
-    ln -s /etc $build_dir/etc
-    ln -s /usr $build_dir/usr
-    ln -s /var $build_dir/var
+    mkdir -p $build_dir/usr
 
     # link /opt/ros
     mkdir -p $build_dir/opt
-    mkdir -p $build_dir/tmp
     ln -s /opt/ros $build_dir/opt/ros
 
     # move to jail
     cd $build_dir
 
     # perform fakechroot and execute this script again, in jail
-    fakeroot fakechroot /usr/sbin/chroot . /bin/bash setup.sh /build $build_type -i $install_dir $num_cores_str
-    #fakeroot fakechroot /usr/sbin/chroot . /bin/bash
+    fakechroot -e stero -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . /bin/bash setup.sh /build $build_type -i $install_dir $num_cores_str
+    #fakechroot -e stero -c ~/code/RCPRG_rosinstall_melodic/fakeroot fakeroot /usr/sbin/chroot . /bin/bash
 
     exit 0
-    #build_dir="/"
 fi
 
 ### ROS check
-#if [ "$ROS_DISTRO" != "melodic" ]; then
-#    printError "ERROR: ROS melodic setup.bash have to be sourced!"
-#    exit 1
-#fi
+if [ "$ROS_DISTRO" != "melodic" ]; then
+    printError "ERROR: ROS melodic setup.bash have to be sourced!"
+    exit 1
+fi
 
 ### Paths
 # Get absolute path for script root, build and install directories
-export script_dir=`pwd`
 mkdir -p "$build_dir"
 cd "$build_dir"
 build_dir=`pwd`
