@@ -13,7 +13,7 @@ function printError {
 	echo -e "${RED}$1${NC}"
 }
 
-install_dir=""
+install_opt=""
 
 # parse command line arguments
 POSITIONAL=()
@@ -78,6 +78,8 @@ CMAKE_ARGS="\
  -DUSE_DOUBLE_PRECISION=ON\
  -DBUILD_HELLOWORLD=OFF\
  -DENABLE_SCREEN_TESTS=False\
+ -DCMAKE_C_COMPILER=/usr/bin/clang\
+ -DCMAKE_CXX_COMPILER=/usr/bin/clang++\
 "
 
 catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS

@@ -83,8 +83,6 @@ sed -i -e 's/<build_export_depend>libgazebo9-dev<\/build_export_depend>/ /g' src
 # sed -i -e 's/<build_export_depend>libgazebo9-dev<\/build_export_depend>/<build_depend>gazebo<\/build_depend>/g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
 sed -i -e 's/<exec_depend>gazebo9<\/exec_depend>/<depend>gazebo<\/depend>/g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
 
-echo "seds"
-
 ### Config
 CMAKE_ARGS="\
  -DCMAKE_BUILD_TYPE=${build_type}\
@@ -95,10 +93,11 @@ CMAKE_ARGS="\
  -DUSE_DOUBLE_PRECISION=ON\
  -DBUILD_HELLOWORLD=OFF\
  -DENABLE_SCREEN_TESTS=False\
+ -DCMAKE_C_COMPILER=/usr/bin/clang\
+ -DCMAKE_CXX_COMPILER=/usr/bin/clang++\
 "
 
 catkin config $install_opt --cmake-args $CMAKE_ARGS
 
 ### Build
-# catkin build --no-status
 catkin build
