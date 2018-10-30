@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
 function usage {
-	echo "usage: $0 <extend_directory> <build_directory> <build_type> [options]"
+	echo "usage: $0 <extend_directory> <script_dir> <build_directory> <build_type> [options] [-- catkin_build_opts]"
 	echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
 	echo "Options:"
 	echo "  -i [ --install ] arg  Install to directory"
+	echo "catkin_build_opts are passed to 'catkin build' command"
 }
 
 function printError {
 	RED='\033[0;31m'
-	NC='\033[0m' # No Color
+	NC='\033[0m'
 	echo -e "${RED}$1${NC}"
 }
 
 install_opt=""
+catkin_build_opts=""
 
 # parse command line arguments
 POSITIONAL=()
@@ -22,8 +24,7 @@ while [[ $# -gt 0 ]]; do
 	case $key in
 		-i|--install)
 			install_opt="$2"
-			shift # past argument
-			shift # past value
+			shift 2
 			if [ -z "$install_opt" ]; then
 				printError "ERROR: wrong argument: install_opt"
 				usage
@@ -32,29 +33,30 @@ while [[ $# -gt 0 ]]; do
 				install_opt="-i $install_opt --install"
 			fi
 		;;
+		--)
+			shift
+			catkin_build_opts="$@"
+			break
+		;;
 		*)
-			POSITIONAL+=("$1") # save it in an array for later
-			shift # past argument
+			# save it in an array for later
+			POSITIONAL+=("$1")
+			shift
 		;;
 	esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-if [ $# -ne 3 ]; then
-	printError "Wrong number of arguments."
-	usage
-	exit 1
-fi
-
-if [ -z "$1" ]; then
-	printError "Wrong argument: $1"
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+	printError "Wrong argument - file or directory does not exist"
 	usage
 	exit 1
 fi
 
 extend_dir="$1"
-build_dir="$2"
-build_type="$3"
+script_dir="$2"
+build_dir="$3"
+build_type="$4"
 
 ### Prepare workspace
 mkdir -p $build_dir/src
@@ -65,6 +67,7 @@ fi
 wstool merge ${script_dir}/workspace_defs/common_orocos.rosinstall
 wstool update
 
+### Bugfixes/workarounds
 # Fix OCL build on new GCC (warning: no-shift-negative-value)
 sed -i 's/-Wextra -Wall -Werror/-Wextra -Wall -Werror -Wno-shift-negative-value/g' src/orocos/orocos_toolchain/ocl/lua/CMakeLists.txt
 
@@ -78,11 +81,9 @@ CMAKE_ARGS="\
  -DUSE_DOUBLE_PRECISION=ON\
  -DBUILD_HELLOWORLD=OFF\
  -DENABLE_SCREEN_TESTS=False\
- -DCMAKE_C_COMPILER=/usr/bin/clang\
- -DCMAKE_CXX_COMPILER=/usr/bin/clang++\
 "
 
 catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
 
 ### Build
-catkin build
+catkin build $catkin_build_opts
