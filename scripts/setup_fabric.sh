@@ -17,6 +17,7 @@ function printError {
 install_opt=""
 catkin_build_opts=""
 
+### Arguments
 # parse command line arguments
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do

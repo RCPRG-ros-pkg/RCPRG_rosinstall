@@ -1,92 +1,94 @@
 #!/usr/bin/env bash
 
 function usage {
-    echo "usage: $0 extend_directory build_directory build_type [-i install_directory]"
+	echo "usage: $0 <extend_directory> <script_dir> <build_directory> <build_type> [options] [-- catkin_build_opts]"
+	echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
+	echo "Options:"
+	echo "  -i [ --install ] arg   Install to directory"
+	echo "catkin_build_opts are passed to 'catkin build' command"
+}
+
+function usage {
+	echo "usage: $0 extend_directory build_directory build_type [-i install_directory]"
 }
 
 function printError {
-    RED='\033[0;31m'
-    NC='\033[0m' # No Color
-    echo -e "${RED}$1${NC}"
+	RED='\033[0;31m'
+	NC='\033[0m'
+	echo -e "${RED}$1${NC}"
 }
 
 install_dir=""
+catkin_build_opts=""
 
-if [ $# -eq 5 ] && [ "$4" == "-i" ]; then
-    install_dir="$5"
-elif [ $# -ne 3 ]; then
-    echo "Wrong number of arguments."
-    usage
-    exit 1
-fi
+### Arguments
+# parse command line arguments
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+	key="$1"
+	case $key in
+		-i|--install)
+			install_opt="$2"
+			shift 2
+			if [ -z "$install_opt" ]; then
+				printError "ERROR: wrong argument: install_opt"
+				usage
+				exit 1
+			else
+				install_opt="-i $install_opt --install"
+			fi
+		;;
+		--)
+			shift
+			catkin_build_opts="$@"
+			break
+		;;
+		*)
+			# save it in an array for later
+			POSITIONAL+=("$1")
+			shift
+		;;
+	esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
 
-if [ -z "$1" ]; then
-    echo "Wrong argument: $1"
-    usage
-    exit 1
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+	printError "Wrong argument - file or directory does not exist"
+	usage
+	exit 1
 fi
 
 extend_dir="$1"
-build_dir="$2"
-build_type="$3"
+script_dir="$2"
+build_dir="$3"
+build_type="$4"
 
-distro="$ROS_DISTRO"
-
-if [ "$distro" != "melodic" ]; then
-    printError "ERFROR: ROS melodic setup.bash have to be sourced!"
-    exit 1
-fi
-
-echo "checking dependencies and conflicts..."
-#cp ~/code/RCPRG_rosinstall/setup_elektron_deps /tmp/setup_elektron_deps
-#cp ~/code/RCPRG_rosinstall/setup_elektron_conflicts /tmp/setup_elektron_conflicts
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/melodic-devel/workspace_defs/elektron_deps       -O /tmp/elektron_deps
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/melodic-devel/scripts/check_deps.sh                  -O /tmp/check_deps.sh
-chmod 755 /tmp/check_deps.sh
-
-bash /tmp/check_deps.sh /tmp/elektron_deps
-error=$?
-if [ ! "$error" == "0" ]; then
-    printError "error in dependencies: $error"
-    exit 1
-fi
-
-echo "dependencies OK"
-
-if [ ! -d $build_dir ]; then
-  mkdir $build_dir
-fi
-
+### Prepare workspace
+mkdir -p $build_dir/src
 cd $build_dir
-build_dir=`pwd`
-
 if [ ! -e ".rosinstall" ]; then
-  wstool init
+	wstool init
 fi
-
-wget https://raw.githubusercontent.com/RCPRG-ros-pkg/RCPRG_rosinstall/melodic-devel/workspace_defs/elektron.rosinstall            -O /tmp/elektron.rosinstall
-
-wstool merge /tmp/elektron.rosinstall
-
+wstool merge ${script_dir}/workspace_defs/common_elektron.rosinstall
 wstool update
 
-# unregister submodules for hw camera support and for Rapp
+### Bugfixes/workarounds
+# Unregister submodules for hw camera support and for Rapp
 cd $build_dir/src/elektron
 git submodule deinit elektron_apps/elektron-rapps netusb_camera_driver rapp-api-elektron
-cd $build_dir/src
-git clone https://github.com/ros-perception/slam_gmapping
-svn checkout https://github.com/yujinrobot/yujin_ocs/branches/release/0.8-melodic/yocs_cmd_vel_mux
-svn export  https://github.com/dudekw/scan_tools/branches/melodic-devel/laser_scan_matcher
-git clone https://github.com/AndreaCensi/csm
-git clone https://github.com/ros-perception/openslam_gmapping
 cd $build_dir
-if [ -z "$install_dir" ]; then
-    catkin config --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
-else
-    catkin config -i "$install_dir" --install --extend "$extend_dir" --cmake-args -DCMAKE_BUILD_TYPE="$build_type" -DCATKIN_ENABLE_TESTING=OFF
-fi
-catkin build #--no-status
+# Disable all Yujin OCS packages but yocs_cmd_vel_mux
+touch src/yujin_ocs/{yocs_ar_marker_tracking,yocs_ar_pair_approach,yocs_ar_pair_tracking,yocs_controllers,yocs_diff_drive_pose_controller,yocs_joyop,yocs_keyop,yocs_localization_manager,yocs_math_toolkit,yocs_navi_toolkit,yocs_navigator,yocs_rapps,yocs_safety_controller,yocs_velocity_smoother,yocs_virtual_sensor,yocs_waypoint_provider,yocs_waypoints_navi,yujin_ocs}/CATKIN_IGNORE
+# Disable all scan_tools packages but laser_scan_matcher
+touch src/scan_tools/{laser_ortho_projector,laser_scan_sparsifier,laser_scan_splitter,ncd_parser,polar_scan_matcher,scan_to_cloud_converter,scan_tools}/CATKIN_IGNORE
 
-# Patch for gmapping install BUG fix
-# sudo wget https://raw.githubusercontent.com/gavanderhoorn/slam_gmapping/hydro-devel/gmapping/nodelet_plugins.xml              -O /opt/ros/kinetic/share/gmapping/nodelet_plugins.xml
+### Configure
+CMAKE_ARGS="\
+ -DCMAKE_BUILD_TYPE=${build_type}\
+ -DCATKIN_ENABLE_TESTING=OFF\
+"
 
+catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
+
+### Build
+# catkin build $catkin_build_opts
