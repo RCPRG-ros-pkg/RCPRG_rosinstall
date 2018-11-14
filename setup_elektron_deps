@@ -1,4 +1,5 @@
 ros-kinetic-desktop
+python-wstool
 ros-kinetic-joint-state-controller
 ros-kinetic-diff-drive-controller
 ros-kinetic-effort-controllers
