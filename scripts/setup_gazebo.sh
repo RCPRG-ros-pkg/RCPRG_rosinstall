@@ -73,7 +73,7 @@ wstool update
 # Issue: https://bitbucket.org/site/master/issues/8263/http-400-bad-request-error-when-pulling
 wget -c https://bitbucket.org/osrf/gazebo/get/gazebo9.tar.bz2 -O src/gazebo/gazebo9.tar.bz2
 # tar options: eXtract, Bzip2, Keep old files, Filename; output dir
-tar -xBf --skip-old-files src/gazebo/gazebo9.tar.bz2 -C src/gazebo
+tar -xBf src/gazebo/gazebo9.tar.bz2 -C src/gazebo --skip-old-files
 # Rename extracted directory - it'll look like "osrf-gazebo-37909779f2fd"
 mv src/gazebo/osrf-gazebo-* src/gazebo/gazebo
 ## Gazebo package.xml
