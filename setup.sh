@@ -235,7 +235,7 @@ if [ $use_fakechroot -eq 1 ]; then
 
 	# create build configuration
 	# perform fakechroot and execute this script again, in jail
-	fakechroot -e stero -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . ./setup.sh $build_configuration -b $build_type -d $build_dir -i $install_dir "$@"
+	fakechroot -e stero -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . ./setup.sh $build_configuration -b $build_type -d $build_dir -i $install_dir -- "$@"
 	exit 0
 fi
 
