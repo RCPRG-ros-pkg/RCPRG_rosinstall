@@ -62,19 +62,6 @@ if [ "$ROS_DISTRO" != "melodic" ]; then
 	exit 1
 fi
 
-if [ $# -eq 0 ]; then
-	echo "This will build and install the complete RCPRG robot software stack with default build options."
-	echo "Use '$0 --help' to see the available options and their defualt values."
-	read -r -p "Continue [Y/n]?" response
-	# tolower
-	response=${response,,}
-	if [[ $response =~ ^(yes|y| ) ]] || [ -z $response ]; then
-		echo "Starting the build!"
-	else
-		exit 0
-	fi
-fi
-
 ### Argument parsing
 # Defaults:
 install_dir=""
@@ -87,6 +74,26 @@ build_orocos=0
 build_fabric=0
 build_velma=0
 build_configuration=""
+
+if [ $# -eq 0 ]; then
+	echo "This will build and install the complete RCPRG robot software stack with default build options."
+	echo "Use '$0 --help' to see the available options and their defualt values."
+	read -r -p "Continue [Y/n]?" response
+	# tolower
+	response=${response,,}
+	if [[ $response =~ ^(yes|y| ) ]] || [ -z $response ]; then
+		echo "Starting the build!"
+		build_configuration=" -g -e -o -f -v "
+		build_elektron=1
+		build_gazebo=1
+		build_orocos=1
+		build_fabric=1
+		build_velma=1
+	else
+		exit 0
+	fi
+fi
+
 while [[ $# -gt 0 ]]; do
 	key="$1"
 
