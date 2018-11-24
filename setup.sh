@@ -23,33 +23,38 @@ function printError {
 }
 
 function buildWorkspace {
-	name=$1
-	dependency=$2
-	build_type=$3
-	script_dir=$4
-	build_dir=$5
-	install_dir=$6
-	shift 6
+	name_arg=$1
+	dependency_arg=$2
+	build_type_arg=$3
+	script_dir_arg=$4
+	build_dir_arg=$5
+	install_dir_arg=$6
+    devel_space_only_arg=$7
+	shift 7
 
-	setup_script="${script_dir}/scripts/setup_${name}.sh"
+	setup_script="${script_dir_arg}/scripts/setup_${name_arg}.sh"
 	dep_dir="/opt/ros/melodic"
-	if [ ! -z $dependency ]; then
-		if [ ! -z $install_dir ]; then
-			dep_dir="${install_dir}/ws_${dependency}"
+	if [ ! -z $dependency_arg ]; then
+		if [ ! -z $install_dir_arg ]; then
+			dep_dir="${install_dir_arg}/ws_${dependency_arg}"
 		else
-			dep_dir="${build_dir}/ws_${dependency}/install"
+			dep_dir="${build_dir_arg}/ws_${dependency_arg}/install"
 		fi
 	fi
-	ws_dir="${build_dir}/ws_${name}"
+	ws_dir="${build_dir_arg}/ws_${name_arg}"
 	install_arg=""
-	if [ ! -z $install_dir ]; then
-		install_arg="-i ${install_dir}/ws_${name}"
+	if [ ! -z $install_dir_arg ]; then
+		install_arg="-i ${install_dir_arg}/ws_${name_arg}"
 	else
-		install_arg="-i ${build_dir}/ws_${name}/install"
+        if [ $devel_space_only_arg -eq "1" ]; then
+            install_arg=""
+        else
+    		install_arg="-i ${build_dir_arg}/ws_${name_arg}/install"
+        fi
 	fi
 
-	echo "Calling script: $setup_script $dep_dir $script_dir $ws_dir $build_type $install_arg -- $@"
-	bash $setup_script $dep_dir $script_dir $ws_dir $build_type $install_arg -- "$@"
+	echo "Calling script: $setup_script $dep_dir $script_dir_arg $ws_dir $build_type_arg $install_arg -- $@"
+	bash $setup_script $dep_dir $script_dir_arg $ws_dir $build_type_arg $install_arg -- "$@"
 	if [ $? -ne 0 ]; then
 		printError "The command finished with error. Terminating the setup script."
 		exit 2
@@ -251,6 +256,9 @@ if [ ! -z "$install_dir" ]; then
 	mkdir -p "$install_dir"
 	cd "$install_dir"
 	install_dir=`pwd`
+    devel_space_only="0"
+else
+    devel_space_only="1"
 fi
 
 
@@ -258,21 +266,21 @@ fi
 # The variables have to be quoted to ensure they're passed to buildWorkspace function even if empty
 
 if [ $build_gazebo -eq 1 ]; then
-	buildWorkspace "gazebo" "" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$@"
+	buildWorkspace "gazebo" "" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
 
 if [ $build_elektron -eq 1 ]; then
-        buildWorkspace "elektron" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$@"
+        buildWorkspace "elektron" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
 
 if [ $build_orocos -eq 1 ]; then
-	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$@"
+	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
 
 if [ $build_fabric -eq 1 ]; then
-	buildWorkspace "fabric" "orocos" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$@"
+	buildWorkspace "fabric" "orocos" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
 
 if [ $build_velma -eq 1 ]; then
-	buildWorkspace "velma_os" "fabric" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$@"
+	buildWorkspace "velma_os" "fabric" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$@"
 fi
