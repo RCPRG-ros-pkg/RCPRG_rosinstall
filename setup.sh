@@ -202,6 +202,8 @@ script_dir=`pwd`
 ### Fakeroot
 #export FAKECHROOT_CMD_ORIG=
 if [ $use_fakechroot -eq 1 ]; then
+	# install fakechroot if not installed
+	sudo apt install fakechroot
 	# create jail
 	mkdir -p $build_dir
 	if [ "$(ls -A $build_dir)" ]; then

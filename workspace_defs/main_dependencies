@@ -57,5 +57,6 @@ ros-melodic-position-controllers
 ros-melodic-rqt
 ros-melodic-teleop-twist-keyboard
 ros-melodic-transmission-interface
+ros-melodic-diagnostic-updater
 ruby-dev
 sdformat-sdf
