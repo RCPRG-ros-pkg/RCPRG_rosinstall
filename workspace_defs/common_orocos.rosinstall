@@ -8,4 +8,4 @@
 - git: {local-name: src/orocos/orocos_toolchain/rtt, uri: 'https://github.com/orocos-toolchain/rtt.git', version: 'toolchain-2.9'}
 - git: {local-name: src/orocos/orocos_toolchain/rtt_typelib, uri: 'https://github.com/orocos-toolchain/rtt_typelib.git', version: 'toolchain-2.9'}
 - git: {local-name: src/orocos/orocos_toolchain/typelib, uri: 'https://github.com/orocos-toolchain/typelib.git', version: 'toolchain-2.9'}
-- git: {local-name: src/orocos/orocos_toolchain/utilrb, uri: 'https://github.com/orocos-toolchain/utilrb.git', version: 'toolchain-2.9-fix-41'}
+- git: {local-name: src/orocos/orocos_toolchain/utilrb, uri: 'https://github.com/orocos-toolchain/utilrb.git', version: 'toolchain-2.9'}
