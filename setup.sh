@@ -29,7 +29,7 @@ function buildWorkspace {
 	script_dir_arg=$4
 	build_dir_arg=$5
 	install_dir_arg=$6
-    devel_space_only_arg=$7
+	devel_space_only_arg=$7
 	shift 7
 
 	setup_script="${script_dir_arg}/scripts/setup_${name_arg}.sh"
@@ -41,16 +41,15 @@ function buildWorkspace {
 			dep_dir="${build_dir_arg}/ws_${dependency_arg}/install"
 		fi
 	fi
+
 	ws_dir="${build_dir_arg}/ws_${name_arg}"
 	install_arg=""
 	if [ ! -z $install_dir_arg ]; then
 		install_arg="-i ${install_dir_arg}/ws_${name_arg}"
+	elif [ $devel_space_only_arg -eq "1" ]; then
+		install_arg=""
 	else
-        if [ $devel_space_only_arg -eq "1" ]; then
-            install_arg=""
-        else
-    		install_arg="-i ${build_dir_arg}/ws_${name_arg}/install"
-        fi
+		install_arg="-i ${build_dir_arg}/ws_${name_arg}/install"
 	fi
 
 	echo "Calling script: $setup_script $dep_dir $script_dir_arg $ws_dir $build_type_arg $install_arg -- $@"
@@ -67,17 +66,26 @@ if [ "$ROS_DISTRO" != "melodic" ]; then
 	exit 1
 fi
 
-### Argument parsing
-# Defaults:
+### Argument parsing, defaults:
+# Installation directory (if separate from build)
 install_dir=""
+# Build type
 build_type="RelWithDebInfo"
+# Build directory (or fakeroot directory)
 build_dir="build"
+# Whether to use fakeroot
 use_fakechroot=0
-build_elektron=0
+# Whether to build ws_gazebo
 build_gazebo=0
+# Whether to build ws_orocos
 build_orocos=0
+# Whether to build ws_fabric
 build_fabric=0
+# Whether to build ws_velma
 build_velma=0
+# Whether to build ws_elektron
+build_elektron=0
+# Build configuration passed to fakeroot
 build_configuration=""
 
 if [ $# -eq 0 ]; then
@@ -88,7 +96,7 @@ if [ $# -eq 0 ]; then
 	response=${response,,}
 	if [[ $response =~ ^(yes|y| ) ]] || [ -z $response ]; then
 		echo "Starting the build!"
-		build_configuration=" -g -e -o -f -v "
+		build_configuration=" -g -e -o -f -v"
 		build_elektron=1
 		build_gazebo=1
 		build_orocos=1
@@ -128,34 +136,33 @@ while [[ $# -gt 0 ]]; do
 			use_fakechroot=1
 			shift
 		;;
-                -g|--gazebo)
-			build_configuration+=" -g "
-                        build_gazebo=1
-                        shift
-                ;;
-                -e|--elektron)
-                        build_configuration+=" -e "
-                        build_elektron=1
+		-g|--gazebo)
+			build_configuration+=" -g"
+			build_gazebo=1
 			shift
-                ;;
-                -o|--orocos)
-			build_configuration+=" -o "
-                        build_orocos=1
-                        shift
-                ;;
-                -f|--fabric)
-			build_configuration+=" -f "
-                        build_fabric=1
-                        shift
-                ;;
-                -v|--velma)
-			build_configuration+=" -v "
-                        build_velma=1
-                        shift
-                ;;
-
+		;;
+		-e|--elektron)
+			build_configuration+=" -e"
+			build_elektron=1
+			shift
+		;;
+		-o|--orocos)
+			build_configuration+=" -o"
+			build_orocos=1
+			shift
+		;;
+		-f|--fabric)
+			build_configuration+=" -f"
+			build_fabric=1
+			shift
+		;;
+		-v|--velma)
+			build_configuration+=" -v"
+			build_velma=1
+			shift
+		;;
 		--)
-			shift
+			#
 			break
 		;;
 		*)
@@ -165,23 +172,33 @@ while [[ $# -gt 0 ]]; do
 		;;
 	esac
 done
+shift
+
+### If no workspaces are selected - build everything
+if [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 0 ] && [ $build_orocos -eq 0 ] && [ $build_fabric -eq 0 ] && [ $build_velma -eq 0 ]; then
+	build_configuration=" -g -e -o -f -v"
+	build_gazebo=1
+	build_elektron=1
+	build_orocos=1
+	build_fabric=1
+	build_velma=1
+fi
 
 ### Check if required workspaces are installed in the /opt directory
-if [[ ! -d "/opt/ws_gazebo" ]] && [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 1 ] ; then
+if [[ ! -d "/opt/ws_gazebo" ]] && [ $build_gazebo -eq 0 ]; then
+	# Gazebo is required for everything else
 	printError "Gazebo is not in the /opt directory, please install it or add <-g> flag to the script."
 	exit 1
 fi
-if [[ ! -d "/opt/ws_gazebo" ]] && [ $build_gazebo -eq 0 ] && [ $build_orocos -eq 1 ] ; then
-        printError "Gazebo is not in the /opt directory, please install it or add <-g> flag to the script."
-        exit 1
-fi
-if [[ ! -d "/opt/ws_orocos" ]] && [ $build_orocos -eq 0 ] && [ $build_fabric -eq 1 ] ; then
-        printError "Orocos is not in the /opt directory, please install it or add <-o> flag to the script."
-        exit 1
+if [[ ! -d "/opt/ws_orocos" ]] && [ $build_orocos -eq 0 ] && [[ $build_fabric -eq 1 || $build_velma -eq 1 ]] ; then
+	# Orocos is required for Fabric and Velma
+	printError "Orocos is not in the /opt directory, please install it or add <-o> flag to the script."
+	exit 1
 fi
 if [[ ! -d "/opt/ws_fabric" ]] && [ $build_fabric -eq 0 ] && [ $build_velma -eq 1 ] ; then
-        printError "Fabric is not in the /opt directory, please install it or add <-f> flag to the script."
-        exit 1
+	# Fabric is required for Velma only
+	printError "Fabric is not in the /opt directory, please install it or add <-f> flag to the script."
+	exit 1
 fi
 
 ### Check build type
@@ -198,51 +215,65 @@ if [ ! "$error" == "0" ]; then
 	printError "error in dependencies: $error"
 	exit 1
 fi
+
 script_dir=`pwd`
+
 ### Fakeroot
-#export FAKECHROOT_CMD_ORIG=
 if [ $use_fakechroot -eq 1 ]; then
-	# install fakechroot if not installed
-	sudo apt install fakechroot
-	# create jail
-	mkdir -p $build_dir
-	if [ "$(ls -A $build_dir)" ]; then
-		echo "WARNING: $build_dir is not empty"
+	### install fakechroot if not present
+	if [ -x "$(fakechroot -v)" ]; then
+		echo "WARNING: fakechroot not installed, attempting install now"
+		sudo apt install fakechroot
+		if [ ! "$?" == "0" ]; then
+			printError "error installing fakechroot"
+			exit 1
+		fi
 	fi
 
-	# copy setup scripts etc.
+	### Prepare the jail
+	## create directories
+	mkdir -p $build_dir
+	if [ "$(ls -A $build_dir)" ]; then
+		echo "WARNING: $build_dir is not empty, in case of errors try clean build first"
+	fi
+	mkdir -p $build_dir/usr
+	mkdir -p $build_dir/opt
+
+	## copy setup scripts etc.
 	cp -a scripts $build_dir/
 	cp -a workspace_defs $build_dir/
 	cp -a setup.sh $build_dir/
 
-	mkdir -p $build_dir/usr
+	## link in /opt/ros (if not linked already)
+	if [[ ! -d $build_dir/opt/ros ]]; then
+		ln -s /opt/ros $build_dir/opt/ros
+	fi
 
-	# link /opt/ros
-	mkdir -p $build_dir/opt
-	ln -s /opt/ros $build_dir/opt/ros
-	
-	echo $build_dir/opt/ws_gazebo
+	## link in workspaces that will be not compiled during this setup
+	if [ $build_gazebo -eq 0 ]; then
+		ln -s /opt/ws_gazebo $build_dir/opt/ws_gazebo
+	fi
+	if [ $build_orocos -eq 0 ]; then
+		ln -s /opt/ws_orocos $build_dir/opt/ws_orocos
+	fi
+	if [ $build_orocos -eq 0 ]; then
+		ln -s /opt/ws_orocos $build_dir/opt/ws_orocos
+	fi
+	if [ $build_fabric -eq 0 ]; then
+		ln -s /opt/ws_fabric $build_dir/opt/ws_fabric
+	fi
 
-	# link workspaces that will be not compiled during this setup
-        if [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 1 ]; then
-                ln -s /opt/ws_gazebo $build_dir/opt/ws_gazebo
-        fi
-        if [ $build_orocos -eq 0 ] && [ $build_fabric -eq 1 ]; then
-                ln -s /opt/ws_orocos $build_dir/opt/ws_orocos
-        fi
-        if [ $build_orocos -eq 0 ] && [ $build_velma -eq 1 ]; then
-                ln -s /opt/ws_orocos $build_dir/opt/ws_orocos
-        fi
-        if [ $build_fabric -eq 0 ] && [ $build_velma -eq 1 ]; then
-                ln -s /opt/ws_fabric $build_dir/opt/ws_fabric
-        fi
-
-	# move to jail
+	### Enter jail
 	cd $build_dir
 
-	# create build configuration
+	### Execute build in jail
+	# prepare install directory argument (so as not to pass "-i --")
+	install_dir_arg=""
+	if [ ! -z "$install_dir" ]; then
+		install_dir_arg="-i $install_dir"
+	fi
 	# perform fakechroot and execute this script again, in jail
-	fakechroot -e stero -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . ./setup.sh $build_configuration -b $build_type -d $build_dir -i $install_dir -- "$@"
+	fakechroot -e stero -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . ./setup.sh $build_configuration -b $build_type -d $build_dir $install_dir_arg -- "$@"
 	exit 0
 fi
 
@@ -258,31 +289,25 @@ if [ ! -z "$install_dir" ]; then
 	mkdir -p "$install_dir"
 	cd "$install_dir"
 	install_dir=`pwd`
-    devel_space_only="0"
+	devel_space_only="0"
 else
-    devel_space_only="1"
+	devel_space_only="1"
 fi
-
 
 ### Build workspaces
 # The variables have to be quoted to ensure they're passed to buildWorkspace function even if empty
-
 if [ $build_gazebo -eq 1 ]; then
 	buildWorkspace "gazebo" "" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
-
 if [ $build_elektron -eq 1 ]; then
-        buildWorkspace "elektron" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
+	buildWorkspace "elektron" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
-
 if [ $build_orocos -eq 1 ]; then
 	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
-
 if [ $build_fabric -eq 1 ]; then
 	buildWorkspace "fabric" "orocos" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
 fi
-
 if [ $build_velma -eq 1 ]; then
 	buildWorkspace "velma_os" "fabric" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$@"
 fi
