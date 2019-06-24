@@ -91,4 +91,4 @@ CMAKE_ARGS="\
 catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
 
 ### Build
-# catkin build $catkin_build_opts
+catkin build $catkin_build_opts
