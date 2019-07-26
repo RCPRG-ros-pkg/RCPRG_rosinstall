@@ -63,12 +63,6 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
 	exit 1
 fi
 
-if [ $velma_hw -eq "1" ] && [ $velma_sim_gazebo -eq "1" ]; then
-	printError "Wrong combination of options: --velma-hw and --velma-sim-gazebo"
-	usage
-	exit 1
-fi
-
 extend_dir="$1"
 script_dir="$2"
 build_dir="$3"
@@ -82,16 +76,7 @@ cd $build_dir
 if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
-wstool merge ${script_dir}/workspace_defs/common_velma.rosinstall
-
-if [ $velma_hw -eq "1" ]; then
-	wstool merge ${script_dir}/workspace_defs/velma_hw.rosinstall
-fi
-
-if [ $velma_sim_gazebo -eq "1" ]; then
-	wstool merge ${script_dir}/workspace_defs/velma_sim_gazebo.rosinstall
-fi
-
+wstool merge ${script_dir}/workspace_defs/velma_hw.rosinstall
 wstool update
 
 ### Bugfixes/workarounds

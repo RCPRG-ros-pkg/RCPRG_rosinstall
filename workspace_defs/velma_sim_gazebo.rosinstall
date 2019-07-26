@@ -1,0 +1,2 @@
+- git: {local-name: src/rtt_gazebo,                 uri: 'https://github.com/RCPRG-ros-pkg/rtt_gazebo.git', version: 'gazebo9'}
+- git: {local-name: src/velma_sim_gazebo, uri: 'https://github.com/RCPRG-ros-pkg/velma_sim_gazebo.git', version: 'melodic-devel'}

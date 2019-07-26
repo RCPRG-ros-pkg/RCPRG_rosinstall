@@ -13,6 +13,7 @@ function usage {
 	echo "  -o [ --orocos ]          build orocos workspace"
 	echo "  -f [ --fabric ]          build fabric workspace"
 	echo "  -v [ --velma ]           build velma workspace"
+	echo "  -w [ --velma-hw ]        build velma HW workspace"
 	echo "catkin_build_opts are passed to 'catkin build' command"
 }
 
@@ -30,7 +31,8 @@ function buildWorkspace {
 	build_dir_arg=$5
 	install_dir_arg=$6
 	devel_space_only_arg=$7
-	shift 7
+	additional_options=$8
+	shift 8
 
 	setup_script="${script_dir_arg}/scripts/setup_${name_arg}.sh"
 	dep_dir="/opt/ros/melodic"
@@ -38,7 +40,11 @@ function buildWorkspace {
 		if [ ! -z $install_dir_arg ]; then
 			dep_dir="${install_dir_arg}/ws_${dependency_arg}"
 		else
-			dep_dir="${build_dir_arg}/ws_${dependency_arg}/install"
+			if [ $devel_space_only_arg -eq "1" ]; then
+				dep_dir="${build_dir_arg}/ws_${dependency_arg}/devel"
+			else
+				dep_dir="${build_dir_arg}/ws_${dependency_arg}/install"
+			fi 
 		fi
 	fi
 
@@ -52,8 +58,8 @@ function buildWorkspace {
 		install_arg="-i ${build_dir_arg}/ws_${name_arg}/install"
 	fi
 
-	echo "Calling script: $setup_script $dep_dir $script_dir_arg $ws_dir $build_type_arg $install_arg -- $@"
-	bash $setup_script $dep_dir $script_dir_arg $ws_dir $build_type_arg $install_arg -- "$@"
+	echo "Calling script: $setup_script $dep_dir $script_dir_arg $ws_dir $build_type_arg $install_arg $additional_options -- $@"
+	bash $setup_script $dep_dir $script_dir_arg $ws_dir $build_type_arg $install_arg $additional_options -- "$@"
 	if [ $? -ne 0 ]; then
 		printError "The command finished with error. Terminating the setup script."
 		exit 2
@@ -83,6 +89,8 @@ build_orocos=0
 build_fabric=0
 # Whether to build ws_velma
 build_velma=0
+# Whether to build ws_velma_hw
+build_velma_hw=0
 # Whether to build ws_elektron
 build_elektron=0
 # Build configuration passed to fakeroot
@@ -161,6 +169,11 @@ while [[ $# -gt 0 ]]; do
 			build_velma=1
 			shift
 		;;
+		-w|--velma-hw)
+			build_configuration+=" -w"
+			build_velma_hw=1
+			shift
+		;;
 		--)
 			#
 			break
@@ -184,12 +197,13 @@ if [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 0 ] && [ $build_orocos -eq 0
 	build_velma=1
 fi
 
+# It is okay not to install Gazebo
 ### Check if required workspaces are installed in the /opt directory
-if [[ ! -d "/opt/ws_gazebo" ]] && [ $build_gazebo -eq 0 ]; then
-	# Gazebo is required for everything else
-	printError "Gazebo is not in the /opt directory, please install it or add <-g> flag to the script."
-	exit 1
-fi
+#if [[ ! -d "/opt/ws_gazebo" ]] && [ $build_gazebo -eq 0 ]; then
+#	# Gazebo is required for everything else
+#	printError "Gazebo is not in the /opt directory, please install it or add <-g> flag to the script."
+#	exit 1
+#fi
 if [[ ! -d "/opt/ws_orocos" ]] && [ $build_orocos -eq 0 ] && [[ $build_fabric -eq 1 || $build_velma -eq 1 ]] ; then
 	# Orocos is required for Fabric and Velma
 	printError "Orocos is not in the /opt directory, please install it or add <-o> flag to the script."
@@ -200,6 +214,11 @@ if [[ ! -d "/opt/ws_fabric" ]] && [ $build_fabric -eq 0 ] && [ $build_velma -eq 
 	printError "Fabric is not in the /opt directory, please install it or add <-f> flag to the script."
 	exit 1
 fi
+#if [[ ! -d "/opt/ws_velma_os" ]] && [ $build_velma_hw -eq 1 ] ; then
+#	# VelmaOS is required for Velma HW
+#	printError "VelmaOS is not in the /opt directory, please install it or add <-w> flag to the script."
+#	exit 1
+#fi
 
 ### Check build type
 if [ "$build_type" != "Debug" ] && [ "$build_type" != "RelWithDebInfo" ] && [ "$build_type" != "Release" ]; then
@@ -297,17 +316,26 @@ fi
 ### Build workspaces
 # The variables have to be quoted to ensure they're passed to buildWorkspace function even if empty
 if [ $build_gazebo -eq 1 ]; then
-	buildWorkspace "gazebo" "" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
+	buildWorkspace "gazebo" "" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
 fi
 if [ $build_elektron -eq 1 ]; then
-	buildWorkspace "elektron" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
+	buildWorkspace "elektron" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
 fi
 if [ $build_orocos -eq 1 ]; then
-	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
+	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
 fi
 if [ $build_fabric -eq 1 ]; then
-	buildWorkspace "fabric" "orocos" "$build_type" "$script_dir" "$build_dir" "$install_dir" "0" "$@"
+	buildWorkspace "fabric" "orocos" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
 fi
 if [ $build_velma -eq 1 ]; then
-	buildWorkspace "velma_os" "fabric" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$@"
+	if [ $build_gazebo -eq 1 ]; then
+		additional_options="-g"
+	fi
+	if [ $build_velma_hw -eq 1 ]; then
+		additional_options="-w"
+	fi
+	buildWorkspace "velma_os" "fabric" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$additional_options" "$@"
 fi
+#if [ $build_velma_hw -eq 1 ]; then
+#	buildWorkspace "velma_hw" "velma_os" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$@"
+#fi
