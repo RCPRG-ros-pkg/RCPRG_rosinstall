@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 function usage {
-	echo "usage: $0 [options] [-- catkin_build_opts]"
+	echo "usage: $0 dependency_on [options] [-- catkin_build_opts]"
+    echo "dependency_on -- path to parent workspace, typically /opt/ros/melodic"
 	echo "Options:"
 	echo "  -h [ --help ]            Display this message and exit"
 	echo "  -d [ --build-dir ] arg   Build directory, defaults to 'build'"
@@ -35,18 +36,19 @@ function buildWorkspace {
 	shift 8
 
 	setup_script="${script_dir_arg}/scripts/setup_${name_arg}.sh"
-	dep_dir="/opt/ros/melodic"
-	if [ ! -z $dependency_arg ]; then
-		if [ ! -z $install_dir_arg ]; then
-			dep_dir="${install_dir_arg}/ws_${dependency_arg}"
-		else
-			if [ $devel_space_only_arg -eq "1" ]; then
-				dep_dir="${build_dir_arg}/ws_${dependency_arg}/devel"
-			else
-				dep_dir="${build_dir_arg}/ws_${dependency_arg}/install"
-			fi 
-		fi
-	fi
+    dep_dir="$dependency_arg"
+	#dep_dir="/opt/ros/melodic"
+	#if [ ! -z $dependency_arg ]; then
+	#	if [ ! -z $install_dir_arg ]; then
+	#		dep_dir="${install_dir_arg}/ws_${dependency_arg}"
+	#	else
+	#		if [ $devel_space_only_arg -eq "1" ]; then
+	#			dep_dir="${build_dir_arg}/ws_${dependency_arg}/devel"
+	#		else
+	#			dep_dir="${build_dir_arg}/ws_${dependency_arg}/install"
+	#		fi 
+	#	fi
+	#fi
 
 	ws_dir="${build_dir_arg}/ws_${name_arg}"
 	install_arg=""
@@ -114,6 +116,9 @@ if [ $# -eq 0 ]; then
 		exit 0
 	fi
 fi
+
+dependnecy_dir="$1"
+shift 1
 
 while [[ $# -gt 0 ]]; do
 	key="$1"
@@ -316,25 +321,57 @@ fi
 ### Build workspaces
 # The variables have to be quoted to ensure they're passed to buildWorkspace function even if empty
 if [ $build_gazebo -eq 1 ]; then
-	buildWorkspace "gazebo" "" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+#	buildWorkspace "gazebo" "" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+	buildWorkspace "gazebo" "$dependnecy_dir" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+	if [ ! -z $install_dir ]; then
+		dependnecy_dir="${install_dir}/ws_gazebo"
+	else
+		if [ $devel_space_only -eq "1" ]; then
+			dependnecy_dir="${build_dir}/ws_gazebo/devel"
+		else
+			dependnecy_dir="${build_dir}/ws_gazebo/install"
+		fi
+    fi
 fi
 if [ $build_elektron -eq 1 ]; then
-	buildWorkspace "elektron" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+	buildWorkspace "elektron" "$dependnecy_dir" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
 fi
 if [ $build_orocos -eq 1 ]; then
-	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+#	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+	buildWorkspace "orocos" "$dependnecy_dir" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+	if [ ! -z $install_dir ]; then
+		dependnecy_dir="${install_dir}/ws_orocos"
+	else
+		if [ $devel_space_only -eq "1" ]; then
+			dependnecy_dir="${build_dir}/ws_orocos/devel"
+		else
+			dependnecy_dir="${build_dir}/ws_orocos/install"
+		fi
+    fi
 fi
 if [ $build_fabric -eq 1 ]; then
-	buildWorkspace "fabric" "orocos" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+	buildWorkspace "fabric" "$dependnecy_dir" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+
+	if [ ! -z $install_dir ]; then
+		dependnecy_dir="${install_dir}/ws_fabric"
+	else
+		if [ $devel_space_only -eq "1" ]; then
+			dependnecy_dir="${build_dir}/ws_fabric/devel"
+		else
+			dependnecy_dir="${build_dir}/ws_fabric/install"
+		fi
+    fi
 fi
 if [ $build_velma -eq 1 ]; then
-	if [ $build_gazebo -eq 1 ]; then
-		additional_options="-g"
-	fi
+	#if [ $build_gazebo -eq 1 ]; then
+	#	additional_options="-g"
+	#fi
 	if [ $build_velma_hw -eq 1 ]; then
 		additional_options="-w"
+    else
+		additional_options="-g"
 	fi
-	buildWorkspace "velma_os" "fabric" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$additional_options" "$@"
+	buildWorkspace "velma_os" "$dependnecy_dir" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$additional_options" "$@"
 fi
 #if [ $build_velma_hw -eq 1 ]; then
 #	buildWorkspace "velma_hw" "velma_os" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "$@"
