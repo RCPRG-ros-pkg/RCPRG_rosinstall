@@ -2,9 +2,9 @@
 
 function usage {
 	echo "usage: $0 dependency_on [options] [-- catkin_build_opts]"
-    echo "dependency_on -- path to parent workspace, typically /opt/ros/melodic"
 	echo "Options:"
 	echo "  -h [ --help ]            Display this message and exit"
+    echo "  -x [ --extend ]          Extend workspace: path to parent workspace, typically /opt/ros/melodic"
 	echo "  -d [ --build-dir ] arg   Build directory, defaults to 'build'"
 	echo "  -b [ --build-type ] arg  Build type, can be one of (Debug|RelWithDebInfo|Release), defaults to 'RelWithDebInfo'"
 	echo "  -i [ --install ] arg     Install to directory"
@@ -68,12 +68,6 @@ function buildWorkspace {
 	fi
 }
 
-### ROS check
-if [ "$ROS_DISTRO" != "melodic" ]; then
-	printError "ERROR: ROS melodic setup.bash have to be sourced!"
-	exit 1
-fi
-
 ### Argument parsing, defaults:
 # Installation directory (if separate from build)
 install_dir=""
@@ -98,27 +92,25 @@ build_elektron=0
 # Build configuration passed to fakeroot
 build_configuration=""
 
-if [ $# -eq 0 ]; then
-	echo "This will build and install the complete RCPRG robot software stack with default build options."
-	echo "Use '$0 --help' to see the available options and their defualt values."
-	read -r -p "Continue [Y/n]?" response
-	# tolower
-	response=${response,,}
-	if [[ $response =~ ^(yes|y| ) ]] || [ -z $response ]; then
-		echo "Starting the build!"
-		build_configuration=" -g -e -o -f -v"
-		build_elektron=1
-		build_gazebo=1
-		build_orocos=1
-		build_fabric=1
-		build_velma=1
-	else
-		exit 0
-	fi
-fi
-
-dependnecy_dir="$1"
-shift 1
+# DO NOT USE DEFAULT ARGS!!!!11
+#if [ $# -eq 0 ]; then
+#	echo "This will build and install the complete RCPRG robot software stack with default build options."
+#	echo "Use '$0 --help' to see the available options and their defualt values."
+#	read -r -p "Continue [Y/n]?" response
+#	# tolower
+#	response=${response,,}
+#	if [[ $response =~ ^(yes|y| ) ]] || [ -z $response ]; then
+#		echo "Starting the build!"
+#		build_configuration=" -g -e -o -f -v"
+#		build_elektron=1
+#		build_gazebo=1
+#		build_orocos=1
+#		build_fabric=1
+#		build_velma=1
+#	else
+#		exit 0
+#	fi
+#fi
 
 while [[ $# -gt 0 ]]; do
 	key="$1"
@@ -178,6 +170,10 @@ while [[ $# -gt 0 ]]; do
 			build_configuration+=" -w"
 			build_velma_hw=1
 			shift
+        ;;
+        -x|--extend)
+            dependnecy_dir="$2"
+            shift 2
 		;;
 		--)
 			#
@@ -191,6 +187,12 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 shift
+
+if [ -z $dependnecy_dir ]; then
+	printError "Extension of workspace is not provided, please specify valid -x arg."
+	usage
+	exit 0
+fi
 
 ### If no workspaces are selected - build everything
 if [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 0 ] && [ $build_orocos -eq 0 ] && [ $build_fabric -eq 0 ] && [ $build_velma -eq 0 ]; then
