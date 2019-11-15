@@ -194,6 +194,12 @@ if [ -z "$dependnecy_dir" ]; then
 	exit 0
 fi
 
+### ROS check
+if [ "$ROS_DISTRO" != "melodic" ]; then
+	printError "ERROR: ROS melodic setup.bash have to be sourced!"
+	exit 1
+fi
+
 ### If no workspaces are selected - build everything
 if [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 0 ] && [ $build_orocos -eq 0 ] && [ $build_fabric -eq 0 ] && [ $build_velma -eq 0 ]; then
 	build_configuration=" -g -e -o -f -v"
