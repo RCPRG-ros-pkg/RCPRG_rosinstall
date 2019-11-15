@@ -19,6 +19,8 @@ function printError {
 install_opt=""
 catkin_build_opts=""
 
+velma_hw=0
+
 # parse command line arguments
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do
