@@ -188,7 +188,7 @@ while [[ $# -gt 0 ]]; do
 done
 shift
 
-if [ -z $dependnecy_dir ]; then
+if [ -z "$dependnecy_dir" ]; then
 	printError "Extension of workspace is not provided, please specify valid -x arg."
 	usage
 	exit 0
@@ -299,7 +299,7 @@ if [ $use_fakechroot -eq 1 ]; then
 		install_dir_arg="-i $install_dir"
 	fi
 	# perform fakechroot and execute this script again, in jail
-	fakechroot -e stero -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . ./setup.sh $build_configuration -b $build_type -d $build_dir $install_dir_arg -- "$@"
+	fakechroot -e stero -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . ./setup.sh -x $dependency_dir $build_configuration -b $build_type -d $build_dir $install_dir_arg -- "$@"
 	exit 0
 fi
 
