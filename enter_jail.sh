@@ -36,8 +36,10 @@ fi
 ### Prepare the jail
 mkdir -p $build_dir/bin
 mkdir -p $build_dir/dev
-#mkdir -p $build_dir/etc
-#cp -r /etc/* $build_dir/etc
+mkdir -p $build_dir/etc
+cp -r /etc/* $build_dir/etc
+echo "robot:x:1001:1001::/home/robot:/bin/bash" >> $build_dir/etc/passwd
+echo "robot:x:1001:" >> $build_dir/etc/group
 mkdir -p $build_dir/lib
 mkdir -p $build_dir/lib64
 mkdir -p $build_dir/opt
@@ -59,5 +61,6 @@ cd $build_dir
 # perform fakechroot and execute bash, in jail
 echo "Executing:"
 echo "fakechroot -e jail -c $script_dir/fakechroot fakeroot /usr/sbin/chroot . bash"
+export HOME=/home/robot
 fakechroot -s -e jail -c $script_dir/fakechroot fakeroot /usr/sbin/chroot --userspec=robot:robot . bash
 exit 0
