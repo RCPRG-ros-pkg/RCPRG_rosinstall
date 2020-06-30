@@ -20,6 +20,7 @@ install_opt=""
 catkin_build_opts=""
 
 velma_hw=0
+velma_sim_gazebo=0
 
 # parse command line arguments
 POSITIONAL=()

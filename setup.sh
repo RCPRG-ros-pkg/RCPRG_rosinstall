@@ -276,6 +276,10 @@ if [ $use_fakechroot -eq 1 ]; then
 	cp -a workspace_defs $build_dir/
 	cp -a setup.sh $build_dir/
 
+	if [ -f "friComm.h" ]; then
+		cp -a friComm.h $build_dir/
+	fi
+
 	## link in /opt/ros (if not linked already)
 	if [[ ! -d $build_dir/opt/ros ]]; then
 		ln -s /opt/ros $build_dir/opt/ros
