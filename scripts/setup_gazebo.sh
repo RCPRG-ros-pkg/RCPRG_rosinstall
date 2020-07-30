@@ -69,13 +69,9 @@ wstool update
 
 ### Bugfixes/workarounds
 ## Gazebo download
-# Download Gazebo package - workaround for HTTP error 400 when cloning huge mercurial repos
-# Issue: https://bitbucket.org/site/master/issues/8263/http-400-bad-request-error-when-pulling
-wget -c https://bitbucket.org/osrf/gazebo/get/gazebo9.tar.bz2 -O src/gazebo/gazebo9.tar.bz2
-# tar options: eXtract, Bzip2, Keep old files, Filename; output dir
-tar -xBf src/gazebo/gazebo9.tar.bz2 -C src/gazebo --skip-old-files
-# Rename extracted directory - it'll look like "osrf-gazebo-37909779f2fd"
-mv src/gazebo/osrf-gazebo-* src/gazebo/gazebo
+#wget -c https://github.com/osrf/gazebo/archive/gazebo9.zip -O src/gazebo/gazebo9.zip
+#unzip src/gazebo/gazebo9.zip -d src/gazebo
+#mv src/gazebo/gazebo-gazebo9 src/gazebo/gazebo
 ## Gazebo package.xml
 # Download package.xml for Gazebo
 wget -c https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml -O src/gazebo/gazebo/package.xml

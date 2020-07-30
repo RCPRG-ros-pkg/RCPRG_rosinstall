@@ -19,5 +19,9 @@
 - git: {local-name: src/rcprg_planner, uri: 'https://github.com/RCPRG-ros-pkg/rcprg_planner.git', version: 'melodic-devel'}
 - git: {local-name: src/velma_robot, uri: 'https://github.com/RCPRG-ros-pkg/velma_robot.git', version: 'sim_re'}
 - git: {local-name: src/velma_system, uri: 'https://github.com/RCPRG-ros-pkg/velma_system.git', version: 'melodic-devel'}
-- git: {local-name: src/octomap_mapping, uri: 'https://github.com/OctoMap/octomap_mapping.git', version: 'melodic-devel'}
+- git: {local-name: src/octomap_mapping, uri: 'https://github.com/OctoMap/octomap_mapping.git', version: 'kinetic-devel'}
 - git: {local-name: src/octomap_ros, uri: 'https://github.com/OctoMap/octomap_ros.git', version: 'melodic-devel'}
+- git: {local-name: src/grasped_object_identification_action, uri: 'https://github.com/sjarocki/grasped_object_identification_action.git', version: 'master'}
+- git: {local-name: src/grasped_flag_setting_action, uri: 'https://github.com/sjarocki/grasped_flag_setting_action.git', version: 'master'}
+- git: {local-name: src/grasped_object_in_robot_control, uri: 'https://github.com/sjarocki/grasped_object_in_robot_control.git', version: 'master'}
+- git: {local-name: src/velma_pred_ctrl_interface, uri: 'https://github.com/RCPRG-ros-pkg/velma_pred_ctrl_interface.git', version: 'master'}
