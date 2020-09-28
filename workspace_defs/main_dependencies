@@ -58,5 +58,7 @@ ros-melodic-rqt
 ros-melodic-teleop-twist-keyboard
 ros-melodic-transmission-interface
 ros-melodic-diagnostic-updater
+ros-melodic-mbf-costmap-core
+ros-melodic-teb-local-planner
 ruby-dev
 sdformat-sdf
