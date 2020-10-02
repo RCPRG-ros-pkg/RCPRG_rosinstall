@@ -60,5 +60,6 @@ ros-melodic-transmission-interface
 ros-melodic-diagnostic-updater
 ros-melodic-mbf-costmap-core
 ros-melodic-teb-local-planner
+ros-melodic-ira-laser-tools
 ruby-dev
 sdformat-sdf
