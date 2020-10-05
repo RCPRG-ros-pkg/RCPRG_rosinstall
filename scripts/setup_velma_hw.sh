@@ -77,7 +77,15 @@ if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
 wstool merge ${script_dir}/workspace_defs/velma_hw.rosinstall
+if [ $? -ne 0 ]; then
+    printError "The command wstool merge terminated with error. Terminating the setup script."
+    exit 2
+fi
 wstool update
+if [ $? -ne 0 ]; then
+    printError "The command wstool update terminated with error. Terminating the setup script."
+    exit 3
+fi
 
 ### Bugfixes/workarounds
 # Add closed-source friComm header for operating on real Kuka LWR hardware
@@ -88,7 +96,7 @@ if [ -d "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
 		echo "cp friComm.h OK"
 	else
 		printError "cp friComm.h FAILED, fri dir: $FRI_DIR"
-		exit 1
+		exit 4
 	fi
 fi
 

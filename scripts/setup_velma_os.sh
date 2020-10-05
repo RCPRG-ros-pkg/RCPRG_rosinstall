@@ -69,7 +69,7 @@ fi
 if [ $velma_hw -eq "1" ] && [ $velma_sim_gazebo -eq "1" ]; then
 	printError "Wrong combination of options: --velma-hw and --velma-sim-gazebo"
 	usage
-	exit 1
+	exit 2
 fi
 
 extend_dir="$1"
@@ -89,13 +89,25 @@ wstool merge ${script_dir}/workspace_defs/common_velma.rosinstall
 
 if [ $velma_hw -eq "1" ]; then
 	wstool merge ${script_dir}/workspace_defs/velma_hw.rosinstall
+    if [ $? -ne 0 ]; then
+	    printError "The command wstool merge terminated  with error. Terminating the setup script."
+	    exit 3
+    fi
 fi
 
 if [ $velma_sim_gazebo -eq "1" ]; then
 	wstool merge ${script_dir}/workspace_defs/velma_sim_gazebo.rosinstall
+    if [ $? -ne 0 ]; then
+	    printError "The command wstool merge terminated  with error. Terminating the setup script."
+	    exit 4
+    fi
 fi
 
 wstool update
+if [ $? -ne 0 ]; then
+    printError "The command wstool update terminated with error. Terminating the setup script."
+    exit 5
+fi
 
 ### Bugfixes/workarounds
 # Add closed-source friComm header for operating on real Kuka LWR hardware
@@ -106,7 +118,7 @@ if [ -d "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
 		echo "cp friComm.h OK"
 	else
 		printError "cp friComm.h FAILED, fri dir: $FRI_DIR"
-		exit 1
+		exit 6
 	fi
 fi
 

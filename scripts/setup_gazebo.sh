@@ -65,7 +65,15 @@ if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
 wstool merge ${script_dir}/workspace_defs/gazebo_dart.rosinstall
+if [ $? -ne 0 ]; then
+	printError "The command wstool merge terminated  with error. Terminating the setup script."
+	exit 2
+fi
 wstool update
+if [ $? -ne 0 ]; then
+	printError "The command wstool update terminated with error. Terminating the setup script."
+	exit 3
+fi
 
 ### Bugfixes/workarounds
 ## Gazebo download
@@ -75,6 +83,10 @@ wstool update
 ## Gazebo package.xml
 # Download package.xml for Gazebo
 wget -c https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml -O src/gazebo/gazebo/package.xml
+if [ $? -ne 0 ]; then
+	printError "Could not download package.xml for Gazebo."
+	exit 4
+fi
 # Fix it for new dartsim identifier ("dartsim" instead of "dart")
 sed -i -e 's/>dart</>dartsim</g' src/gazebo/gazebo/package.xml
 ## Gazebo dependencies
@@ -95,6 +107,15 @@ CMAKE_ARGS="\
 "
 
 catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
+if [ $? -ne 0 ]; then
+	printError "Command catkin config failed."
+	exit 5
+fi
 
 ### Build
 catkin build $catkin_build_opts
+if [ $? -ne 0 ]; then
+	printError "Command catkin build failed."
+	exit 6
+fi
+

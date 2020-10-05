@@ -65,7 +65,15 @@ if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
 wstool merge ${script_dir}/workspace_defs/common_orocos.rosinstall
+if [ $? -ne 0 ]; then
+    printError "The command wstool merge terminated with error. Terminating the setup script."
+    exit 2
+fi
 wstool update
+if [ $? -ne 0 ]; then
+    printError "The command wstool update terminated with error. Terminating the setup script."
+    exit 3
+fi
 
 ### Bugfixes/workarounds
 # Fix OCL build on new GCC (warning: no-shift-negative-value)
