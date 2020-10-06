@@ -250,6 +250,12 @@ fi
 
 script_dir=`pwd`
 
+# The script must be executed in RCPRG_rosinstall folder
+if [ ! -d "$script_dir/fakechroot" ]; then
+	echo "ERROR: This script must be executed in RCPRG_rosinstall folder"
+	exit 1
+fi
+
 ### Fakeroot
 if [ $use_fakechroot -eq 1 ]; then
 	### install fakechroot if not present
