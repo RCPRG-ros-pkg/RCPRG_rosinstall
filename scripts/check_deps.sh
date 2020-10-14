@@ -54,7 +54,7 @@ if [ "$to_install" ]; then
 	sudo apt install  $to_install
 	if [ $? -ne 0 ]; then
 		printError "ERROR: packages    $to_install is not installed. Please INSTALL it."
-		error true;
+		error=true;
 	fi
 fi
 
