@@ -93,6 +93,8 @@ sed -i -e 's/>dart</>dartsim</g' src/gazebo/gazebo/package.xml
 # fix gazebo compile depenedencies
 sed -i -e 's/<build_export_depend>libgazebo9-dev<\/build_export_depend>/ /g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
 sed -i -e 's/<exec_depend>gazebo9<\/exec_depend>/<depend>gazebo<\/depend>/g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
+# Remove annoying error message: "DARTJoint: SetAnchor is not implemented":
+sed -i 's/gzerr << "DARTJoint: SetAnchor is not implemented.\\n";/\/\/gzerr << "DARTJoint: SetAnchor is not implemented.\\n";/' src/gazebo/gazebo/gazebo/physics/dart/DARTJoint.cc
 
 ### Configure
 CMAKE_ARGS="\

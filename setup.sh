@@ -9,7 +9,6 @@ function usage {
 	echo "  -b [ --build-type ] arg  Build type, can be one of (Debug|RelWithDebInfo|Release), defaults to 'RelWithDebInfo'"
 	echo "  -i [ --install ] arg     Install to directory"
 	echo "  -F [ --fakechroot ]      build in fake root directory"
-	echo "  -e [ --elektron ]        build elektron workspace"
 	echo "  -g [ --gazebo ]          build gazebo workspace"
 	echo "  -o [ --orocos ]          build orocos workspace"
 	echo "  -f [ --fabric ]          build fabric workspace"
@@ -194,6 +193,15 @@ if [ -z "$dependency_dir" ]; then
 	exit 0
 fi
 
+script_dir=`pwd`
+echo "script_dir: ${script_dir}"
+
+# The script must be executed in RCPRG_rosinstall folder
+if [ ! -d "$script_dir/workspace_defs" ]; then
+	echo "ERROR: This script must be executed in RCPRG_rosinstall folder"
+	exit 1
+fi
+
 ### ROS check
 if [ "$ROS_DISTRO" != "melodic" ]; then
 	printError "ERROR: ROS melodic setup.bash have to be sourced!"
@@ -245,14 +253,6 @@ bash scripts/check_deps.sh workspace_defs/main_dependencies
 error=$?
 if [ ! "$error" == "0" ]; then
 	printError "error in dependencies: $error"
-	exit 1
-fi
-
-script_dir=`pwd`
-
-# The script must be executed in RCPRG_rosinstall folder
-if [ ! -d "$script_dir/fakechroot" ]; then
-	echo "ERROR: This script must be executed in RCPRG_rosinstall folder"
 	exit 1
 fi
 
