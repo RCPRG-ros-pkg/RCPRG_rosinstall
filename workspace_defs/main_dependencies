@@ -44,6 +44,7 @@ ros-melodic-diff-drive-controller
 ros-melodic-effort-controllers
 ros-melodic-joint-limits-interface
 ros-melodic-joint-state-controller
+ros-melodic-joint-state-publisher-gui
 ros-melodic-moveit
 ros-melodic-moveit-ros-planning-interface
 ros-melodic-navigation
