@@ -62,5 +62,7 @@ ros-melodic-diagnostic-updater
 ros-melodic-mbf-costmap-core
 ros-melodic-teb-local-planner
 ros-melodic-ira-laser-tools
+ros-melodic-yocs-cmd-vel-mux
+ros-melodic-gmapping
 ruby-dev
 sdformat-sdf
