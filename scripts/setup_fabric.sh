@@ -66,7 +66,15 @@ if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
 wstool merge ${script_dir}/workspace_defs/common_fabric.rosinstall
+if [ $? -ne 0 ]; then
+    printError "The command wstool merge terminated with error. Terminating the setup script."
+    exit 2
+fi
 wstool update
+if [ $? -ne 0 ]; then
+    printError "The command wstool update terminated with error. Terminating the setup script."
+    exit 3
+fi
 
 ### Bugfixes/workarounds
 # The following code is a workaround for bug in FindUUID in ROS melodic.
@@ -74,7 +82,7 @@ wstool update
 if [ -f /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake ]; then
 	printError "ERROR: file /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake causes linker error (/usr/bin/ld: cannot find -lUUID::UUID). You should remove it using command:"
 	printError "sudo rm /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake"
-	exit 3
+	exit 4
 fi
 
 ### Configure

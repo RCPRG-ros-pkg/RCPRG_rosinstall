@@ -65,26 +65,36 @@ if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
 wstool merge ${script_dir}/workspace_defs/gazebo_dart.rosinstall
+if [ $? -ne 0 ]; then
+	printError "The command wstool merge terminated  with error. Terminating the setup script."
+	exit 2
+fi
 wstool update
+if [ $? -ne 0 ]; then
+	printError "The command wstool update terminated with error. Terminating the setup script."
+	exit 3
+fi
 
 ### Bugfixes/workarounds
 ## Gazebo download
-# Download Gazebo package - workaround for HTTP error 400 when cloning huge mercurial repos
-# Issue: https://bitbucket.org/site/master/issues/8263/http-400-bad-request-error-when-pulling
-wget -c https://bitbucket.org/osrf/gazebo/get/gazebo9.tar.bz2 -O src/gazebo/gazebo9.tar.bz2
-# tar options: eXtract, Bzip2, Keep old files, Filename; output dir
-tar -xBf src/gazebo/gazebo9.tar.bz2 -C src/gazebo --skip-old-files
-# Rename extracted directory - it'll look like "osrf-gazebo-37909779f2fd"
-mv src/gazebo/osrf-gazebo-* src/gazebo/gazebo
+#wget -c https://github.com/osrf/gazebo/archive/gazebo9.zip -O src/gazebo/gazebo9.zip
+#unzip src/gazebo/gazebo9.zip -d src/gazebo
+#mv src/gazebo/gazebo-gazebo9 src/gazebo/gazebo
 ## Gazebo package.xml
 # Download package.xml for Gazebo
 wget -c https://bitbucket.org/scpeters/unix-stuff/raw/master/package_xml/package_gazebo.xml -O src/gazebo/gazebo/package.xml
+if [ $? -ne 0 ]; then
+	printError "Could not download package.xml for Gazebo."
+	exit 4
+fi
 # Fix it for new dartsim identifier ("dartsim" instead of "dart")
 sed -i -e 's/>dart</>dartsim</g' src/gazebo/gazebo/package.xml
 ## Gazebo dependencies
 # fix gazebo compile depenedencies
 sed -i -e 's/<build_export_depend>libgazebo9-dev<\/build_export_depend>/ /g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
 sed -i -e 's/<exec_depend>gazebo9<\/exec_depend>/<depend>gazebo<\/depend>/g' src/gazebo/gazebo_ros_pkgs/gazebo_dev/package.xml
+# Remove annoying error message: "DARTJoint: SetAnchor is not implemented":
+sed -i 's/gzerr << "DARTJoint: SetAnchor is not implemented.\\n";/\/\/gzerr << "DARTJoint: SetAnchor is not implemented.\\n";/' src/gazebo/gazebo/gazebo/physics/dart/DARTJoint.cc
 
 ### Configure
 CMAKE_ARGS="\
@@ -99,6 +109,15 @@ CMAKE_ARGS="\
 "
 
 catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
+if [ $? -ne 0 ]; then
+	printError "Command catkin config failed."
+	exit 5
+fi
 
 ### Build
 catkin build $catkin_build_opts
+if [ $? -ne 0 ]; then
+	printError "Command catkin build failed."
+	exit 6
+fi
+
