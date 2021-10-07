@@ -10,6 +10,7 @@ function usage {
 	echo "  -i [ --install ] arg     Install to directory"
 	echo "  -F [ --fakechroot ]      build in fake root directory"
 	echo "  -g [ --gazebo ]          build gazebo workspace"
+	echo "  -t [ --tiago ]           build tiago workspace"
 	echo "  -o [ --orocos ]          build orocos workspace"
 	echo "  -f [ --fabric ]          build fabric workspace"
 	echo "  -v [ --velma ]           build velma workspace"
@@ -78,6 +79,8 @@ build_dir="build"
 use_fakechroot=0
 # Whether to build ws_gazebo
 build_gazebo=0
+# Whether to build ws_tiago
+build_tiago=0
 # Whether to build ws_orocos
 build_orocos=0
 # Whether to build ws_fabric
@@ -145,6 +148,11 @@ while [[ $# -gt 0 ]]; do
 			build_gazebo=1
 			shift
 		;;
+		-t|--tiago)
+			build_configuration+=" -t"
+			build_tiago=1
+			shift
+		;;
 		-e|--elektron)
 			build_configuration+=" -e"
 			build_elektron=1
@@ -209,10 +217,11 @@ if [ "$ROS_DISTRO" != "melodic" ]; then
 fi
 
 ### If no workspaces are selected - build everything
-if [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 0 ] && [ $build_orocos -eq 0 ] && [ $build_fabric -eq 0 ] && [ $build_velma -eq 0 ]; then
+if [ $build_gazebo -eq 0 ] && [ $build_elektron -eq 0 ] && [ $build_orocos -eq 0 ] && [ $build_fabric -eq 0 ] && [ $build_velma -eq 0 ]&& [ $build_tiago -eq 0 ]; then
 	build_configuration=" -g -e -o -f -v"
 	build_gazebo=1
 	build_elektron=1
+	build_tiago=1
 	build_orocos=1
 	build_fabric=1
 	build_velma=1
@@ -225,6 +234,11 @@ fi
 #	printError "Gazebo is not in the /opt directory, please install it or add <-g> flag to the script."
 #	exit 1
 #fi
+if [[ ! -d "/opt/ws_gazebo" ]] && [ $build_gazebo -eq 0 ] && [[ $build_tiago -eq 1 ]] ; then
+	# Orocos is required for Fabric and Velma
+	printError "Gazebo is not in the /opt directory, please add <-g> flag to the script."
+	exit 1
+fi
 if [[ ! -d "/opt/ws_orocos" ]] && [ $build_orocos -eq 0 ] && [[ $build_fabric -eq 1 || $build_velma -eq 1 ]] ; then
 	# Orocos is required for Fabric and Velma
 	printError "Orocos is not in the /opt directory, please install it or add <-o> flag to the script."
@@ -250,6 +264,10 @@ fi
 
 ### Dependencies
 bash scripts/check_deps.sh workspace_defs/main_dependencies
+if [ $build_tiago -eq 1 ]; then
+		bash scripts/check_deps.sh workspace_defs/tiago_dependencies
+fi
+
 error=$?
 if [ ! "$error" == "0" ]; then
 	printError "error in dependencies: $error"
@@ -295,16 +313,14 @@ if [ $use_fakechroot -eq 1 ]; then
 	if [ $build_gazebo -eq 0 ]; then
 		ln -s /opt/ws_gazebo $build_dir/opt/ws_gazebo
 	fi
-	if [ $build_orocos -eq 0 ]; then
-		ln -s /opt/ws_orocos $build_dir/opt/ws_orocos
+	if [ $build_velma -eq 1 ]; then	
+		if [ $build_orocos -eq 0 ]; then
+			ln -s /opt/ws_orocos $build_dir/opt/ws_orocos
+		fi
+		if [ $build_fabric -eq 0 ]; then
+			ln -s /opt/ws_fabric $build_dir/opt/ws_fabric
+		fi
 	fi
-	if [ $build_orocos -eq 0 ]; then
-		ln -s /opt/ws_orocos $build_dir/opt/ws_orocos
-	fi
-	if [ $build_fabric -eq 0 ]; then
-		ln -s /opt/ws_fabric $build_dir/opt/ws_fabric
-	fi
-
 	### Enter jail
 	cd $build_dir
 
@@ -355,6 +371,18 @@ if [ $build_gazebo -eq 1 ]; then
 fi
 if [ $build_elektron -eq 1 ]; then
 	buildWorkspace "elektron" "$dependency_dir" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+fi
+if [ $build_tiago -eq 1 ]; then
+	buildWorkspace "tiago" "$dependency_dir" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
+	if [ ! -z $install_dir ]; then
+		dependency_dir="${install_dir}/ws_tiago"
+	else
+		if [ $devel_space_only -eq "1" ]; then
+			dependency_dir="${build_dir}/ws_tiago/devel"
+		else
+			dependency_dir="${build_dir}/ws_tiago/install"
+		fi
+    fi
 fi
 if [ $build_orocos -eq 1 ]; then
 #	buildWorkspace "orocos" "gazebo" "$build_type" "$script_dir" "$build_dir" "$install_dir" "$devel_space_only" "" "$@"
