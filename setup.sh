@@ -15,6 +15,7 @@ function usage {
 	echo "  -f [ --fabric ]          build fabric workspace"
 	echo "  -v [ --velma ]           build velma workspace"
 	echo "  -w [ --velma-hw ]        build velma HW workspace"
+	echo "  -y                       install all dependencies without asking"
 	echo "catkin_build_opts are passed to 'catkin build' command"
 }
 
@@ -114,6 +115,8 @@ build_configuration=""
 #	fi
 #fi
 
+install_all_deps=""
+
 while [[ $# -gt 0 ]]; do
 	key="$1"
 
@@ -181,6 +184,10 @@ while [[ $# -gt 0 ]]; do
         -x|--extend)
             dependency_dir="$2"
             shift 2
+        ;;
+        -y)
+            install_all_deps="-y"
+            shift
 		;;
 		--)
 			#
@@ -263,9 +270,9 @@ if [ "$build_type" != "Debug" ] && [ "$build_type" != "RelWithDebInfo" ] && [ "$
 fi
 
 ### Dependencies
-bash scripts/check_deps.sh workspace_defs/main_dependencies
+bash scripts/check_deps.sh $install_all_deps -i workspace_defs/main_dependencies
 if [ $build_tiago -eq 1 ]; then
-		bash scripts/check_deps.sh workspace_defs/tiago_dependencies
+		bash scripts/check_deps.sh $install_all_deps -i workspace_defs/tiago_dependencies
 fi
 
 error=$?

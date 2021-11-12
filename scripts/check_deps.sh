@@ -18,14 +18,32 @@ if [ $# -ne 3 ] && [ $# -ne 2 ] && [ $# -ne 1 ]; then
 	exit 1
 fi
 
-install_req="$1"
-if [ "$install_req" != "-i" ]; then
-	file_deps="$1"
-	file_conflicts="$2"
-else
-	file_deps="$2"
-	file_conflicts="$3"
-fi
+install_all_deps=""
+
+while [[ $# -gt 0 ]]; do
+	key="$1"
+
+	case $key in
+		-i|install)
+			file_deps="$2"
+			shift 2
+		;;
+		-r|--remove)
+			file_conflicts="$2"
+			shift 2
+		;;
+		-y)
+			install_all_deps="-y"
+			shift
+		;;
+		*)
+			printError "ERROR: wrong argument: $1"
+			usage
+			exit 1
+		;;
+	esac
+done
+shift
 
 if [ ! -f "$file_deps" ]; then
 	exit 2
@@ -51,19 +69,14 @@ done
 
 if [ "$to_install" ]; then
 	printWarning "Need to install $to_install"
-	sudo apt install  $to_install
+	sudo apt install "$install_all_deps" $to_install
 	if [ $? -ne 0 ]; then
 		printError "ERROR: packages    $to_install is not installed. Please INSTALL it."
 		error=true;
 	fi
 fi
 
-
-# Remove packages passed as conflicting ones (make sure they're not in the system)
-if [ $# -eq 3 ] || ([ $# -eq 2 ] &&  [ "$install_req" != "-i" ]); then
-	if [ ! -f "$file_conflicts" ]; then
-		exit 3
-	fi
+if [ -f "$file_conflicts" ]; then
 
 	uninstalled=()
 	while read -r line || [[ -n "$line" ]]; do
@@ -73,13 +86,13 @@ if [ $# -eq 3 ] || ([ $# -eq 2 ] &&  [ "$install_req" != "-i" ]); then
 	# check the list of packages that should be uninstalled
 	for item in ${uninstalled[*]}; do
 		if [[ $package_list == .*$item.* ]]; then
-			if [ "$install_req" == "-i" ]; then
-				printWarning "Need to remove "$item""
-				sudo apt remove "$item"
-			else
-				printError "ERROR: package $name is installed. Please UNINSTALL it."
-				error=true
-			fi
+			#if [ "$install_req" == "-i" ]; then
+			printWarning "Need to remove "$item""
+			sudo apt remove "$install_all_deps" "$item"
+			#else
+			#	printError "ERROR: package $name is installed. Please UNINSTALL it."
+			#	error=true
+			#fi
 		fi
 	done
 fi
