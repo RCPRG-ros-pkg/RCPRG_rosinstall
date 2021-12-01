@@ -1,4 +1,4 @@
-- git: {local-name: src/cifx_driver, uri: 'https://github.com/RCPRG-ros-pkg/cifx_driver.git', version: 'catkin'}
+- git: {local-name: src/cifx_driver, uri: 'https://github.com/RCPRG-ros-pkg/cifx_driver.git', version: 'devel'}
 - git: {local-name: src/can_driver, uri: 'https://github.com/RCPRG-ros-pkg/can_driver.git', version: 'master'}
 - git: {local-name: src/lwr_hardware, uri: 'https://github.com/RCPRG-ros-pkg/lwr_hardware.git', version: 'hydro-devel'}
 - git: {local-name: src/velma_ec_driver, uri: 'https://github.com/dseredyn/velma_ec_driver.git', version: 'stable'}

@@ -5,6 +5,8 @@ function usage {
 	echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
 	echo "Options:"
 	echo "  -i [ --install ] arg   Install to directory"
+	echo "  -w [ --velma-hw ] Install packages for hw support"
+	echo "  -g [ --velma-sim-gazebo ] Install packages for simulation in Gazebo"
 	echo "catkin_build_opts are passed to 'catkin build' command"
 }
 
@@ -16,6 +18,9 @@ function printError {
 
 install_opt=""
 catkin_build_opts=""
+
+velma_hw=0
+velma_sim_gazebo=0
 
 # parse command line arguments
 POSITIONAL=()
@@ -32,6 +37,14 @@ while [[ $# -gt 0 ]]; do
 			else
 				install_opt="-i $install_opt --install"
 			fi
+		;;
+		-w|--velma-hw)
+			velma_hw=1
+			shift
+		;;
+		-g|--velma-sim-gazebo)
+			velma_sim_gazebo=1
+			shift
 		;;
 		--)
 			shift
@@ -53,6 +66,12 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
 	exit 1
 fi
 
+if [ $velma_hw -eq "1" ] && [ $velma_sim_gazebo -eq "1" ]; then
+	printError "Wrong combination of options: --velma-hw and --velma-sim-gazebo"
+	usage
+	exit 2
+fi
+
 extend_dir="$1"
 script_dir="$2"
 build_dir="$3"
@@ -67,7 +86,28 @@ if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
 wstool merge ${script_dir}/workspace_defs/common_velma.rosinstall
+
+if [ $velma_hw -eq "1" ]; then
+	wstool merge ${script_dir}/workspace_defs/velma_hw.rosinstall
+    if [ $? -ne 0 ]; then
+	    printError "The command wstool merge terminated  with error. Terminating the setup script."
+	    exit 3
+    fi
+fi
+
+if [ $velma_sim_gazebo -eq "1" ]; then
+	wstool merge ${script_dir}/workspace_defs/velma_sim_gazebo.rosinstall
+    if [ $? -ne 0 ]; then
+	    printError "The command wstool merge terminated  with error. Terminating the setup script."
+	    exit 4
+    fi
+fi
+
 wstool update
+if [ $? -ne 0 ]; then
+    printError "The command wstool update terminated with error. Terminating the setup script."
+    exit 5
+fi
 
 ### Bugfixes/workarounds
 # Add closed-source friComm header for operating on real Kuka LWR hardware
@@ -78,7 +118,7 @@ if [ -d "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
 		echo "cp friComm.h OK"
 	else
 		printError "cp friComm.h FAILED, fri dir: $FRI_DIR"
-		exit 1
+		exit 6
 	fi
 fi
 

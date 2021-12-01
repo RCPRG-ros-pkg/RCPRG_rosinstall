@@ -4,7 +4,7 @@ function usage {
 	echo "usage: $0 <extend_directory> <script_dir> <build_directory> <build_type> [options] [-- catkin_build_opts]"
 	echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
 	echo "Options:"
-	echo "  -i [ --install ] arg  Install to directory"
+	echo "  -i [ --install ] arg   Install to directory"
 	echo "catkin_build_opts are passed to 'catkin build' command"
 }
 
@@ -17,6 +17,7 @@ function printError {
 install_opt=""
 catkin_build_opts=""
 
+### Arguments
 # parse command line arguments
 POSITIONAL=()
 while [[ $# -gt 0 ]]; do
@@ -64,7 +65,7 @@ cd $build_dir
 if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
-wstool merge ${script_dir}/workspace_defs/common_orocos.rosinstall
+wstool merge ${script_dir}/workspace_defs/common_tiago.rosinstall
 if [ $? -ne 0 ]; then
     printError "The command wstool merge terminated with error. Terminating the setup script."
     exit 2
@@ -76,19 +77,18 @@ if [ $? -ne 0 ]; then
 fi
 
 ### Bugfixes/workarounds
-# Fix OCL build on new GCC (warning: no-shift-negative-value)
-sed -i 's/-Wextra -Wall -Werror/-Wextra -Wall -Werror -Wno-shift-negative-value/g' src/orocos/orocos_toolchain/ocl/lua/CMakeLists.txt
+# The following code is a workaround for bug in FindUUID in ROS melodic.
+#TODO: check status of the bug and update the script when resolved
+if [ -f /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake ]; then
+	printError "ERROR: file /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake causes linker error (/usr/bin/ld: cannot find -lUUID::UUID). You should remove it using command:"
+	printError "sudo rm /opt/ros/melodic/share/cmake_modules/cmake/Modules/FindUUID.cmake"
+	exit 4
+fi
 
 ### Configure
 CMAKE_ARGS="\
  -DCMAKE_BUILD_TYPE=${build_type}\
- -DENABLE_CORBA=ON\
- -DCORBA_IMPLEMENTATION=OMNIORB\
- -DBUILD_CORE_ONLY=ON\
- -DBUILD_SHARED_LIBS=ON\
- -DUSE_DOUBLE_PRECISION=ON\
- -DBUILD_HELLOWORLD=OFF\
- -DENABLE_SCREEN_TESTS=False\
+ -DCATKIN_ENABLE_TESTING=OFF\
 "
 
 catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS

@@ -44,6 +44,7 @@ ros-melodic-diff-drive-controller
 ros-melodic-effort-controllers
 ros-melodic-joint-limits-interface
 ros-melodic-joint-state-controller
+ros-melodic-joint-state-publisher-gui
 ros-melodic-moveit
 ros-melodic-moveit-ros-planning-interface
 ros-melodic-navigation
@@ -57,5 +58,11 @@ ros-melodic-position-controllers
 ros-melodic-rqt
 ros-melodic-teleop-twist-keyboard
 ros-melodic-transmission-interface
+ros-melodic-diagnostic-updater
+ros-melodic-mbf-costmap-core
+ros-melodic-teb-local-planner
+ros-melodic-ira-laser-tools
+ros-melodic-yocs-cmd-vel-mux
+ros-melodic-gmapping
 ruby-dev
 sdformat-sdf

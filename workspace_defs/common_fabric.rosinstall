@@ -4,6 +4,5 @@
 - git: {local-name: src/common_controllers,         uri: 'https://github.com/RCPRG-ros-pkg/common_controllers.git', version: 'safe-controller'}
 - git: {local-name: src/conman,                     uri: 'https://github.com/RCPRG-ros-pkg/conman.git', version: 'melodic-devel'}
 - git: {local-name: src/orocos_controllers,         uri: 'https://github.com/RCPRG-ros-pkg/orocos_controllers.git', version: 'safe-controller'}
-- git: {local-name: src/rtt_gazebo,                 uri: 'https://github.com/RCPRG-ros-pkg/rtt_gazebo.git', version: 'gazebo9'}
 - git: {local-name: src/rtt_malloc_hook,            uri: 'https://github.com/RCPRG-ros-pkg/rtt_malloc_hook.git', version: 'master'}
 - git: {local-name: src/shm_comm,                   uri: 'https://github.com/RCPRG-ros-pkg/shm_comm.git', version: 'catkin'}

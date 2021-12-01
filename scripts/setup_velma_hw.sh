@@ -4,7 +4,9 @@ function usage {
 	echo "usage: $0 <extend_directory> <script_dir> <build_directory> <build_type> [options] [-- catkin_build_opts]"
 	echo "<build_type> can be one of (Debug|RelWithDebInfo|Release)"
 	echo "Options:"
-	echo "  -i [ --install ] arg  Install to directory"
+	echo "  -i [ --install ] arg   Install to directory"
+	echo "  -w [ --velma-hw ] Install packages for hw support"
+	echo "  -g [ --velma-sim-gazebo ] Install packages for simulation in Gazebo"
 	echo "catkin_build_opts are passed to 'catkin build' command"
 }
 
@@ -33,6 +35,14 @@ while [[ $# -gt 0 ]]; do
 				install_opt="-i $install_opt --install"
 			fi
 		;;
+		-w|--velma-hw)
+			velma_hw=1
+			shift
+		;;
+		-g|--velma-sim-gazebo)
+			velma_sim_gazebo=1
+			shift
+		;;
 		--)
 			shift
 			catkin_build_opts="$@"
@@ -58,13 +68,15 @@ script_dir="$2"
 build_dir="$3"
 build_type="$4"
 
+FRI_DIR=$script_dir
+
 ### Prepare workspace
 mkdir -p $build_dir/src
 cd $build_dir
 if [ ! -e ".rosinstall" ]; then
 	wstool init
 fi
-wstool merge ${script_dir}/workspace_defs/common_orocos.rosinstall
+wstool merge ${script_dir}/workspace_defs/velma_hw.rosinstall
 if [ $? -ne 0 ]; then
     printError "The command wstool merge terminated with error. Terminating the setup script."
     exit 2
@@ -76,19 +88,22 @@ if [ $? -ne 0 ]; then
 fi
 
 ### Bugfixes/workarounds
-# Fix OCL build on new GCC (warning: no-shift-negative-value)
-sed -i 's/-Wextra -Wall -Werror/-Wextra -Wall -Werror -Wno-shift-negative-value/g' src/orocos/orocos_toolchain/ocl/lua/CMakeLists.txt
+# Add closed-source friComm header for operating on real Kuka LWR hardware
+if [ -d "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri" ]; then
+	# copy friComm.h
+	cp -f "$FRI_DIR/friComm.h" "$build_dir/src/lwr_hardware/kuka_lwr_fri/include/kuka_lwr_fri/"
+	if [ $? -eq 0 ]; then
+		echo "cp friComm.h OK"
+	else
+		printError "cp friComm.h FAILED, fri dir: $FRI_DIR"
+		exit 4
+	fi
+fi
 
-### Configure
+### Config
 CMAKE_ARGS="\
  -DCMAKE_BUILD_TYPE=${build_type}\
- -DENABLE_CORBA=ON\
- -DCORBA_IMPLEMENTATION=OMNIORB\
- -DBUILD_CORE_ONLY=ON\
- -DBUILD_SHARED_LIBS=ON\
- -DUSE_DOUBLE_PRECISION=ON\
- -DBUILD_HELLOWORLD=OFF\
- -DENABLE_SCREEN_TESTS=False\
+ -DCATKIN_ENABLE_TESTING=OFF\
 "
 
 catkin config $install_opt --extend $extend_dir --cmake-args $CMAKE_ARGS
