@@ -7,7 +7,6 @@
 - git: {local-name: src/cartesian_trajectory_msgs, uri: 'https://github.com/RCPRG-ros-pkg/cartesian_trajectory_msgs.git', version: 'stable'}
 - git: {local-name: src/collision_convex_model, uri: 'https://github.com/RCPRG-ros-pkg/collision_convex_model.git', version: 'melodic-devel'}
 - git: {local-name: src/common_core_cs_components,  uri: 'https://github.com/RCPRG-ros-pkg/common_core_cs_components.git', version: 'stable'}
-- git: {local-name: src/kin_dyn_model, uri: 'https://github.com/RCPRG-ros-pkg/kin_dyn_model.git', version: 'melodic-devel'}
 - git: {local-name: src/lwr_robot, uri: 'https://github.com/RCPRG-ros-pkg/lwr_robot.git', version: 'melodic-devel'}
 - git: {local-name: src/motor_homing_action, uri: 'https://github.com/RCPRG-ros-pkg/motor_homing_action.git', version: 'master'}
 - git: {local-name: src/pointcloud_utils, uri: 'https://github.com/RCPRG-ros-pkg/pointcloud_utils.git', version: 'melodic-devel'}
